@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>14届恩智浦杯智能汽车大赛——直立车模实现原理</title>
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/normal.css">
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <a id="cover"></a>
+    <div id="header">
+    <div class="header">
+        <div class="vertical">
+            <div class="inner">
+                <h1 class="header-subtitle">14届恩智浦杯智能汽车大赛——直立车模实现原理</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2019-11-04
+                        </span>
+                        
+                            <span id="/2019/11/04/14届恩智浦杯智能汽车大赛直立车模实现原理/" class="leancloud_visitors" data-flag-title="14届恩智浦杯智能汽车大赛——直立车模实现原理">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2019/11/04/14届恩智浦杯智能汽车大赛直立车模实现原理/"></span>
+                        </span>  
+                    </p>                 
+                </div>
+            </div>
+        </div>
+        <canvas id="articleHeaderCanvas"></canvas>
+    </div>
+</div>
+    <div id="container">
+    <div id="content">
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <blockquote>
+<p>直立车模的调试分为三个部分：1.直立环    2.速度环  3.转向环</p>
+</blockquote>
+<span id="more"></span>
+<blockquote>
+<p>直立和转向采用PD调节，速度 采用PI调节</p>
+</blockquote>
+<h2 id="1-卡尔曼滤波"><a href="#1-卡尔曼滤波" class="headerlink" title="1.卡尔曼滤波"></a>1.卡尔曼滤波</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> angle=<span class="number">0</span>;           <span class="comment">//融合后得到的角度</span></span><br><span class="line"><span class="keyword">float</span> angle_dot=<span class="number">0</span>;		<span class="comment">//融合后的角速度</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">float</span> Q_angle=<span class="number">0.6</span>;<span class="comment">// 过程噪声的协方差--0.001</span></span><br><span class="line"><span class="keyword">float</span> Q_gyro=<span class="number">0.3</span>;<span class="comment">//0.003 过程噪声的协方差 过程噪声的协方差为一个一行两列矩阵————尽量大一些，波动范围变大，波动速度增大---0.003</span></span><br><span class="line"><span class="keyword">float</span> R_angle=<span class="number">0.5</span>;<span class="comment">// 测量噪声的协方差 既测量偏差</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span>  C_0 = <span class="number">1.0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">float</span> dt=<span class="number">0.002</span>;         <span class="comment">//每次滤波的时间，单位秒               </span></span><br><span class="line"><span class="keyword">float</span> Q_bias=<span class="number">0</span>, Angle_err=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">float</span> PCt_0=<span class="number">0.0</span>, PCt_1=<span class="number">0.0</span>, E=<span class="number">0.0</span>;</span><br><span class="line"><span class="keyword">float</span> K_0=<span class="number">0.0</span>, K_1=<span class="number">0.0</span>, t_0=<span class="number">0.0</span>, t_1=<span class="number">0.0</span>;</span><br><span class="line"><span class="keyword">float</span> Pdot[<span class="number">4</span>] =&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">float</span> PP[<span class="number">2</span>][<span class="number">2</span>] = &#123; &#123; <span class="number">1.0</span>, <span class="number">0</span> &#125;,&#123; <span class="number">0</span>, <span class="number">1.0</span> &#125; &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：简易卡尔曼滤波</span></span><br><span class="line"><span class="comment">入口参数：加速度、角速度</span></span><br><span class="line"><span class="comment">返回  值：无</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Kalman_Filter</span><span class="params">(<span class="keyword">float</span> Accel,<span class="keyword">float</span> Gyro)</span>		</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	angle+=(Gyro - Q_bias) * dt; <span class="comment">//先验估计</span></span><br><span class="line">	Pdot[<span class="number">0</span>]=Q_angle - PP[<span class="number">0</span>][<span class="number">1</span>] - PP[<span class="number">1</span>][<span class="number">0</span>]; <span class="comment">// Pk-先验估计误差协方差的微分</span></span><br><span class="line"></span><br><span class="line">	Pdot[<span class="number">1</span>]=-PP[<span class="number">1</span>][<span class="number">1</span>];</span><br><span class="line">	Pdot[<span class="number">2</span>]=-PP[<span class="number">1</span>][<span class="number">1</span>];</span><br><span class="line">	Pdot[<span class="number">3</span>]=Q_gyro;</span><br><span class="line">	PP[<span class="number">0</span>][<span class="number">0</span>] += Pdot[<span class="number">0</span>] * dt;   <span class="comment">// Pk-先验估计误差协方差微分的积分</span></span><br><span class="line">	PP[<span class="number">0</span>][<span class="number">1</span>] += Pdot[<span class="number">1</span>] * dt;   <span class="comment">// =先验估计误差协方差</span></span><br><span class="line">	PP[<span class="number">1</span>][<span class="number">0</span>] += Pdot[<span class="number">2</span>] * dt;</span><br><span class="line">	PP[<span class="number">1</span>][<span class="number">1</span>] += Pdot[<span class="number">3</span>] * dt;</span><br><span class="line">		</span><br><span class="line">	Angle_err = Accel - angle;	<span class="comment">//zk-先验估计</span></span><br><span class="line">	</span><br><span class="line">	PCt_0 = C_0 * PP[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">	PCt_1 = C_0 * PP[<span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">	</span><br><span class="line">	E = R_angle + C_0 * PCt_0;</span><br><span class="line">	</span><br><span class="line">	K_0 = PCt_0 / E;</span><br><span class="line">	K_1 = PCt_1 / E;</span><br><span class="line">	</span><br><span class="line">	t_0 = PCt_0;</span><br><span class="line">	t_1 = C_0 * PP[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">	PP[<span class="number">0</span>][<span class="number">0</span>] -= K_0 * t_0;		 <span class="comment">//后验估计误差协方差</span></span><br><span class="line">	PP[<span class="number">0</span>][<span class="number">1</span>] -= K_0 * t_1;</span><br><span class="line">	PP[<span class="number">1</span>][<span class="number">0</span>] -= K_1 * t_0;</span><br><span class="line">	PP[<span class="number">1</span>][<span class="number">1</span>] -= K_1 * t_1;</span><br><span class="line">		</span><br><span class="line">	angle	+= K_0 * Angle_err;	 <span class="comment">//后验估计</span></span><br><span class="line">	Q_bias	+= K_1 * Angle_err;	 <span class="comment">//后验估计</span></span><br><span class="line">	angle_dot   = Gyro - Q_bias;	 <span class="comment">//输出值(后验估计)的微分=角速度</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>卡尔曼滤波最终效果图如下：其中蓝线是实际测得的角度，红线是融合后的角度。</p>
+<p><img src="/myimages/202104070932.png" alt="卡尔曼滤波"></p>
+<h2 id="2-直立环"><a href="#2-直立环" class="headerlink" title="2.直立环"></a>2.直立环</h2><p><strong>直立环代码，输入为角度和角速度，通过PD控制直立，变量kp、kd的数值和车模的模型、质量关联，由实际天室的</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：小车平衡电机占空比控制，直立PD控制</span></span><br><span class="line"><span class="comment">入口参数：倾角角度、角速度</span></span><br><span class="line"><span class="comment">返回  值：平衡控制用PWM</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Balance_Ctrl_Pwm</span><span class="params">(<span class="keyword">float</span> Ang,<span class="keyword">float</span> Gyro)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">float</span> Bias=Ang-QingJiaoZhongZhi;        <span class="comment">//中值，求出平衡的角度中值 和机械相关</span></span><br><span class="line">    <span class="keyword">int</span> balance;</span><br><span class="line">    <span class="keyword">float</span> kp = <span class="number">42</span>, kd = - <span class="number">26</span>; </span><br><span class="line">    balance= -(<span class="keyword">int</span>)(kp*Bias+Gyro*kd);   <span class="comment">//计算平衡控制的电机PWM  PD控制   kp是P系数 kd是D系数 </span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> balance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>先说一下变量的意思<br>  QingJiaoZhongZhi       //  小车平衡时候的数值，关闭电机，用手使得小车正好平衡时候的<br>  float Ang,float Gyro    //这两个是mpu6050卡尔曼滤波后的倾角角度、角速度。</p>
+</blockquote>
+<blockquote>
+<p>  然后再来说一下P,D两个参数的调试。<br>先调试kp，需要把kd置为0。首先需要确定正负，我们先随便给一个正值例如kp=10吧。然后我们相对于车模的平衡角度倾斜车模，如果车轮的转向和你倾斜车模的方向一致则可以确定kp应取正值，否则kp取负值。然后再来确定大小 逐渐增大Kp直至车身出现<strong>大幅低频摇摆</strong>的直立在地上，然后把这个数值乘以0.6基本就是一个比较稳定kp值。调试kd时同样需要把kp置为0。首先需要确定正负：例如先给他个kd=2；当你转动车模时车轮的转向与你车模转向一直则kd是正值，否则就是负值，注意pd与车模的平衡角度无关。大小的话同样也是逐渐增大直至出现<strong>低幅高频抖动</strong>时停止，也是把这个数值乘以0.6即可。</p>
+</blockquote>
+<p><strong>注意：这里涉及到一个负反馈调节因为直立环是要保证正常站立。因为当实际角度脱离平衡角度时，轮子只有给车身一个更大的同方向的力才会使车身保持平衡。</strong></p>
+<p><strong>如果还是不理解可以拿支笔放在手指上试试，手指怎样移动才会使笔立在手指上？</strong></p>
+<h2 id="3-速度环"><a href="#3-速度环" class="headerlink" title="3.速度环"></a>3.速度环</h2><p>速度环也是一个标准的负反馈例子。例如：我们想让车模加速，速度环就会降低车轮的速度使车身前倾，就会导致直立环起作用让车轮加速保持直立。这就完成了一个加速过程。需要注意的是速度环会干扰直立环，如果速度环的强度过大，车身就会非常不稳定。我在调用该函数时每一百次直立环才会调用一次速度环，这样就降低了速度环对直立环的干扰。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：速度PI控制 修改前进后退速度，请修Target_Velocity，比如，改成60就比较慢了</span></span><br><span class="line"><span class="comment">入口参数：左轮编码器、右轮编码器</span></span><br><span class="line"><span class="comment">返回  值：速度控制PWM</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="keyword">float</span> Target_Velocity = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">float</span> kp_steep;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Velocity_Ctrl_Pwm</span><span class="params">(<span class="keyword">int</span> encoder_left,<span class="keyword">int</span> encoder_right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">float</span> Velocity,Encoder_Least,Encoder;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">float</span> Encoder_Integral;</span><br><span class="line">    <span class="keyword">float</span> sudumax = <span class="number">2700</span>;</span><br><span class="line">    <span class="keyword">float</span> kp=kp_steep,ki = kp/<span class="number">200</span>;</span><br><span class="line">      <span class="comment">//速度PI控制</span></span><br><span class="line">    Encoder_Least =(encoder_left+encoder_right)-Target_Velocity;                    <span class="comment">//获取最新速度偏差==测量速度（左右编码器之和）-目标速度（此处为零） </span></span><br><span class="line">    </span><br><span class="line">    Encoder *= <span class="number">0.7</span>;		                                      <span class="comment">//一阶低通滤波器       </span></span><br><span class="line">    Encoder += Encoder_Least*<span class="number">0.3</span>;	                              <span class="comment">//一阶低通滤波器    </span></span><br><span class="line">    Encoder_Integral +=Encoder;                                       <span class="comment">//积分出位移 积分时间：？ms</span></span><br><span class="line">    <span class="keyword">if</span>(Encoder_Integral&gt;<span class="number">2000</span>)   Encoder_Integral=<span class="number">2000</span>;              <span class="comment">//积分限幅</span></span><br><span class="line">    <span class="keyword">if</span>(Encoder_Integral&lt;<span class="number">-2000</span>)   Encoder_Integral=<span class="number">-2000</span>;              <span class="comment">//积分限幅</span></span><br><span class="line"></span><br><span class="line">    Velocity=Encoder*kp+Encoder_Integral*ki;                          <span class="comment">//速度控制	</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(flag_zhongdian!=<span class="number">0</span>)</span><br><span class="line">    Encoder_Integral=<span class="number">0</span>;      <span class="comment">//电机关闭后清除积分 </span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//输出限幅</span></span><br><span class="line">    <span class="keyword">if</span>(Velocity &gt; sudumax) Velocity = sudumax;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(Velocity &lt; -sudumax) Velocity = -sudumax;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>)Velocity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-转向环"><a href="#4-转向环" class="headerlink" title="4.转向环"></a>4.转向环</h2><p>转向环其实有很多方法。我是用的比较简单的一种办法：动态的pid算法，P的系数是电磁传过来的偏差，D的系数是MPU6050的Z轴加速度（因为车模静止时我所在的地区Z轴加速度为2，所以在<strong>代码最后gyro+ 2进行了一次加速度补偿</strong>）。速度越快P越大,D越小。当电磁传过来的偏差小于5时，判为直道，采用很小的P。可有效地减少直道上的晃动。我一开始这样做发现过弯时会有特别严重的抖动，经常飞出赛道，因此在最后加了个判断</p>
+<blockquote>
+<p>if((My_Abs(Turn_Target) - My_Abs(Turn_Target_last)) &gt;= 37) //入弯防抖<br>else if((My_Abs(Turn_Target_last) - My_Abs(Turn_Target)) &gt;= -40)  //出弯防抖</p>
+</blockquote>
+<p>入弯防抖同时增大3倍P,2倍D是车模更快更准的转弯，避免速度快时过弯不及时（毕竟我这一届只有不到30cm的前瞻）。出弯防抖与前者配合减少转弯过度带来的晃动。</p>
+<blockquote>
+<p>变量        <code>RoadPianCha</code>        是左右横电感和斜电感的差除以左右电感的和。也就是说这个变量的范围是   0-100。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">函数功能：转向控制  修改转向速度，请修改Turn_MaxPwm即可</span></span><br><span class="line"><span class="comment">入口参数：左轮编码器、右轮编码器、Z轴陀螺仪</span></span><br><span class="line"><span class="comment">返回  值：转向控制PWM</span></span><br><span class="line"><span class="comment">作    者：</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Turn_Ctrl_Pwm2</span><span class="params">(<span class="keyword">int</span> encoder_left,<span class="keyword">int</span> encoder_right,<span class="keyword">float</span> gyro)</span><span class="comment">//转向控制</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">float</span> Turn_Target,Turn,Turn_Target_last;</span><br><span class="line">    <span class="keyword">float</span> Turn_MaxPwm,Kp,Kd;  </span><br><span class="line"> <span class="comment">//   if(My_Abs(RoadPianCha) &lt;= 2)</span></span><br><span class="line">   <span class="comment">//   RoadPianCha = 0;</span></span><br><span class="line">    </span><br><span class="line">      Turn_Target_last = Turn_Target;</span><br><span class="line">      Turn_Target=RoadPianCha - (encoder_left-encoder_right)/<span class="number">5</span>;   </span><br><span class="line">      </span><br><span class="line">      <span class="keyword">if</span>(My_Abs(RoadPianCha) &gt;= <span class="number">5</span>) &#123;</span><br><span class="line">         Kp = <span class="number">41.0</span> * (<span class="number">200</span>+encoder_left + encoder_right)/<span class="number">200.0</span>;</span><br><span class="line">        Kd = <span class="number">-4.2</span>/ ((<span class="number">200</span>+encoder_left + encoder_right)/<span class="number">200.0</span>);</span><br><span class="line">        Turn_MaxPwm = <span class="number">2000</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">      Kp =<span class="number">3</span>;</span><br><span class="line">      Kd = <span class="number">-5</span>;</span><br><span class="line">      Turn_MaxPwm =<span class="number">200</span>;</span><br><span class="line">      &#125; </span><br><span class="line">      <span class="keyword">if</span>((My_Abs(Turn_Target) - My_Abs(Turn_Target_last)) &gt;= <span class="number">37</span>) <span class="comment">//入弯防抖</span></span><br><span class="line">      &#123;</span><br><span class="line">       <span class="comment">// Target_Velocity = 100;</span></span><br><span class="line">        Kp = Kp * <span class="number">3.2</span>;</span><br><span class="line">        Kd = Kd * <span class="number">2.3</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span>((My_Abs(Turn_Target_last) - My_Abs(Turn_Target)) &gt;= <span class="number">-40</span>)  <span class="comment">//出弯防抖</span></span><br><span class="line">      &#123;</span><br><span class="line">       <span class="comment">// Target_Velocity = 1000;</span></span><br><span class="line">        Kp = Kp * <span class="number">1.7</span>;</span><br><span class="line">        Kd = Kd * <span class="number">3.4</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span>(Turn_Target&gt;Turn_MaxPwm)  Turn_Target=Turn_MaxPwm;           <span class="comment">//转向速度限幅</span></span><br><span class="line">      <span class="keyword">if</span>(Turn_Target&lt;-Turn_MaxPwm) Turn_Target=-Turn_MaxPwm;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">      <span class="comment">//=转向PD控制器==//</span></span><br><span class="line">      Turn=  -Turn_Target*Kp + (gyro+ <span class="number">2</span>)*Kd;       <span class="comment">//结合Z轴陀螺仪进行PD控制</span></span><br><span class="line">      <span class="keyword">return</span> (<span class="keyword">int</span>)Turn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-汇总"><a href="#5-汇总" class="headerlink" title="5.汇总"></a>5.汇总</h2><p>最后关于这几个环串起来：<br>在主函数中开一个定时器（时间大概为1-2毫米，时间尽量短）把这几个函数轮番调用<br>下面的是我定时器触发函数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">////====数据处理====平衡控制==速度环控制==转向环控制</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PIT1_isr</span> <span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    flag1ms++;</span><br><span class="line">    <span class="keyword">if</span>(flag1ms%<span class="number">2</span> == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">            <span class="built_in">Get_Dip_Angle</span>();            <span class="comment">//角度获取</span></span><br><span class="line">            Balance_Pwm = <span class="built_in">Balance_Ctrl_Pwm</span>(Angle_Balance,Gyro_Balance);         <span class="comment">//===平衡PD控制</span></span><br><span class="line">            <span class="keyword">if</span>(flag1ms &gt;= <span class="number">100</span>)</span><br><span class="line">            &#123;</span><br><span class="line">            flag_100ms++;</span><br><span class="line">            flag1ms = <span class="number">0</span>;</span><br><span class="line">            Velocity_Pwm = <span class="built_in">Velocity_Ctrl_Pwm</span>( Encoder_Left, Encoder_Right);        <span class="comment">//===速度环PI控制	 记住，速度反馈是正反馈，就是小车快的时候要慢下来就需要再跑快一点</span></span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      Encoder_Right =   <span class="built_in">FTM_AB_Get</span>(FTM1);          <span class="comment">//脉冲为前进+，后退为-</span></span><br><span class="line">      Encoder_Left  =   -<span class="built_in">FTM_AB_Get</span>(FTM2);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Get_AD_data</span>();      <span class="comment">//获取电感，测距的AD值</span></span><br><span class="line">    <span class="built_in">AD_chuli</span>();         <span class="comment">//处理AD值，得出最终偏差</span></span><br><span class="line">    Turn_Pwm = <span class="built_in">Turn_Ctrl_Pwm2</span>(Encoder_Left, Encoder_Right,Gyro_Turn);  <span class="comment">//===转向环PID控制</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//输出电机PWM,————负脉冲向前</span></span><br><span class="line">    Moto_Left=Balance_Pwm+Velocity_Pwm+Turn_Pwm;                   <span class="comment">//===计算左轮电机最终PWM</span></span><br><span class="line">    Moto_Right=Balance_Pwm+Velocity_Pwm-Turn_Pwm;                  <span class="comment">//===计算右轮电机最终PWM</span></span><br><span class="line">    <span class="comment">//end</span></span><br><span class="line">    <span class="built_in">PIT_TFLG</span>(<span class="number">1</span>) |= PIT_TFLG_TIF_MASK;    <span class="comment">//清中断标志位</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="/image/sidebar/avatar.gif" alt="陈葛杰">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：陈葛杰
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2019/11/04/14%E5%B1%8A%E6%81%A9%E6%99%BA%E6%B5%A6%E6%9D%AF%E6%99%BA%E8%83%BD%E6%B1%BD%E8%BD%A6%E5%A4%A7%E8%B5%9B%E7%9B%B4%E7%AB%8B%E8%BD%A6%E6%A8%A1%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" target="_blank">14届恩智浦杯智能汽车大赛——直立车模实现原理</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：埋骨何须桑梓地, 人生无处不青山.
+                <br>
+                <span class="suffix-box-title">关于主题</span>：<a href="" target="_blank"></a>
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/categories/%E6%AF%94%E8%B5%9B/">比赛</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tags/%E6%8A%80%E6%9C%AF/">技术</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+                <a href="/2019/11/05/%E7%94%B5%E8%B7%AF%E6%9D%BF%E6%8E%92%E7%89%88%E9%97%AE%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95/" class="prev-prefix">« </a> 上一篇：    <a href="/2019/11/05/%E7%94%B5%E8%B7%AF%E6%9D%BF%E6%8E%92%E7%89%88%E9%97%AE%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95/" title="发布于 2019-11-05 08:35">电路板排版问题--回溯法</a>
+                <br>
+            
+            
+                <a href="/2019/11/04/14%E5%B1%8A%E6%81%A9%E6%99%BA%E6%B5%A6%E6%9D%AF%E6%99%BA%E8%83%BD%E6%B1%BD%E8%BD%A6%E5%A4%A7%E8%B5%9B-%E6%91%84%E5%83%8F%E5%A4%B4%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/" class="next-prefix">» </a> 下一篇：    <a href="/2019/11/04/14%E5%B1%8A%E6%81%A9%E6%99%BA%E6%B5%A6%E6%9D%AF%E6%99%BA%E8%83%BD%E6%B1%BD%E8%BD%A6%E5%A4%A7%E8%B5%9B-%E6%91%84%E5%83%8F%E5%A4%B4%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/" title="发布于 2019-11-04 06:07">14届恩智浦杯智能汽车大赛_摄像头处理方法</a>
+            
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
+</div>
+
+    </div>
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar"></div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span></span></div>        
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul></ul> 
+            </div> 
+            <div class="menu-link"></div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js"></script>
+        <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
+    
+    
+    <div class="wrap-right"></div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : 'PlumDong',
+        GitHubRepositories : 'PlumDong.github.io',
+
+        BlogUser      : '陈葛杰',
+        BlogAvatar    : '/image/sidebar/avatar.gif',
+        BlogStartDate : '2019-01-01',
+
+        WebsiteTitleBlur         : '(◍´꒳`◍) Hi, Live For Code',
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : '/image/sidebar/avatar.gif',
+
+        ProgressBar: {
+            id       : 'topProgressBar',
+            color    : '#77B6FF',
+            height   : '2px',
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound: {
+                tension  : 16,
+                friction : 5
+            },
+            spinner: {
+                id     : 'spinner',
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : '#F0F0F0',
+                    stroke     : '#272633',
+                    base       : '',
+                    child      : '#272633'
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : false,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : 'rgba(255, 255, 255, .2)',
+            clearOffset : 0.3
+        },
+
+        ArticleHeaderAnimationRendered : false,
+        ArticleHeaderAnimation         : {
+            triW                  : 14,
+            triH                  : 20,
+            neighbours            : [
+                
+                    'side',
+                
+                    'top',
+                
+                    'bottom',
+                
+            ],
+            speedTrailAppear      : 0.1,
+            speedTrailDisappear   : 0.1,
+            speedTriOpen          : 1,
+            trailMaxLength        : 30,
+            trailIntervalCreation : 100,
+            delayBeforeDisappear  : 2,
+            colors                : [
+                
+                    '#96EDA6',
+                
+                    '#5BC6A9',
+                
+                    '#38668C',
+                
+                    '#374D84',
+                
+                    '#BED5CB',
+                
+                    '#62ADC6',
+                
+                    '#8EE5DE',
+                
+                    '#304E7B',
+                
+            ]
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : '60%',
+            colorBrightness  : '50%',
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : 'random',
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                '/image/header/home3.jpg',
+            
+                '/image/header/home4.jpg',
+            
+                '/image/header/home5.jpg',
+            
+                '/image/header/home6.jpg',
+            
+                '/image/header/home7.jpg',
+            
+        ],
+        HomeBannerText  : '',
+
+        ArticleHeaderImage : [
+            
+                '/image/header/WZBJ1.jpg',
+            
+                '/image/header/WZBJ2.jpg',
+            
+                '/image/header/WZBJ3.jpg',
+            
+                '/image/header/WZBJ4.jpg',
+            
+                '/image/header/WZBJ5.jpg',
+            
+        ],
+
+        OtherBannerText : '',
+
+        MenuList : [
+            
+                {
+                    name   : '首页',
+                    href   : '/',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '标签',
+                    href   : '/tag',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '分类',
+                    href   : '/category',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '归档',
+                    href   : '/archives',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '赞赏',
+                    href   : '/donate',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '关于',
+                    href   : '/about',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '订阅',
+                    href   : '/atom.xml',    
+                    target : '_blank',
+                    class  : ''
+                },
+            
+                {
+                    name   : '搜索',
+                    href   : '',    
+                    target : '',
+                    class  : 'search'
+                },
+            
+                {
+                    name   : '留言板',
+                    href   : '/comment',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '友情链接',
+                    href   : '/friend',    
+                    target : '',
+                    class  : ''
+                },
+            
+        ],
+        MenuLink : [
+            
+                
+                    {
+                        icon : 'icon-weibo', 
+                        url  : ''
+                    },
+                
+                    {
+                        icon : 'icon-wechat', 
+                        url  : ''
+                    },
+                
+                    {
+                        icon : 'icon-qq', 
+                        url  : ''
+                    },
+                
+                    {
+                        icon : 'icon-github', 
+                        url  : 'https://github.com/first19326'
+                    },
+                
+            
+        ],
+
+        FooterStyle : 2,
+        BottomText  : {
+            icon    : 'like-fill',
+            left    : '人生若只如初见',
+            right   : '何事秋风悲画扇'
+        },
+        ThemeInfo   : false,
+
+        ConsoleList : [
+            
+        ],
+
+        FontIconExtend : '',
+
+        Donate : {
+            paypal  : '',
+            bitcoin : '',
+            alipay  : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/donate/alipay.png',
+            wechat  : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/donate/wechat.png'
+        },
+
+        Code : {
+            style : 'normal'
+        },  
+
+        Search : {
+            applicationID : 'L9VHR7NJYP',
+            apiKey        : 'a14cfc1cbbcbe531922284e99981692f',
+            indexName     : 'myhexo',
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : '搜索',
+                empty       : '未发现与 「${query}」 相关的内容',
+                stats       : '${hits} 条相关条目，使用了 ${time} 毫秒',
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : '.comments-content',
+            appId          : 'srhKtvWPQTWYKh3qX8G8M7v0-gzGzoHsz',
+            appKey         : '8uVSP1q6UlALVC5igYfIfv2h',
+            placeholder    : '你是我一生只会遇见一次的惊喜...',
+            avatar         : 'mm',
+            meta           : 'nick,mail,link',
+            requiredFields : 'nick,mail',
+            pageSize       : 5,
+            lang           : 'zh-cn',
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : '.toc',
+            contentSelector       : '.article-body',
+            headingSelector       : 'h1, h2, h3, h4, h5',
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : '.toc',
+            positionFixedClass    : 'toc-fixed',
+            fixedSidebarOffset    : '',
+        },
+
+        Require : {
+            baseUrl     : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/',
+            waitSeconds : 100
+        },
+
+        Music : {
+            type : 'Meting2'
+        },
+        APlayer : {
+            container : 'aplayer',
+            fixed     : true,
+            autoplay  : false,
+            loop      : 'all',
+            order     : 'random',
+            preload   : 'auto',
+            volume    : 0.67,
+            mutex     : true,
+            lrcType   : 3,
+            audio     : [
+                
+                    {
+                        name   : 'aLIEz',
+                        artist : 'mizuki（瑞葵）',
+                        cover  : '/music/cover/aLIEz.jpg',
+                        url    : '/music/song/aLIEz.mp3',
+                        lrc    : '/music/lrc/aLIEz.lrc'
+                    },
+                
+                    {
+                        name   : 'Endless Tears',
+                        artist : 'CLIFF EDGE',
+                        cover  : '/music/cover/Endless Tears.jpg',
+                        url    : '/music/song/Endless Tears.mp3',
+                        lrc    : '/music/lrc/Endless Tears.lrc'
+                    },
+                
+                    {
+                        name   : 'Miracle',
+                        artist : 'Cascada',
+                        cover  : '/music/cover/Miracle.jpg',
+                        url    : '/music/song/Miracle.mp3',
+                        lrc    : '/music/lrc/Miracle.lrc'
+                    },
+                
+                    {
+                        name   : 'Roll The Dice',
+                        artist : '高珊',
+                        cover  : '/music/cover/Roll The Dice.jpg',
+                        url    : '/music/song/Roll The Dice.mp3',
+                        lrc    : '/music/lrc/Roll The Dice.lrc'
+                    },
+                
+                    {
+                        name   : 'See You Again',
+                        artist : 'Charlie Puth, Wiz Khalifa',
+                        cover  : '/music/cover/See You Again.jpg',
+                        url    : '/music/song/See You Again.mp3',
+                        lrc    : '/music/lrc/See You Again.lrc'
+                    },
+                
+                    {
+                        name   : 'Traveling Light',
+                        artist : 'Joel Hanson, Sara Groves',
+                        cover  : '/music/cover/Traveling Light.jpg',
+                        url    : '/music/song/Traveling Light.mp3',
+                        lrc    : '/music/lrc/Traveling Light.lrc'
+                    },
+                
+                    {
+                        name   : '痴心绝对',
+                        artist : '李圣杰',
+                        cover  : '/music/cover/痴心绝对.jpg',
+                        url    : '/music/song/痴心绝对.mp3',
+                        lrc    : '/music/lrc/痴心绝对.lrc'
+                    },
+                
+                    {
+                        name   : '好想大声说爱你',
+                        artist : 'BAAD（バード）',
+                        cover  : '/music/cover/好想大声说爱你.jpg',
+                        url    : '/music/song/好想大声说爱你.mp3',
+                        lrc    : '/music/lrc/好想大声说爱你.lrc'
+                    },
+                
+            ]
+        },
+        Meting : {
+            id       : '3778678', 
+            lrcshow  : false, 
+            server   : 'netease', 
+            type     : 'playlist', 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : 'all', 
+            order    : 'random', 
+            preload  : 'auto', 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        LazyLoad : {
+            default : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/website/lazyload.svg'
+        },
+  
+        Style : {
+            aplayer          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css',
+            archive          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.css',
+            donate           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.css',
+            fancybox         : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.css',
+            footer           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.css',
+            iconfont         : 'https://at.alicdn.com/t/font_1546312_l3yohatebw.css',
+            index            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.css',
+            menuBubble       : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.css',
+            page             : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.css',
+            post             : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css',
+            search           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css',
+            tocbot           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.css',
+            normal           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/normal.css',
+            night            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/night.css',
+            clipboard        : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.css'
+        },
+
+        Script: {
+            aplayer          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js',
+            config           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.js',
+            index            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js',
+            instantSearch    : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js',
+            jQuery           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js',
+            loading          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.js',
+            meting           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js',
+            iscroll          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js',
+            require          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.min.js'
+        },
+
+        Font: {
+            LongCang   : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css',
+            Monda      : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css',
+            NotoSansSC : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css',
+            Playball   : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css',
+            PTMono     : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css',
+            RobotoSlab : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css',
+            Rosario    : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css',
+            UbuntuMono : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css'
+        },
+
+        Suffix : {
+            about : '埋骨何须桑梓地, 人生无处不青山.'
+        },
+            
+        Theme : {
+            url  : '',
+            name : ''
+        }  
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js"></script>
+</body>
+</html>
