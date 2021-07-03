@@ -6,7 +6,7 @@
     <meta name="referrer" content="origin">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-    <title>标签 - Hexo</title>
+    <title>docker下安装code-server</title>
 
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css">
@@ -17,65 +17,108 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css">
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/normal.css">
+    
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
+
 <meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="陈葛杰的博客" type="application/atom+xml">
 </head>
 <body>
     <a id="cover"></a>
     <div id="header">
-    <div class="header" >
+    <div class="header">
         <div class="vertical">
             <div class="inner">
-                <h1 class="header-title"></h1>
-                <h2 class="header-description" id="hitokoto"></h2>
-                <h3 class="header-info" id="hitokotoAuthor"></h3>
-                <!--
-                <h1 class="header-subtitle"></h1>
-                <p class="header-subinfo"></p>
-                -->
+                <h1 class="header-subtitle">docker下安装code-server</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2021-04-14
+                        </span>
+                        
+                            <span id="/2021/04/14/docker下安装code-server/" class="leancloud_visitors" data-flag-title="docker下安装code-server">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2021/04/14/docker下安装code-server/"></span>
+                        </span>  
+                    </p>                 
+                </div>
             </div>
         </div>
-        <a class="scroll-down" href="javascript:;" target="_self" data-offset="-45">
-            <span class="hidden">Scroll Down</span>
-            <i class="scroll-down-icon iconfont icon-return"></i>
-        </a>
+        <canvas id="articleHeaderCanvas"></canvas>
     </div>
 </div>
     <div id="container">
     <div id="content">
-        <div class="articles">
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/01/01/HelloWorld/">Hello World</a>
-                
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="一、安装docker"><a href="#一、安装docker" class="headerlink" title="一、安装docker"></a>一、安装docker</h1><p>系统采用的时<code>centos8</code>，阿里云的服务器.</p>
+<p>将下列代码保存为 <code>dockerinstall.sh</code> 并运行    <code>sh dockerinstall.sh</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># remove old version</span></span><br><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine-selinux \</span><br><span class="line">                  docker-engine</span><br><span class="line"></span><br><span class="line"><span class="comment"># remove all docker data </span></span><br><span class="line">sudo rm -rf /var/lib/docker</span><br><span class="line"></span><br><span class="line"><span class="comment">#  preinstall utils </span></span><br><span class="line">sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br><span class="line"></span><br><span class="line"><span class="comment"># add repository</span></span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"></span><br><span class="line"><span class="comment"># make cache</span></span><br><span class="line">sudo yum makecache fast</span><br><span class="line"></span><br><span class="line"><span class="comment"># install the latest stable version of docker</span></span><br><span class="line">sudo yum install -y docker-ce</span><br><span class="line"></span><br><span class="line"><span class="comment"># start deamon and enable auto start when power on</span></span><br><span class="line">sudo systemctl start docker</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># add current user </span></span><br><span class="line">sudo groupadd docker</span><br><span class="line">sudo gpasswd -a <span class="variable">$&#123;USER&#125;</span> docker</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<h1 id="二、"><a href="#二、" class="headerlink" title="二、"></a>二、</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">nginx命令大全</span><br><span class="line"> 508 次浏览  发表于 2021-03-30 11:04 版权</span><br><span class="line">nginx -s reopen #重启Nginx</span><br><span class="line"></span><br><span class="line">nginx -s reload #重新加载Nginx配置文件，然后以优雅的方式重启Nginx</span><br><span class="line"></span><br><span class="line">nginx -s stop #强制停止Nginx服务</span><br><span class="line"></span><br><span class="line">killall nginx #杀死所有nginx进程  </span><br><span class="line"></span><br><span class="line">nginx -s quit #优雅地停止Nginx服务（即处理完所有请求后再停止服务）</span><br><span class="line"></span><br><span class="line">nginx -t #检测配置文件是否有语法错误，然后退出</span><br><span class="line"></span><br><span class="line">nginx -v #显示版本信息并退出</span><br><span class="line"></span><br><span class="line">nginx -V #显示版本和配置选项信息，然后退出</span><br><span class="line"></span><br><span class="line">nginx -t #检测配置文件是否有语法错误，然后退出</span><br><span class="line"></span><br><span class="line">nginx -T #检测配置文件是否有语法错误，转储并退出</span><br><span class="line"></span><br><span class="line">nginx -q #在检测配置文件期间屏蔽非错误信息</span><br><span class="line"></span><br><span class="line">nginx -?,-h #打开帮助信息  </span><br><span class="line"></span><br><span class="line">nginx -p prefix #设置前缀路径(默认是:/usr/share/nginx/)</span><br><span class="line"></span><br><span class="line">nginx -c filename #设置配置文件(默认是:/etc/nginx/nginx.conf)</span><br><span class="line"></span><br><span class="line">nginx -g directives #设置配置文件外的全局指令</span><br></pre></td></tr></table></figure>
+
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="/image/sidebar/avatar.gif" alt="陈葛杰">
             </div>
-            <div class="article-abstract">
-                
-                    摘要：Hexo相关资料以及简单的使用教程.
-                    <a href="/2020/01/01/HelloWorld/">阅读全文</a>
-                
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：陈葛杰
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2021/04/14/docker%E4%B8%8B%E5%AE%89%E8%A3%85code-server/" target="_blank">docker下安装code-server</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：路漫漫其修远兮,吾将上下而求索.
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
             </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-01-01
-                </span>
-                
-                    <span id="/2020/01/01/HelloWorld/" class="leancloud_visitors" data-flag-title="Hello World">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/01/01/HelloWorld/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+            <div style="clear: both;"></div>
         </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/categories/linux/">linux</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tags/linux/">linux</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+                <a href="/2021/06/25/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2-dp/" class="prev-prefix">« </a> 上一篇：    <a href="/2021/06/25/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2-dp/" title="发布于 2021-06-25 12:00">最长回文子串-dp</a>
+                <br>
+            
+            
+                <a href="/2021/04/14/python%20%E6%A1%A5%E6%8E%A5%E6%89%8B%E6%9F%84%E5%92%8C%E4%B8%B2%E5%8F%A3%E5%AE%9E%E7%8E%B0%E9%80%9A%E4%BF%A1/" class="next-prefix">» </a> 下一篇：    <a href="/2021/04/14/python%20%E6%A1%A5%E6%8E%A5%E6%89%8B%E6%9F%84%E5%92%8C%E4%B8%B2%E5%8F%A3%E5%AE%9E%E7%8E%B0%E9%80%9A%E4%BF%A1/" title="发布于 2021-04-14 12:00">Python3 桥接手柄和串口实现通信</a>
+            
+        </div>
+    </div>
     
-    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
 </div>
 
     </div>
@@ -369,8 +412,8 @@
         FooterStyle : 2,
         BottomText  : {
             icon    : 'like-fill',
-            left    : '路漫漫其修远兮',
-            right   : '吾将上下而求索'
+            left    : '埋骨何须桑梓地',
+            right   : '人生无处不青山'
         },
         ThemeInfo   : false,
 
@@ -579,7 +622,7 @@
         },
 
         Suffix : {
-            about : '埋骨何须桑梓地, 人生无处不青山.'
+            about : '路漫漫其修远兮,吾将上下而求索.'
         },
             
         Theme : {

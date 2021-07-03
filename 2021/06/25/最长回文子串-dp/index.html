@@ -6,7 +6,7 @@
     <meta name="referrer" content="origin">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-    <title>分类 - Web</title>
+    <title>最长回文子串-dp</title>
 
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css">
@@ -17,65 +17,112 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css">
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/normal.css">
+    
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
+
 <meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="陈葛杰的博客" type="application/atom+xml">
 </head>
 <body>
     <a id="cover"></a>
     <div id="header">
-    <div class="header" >
+    <div class="header">
         <div class="vertical">
             <div class="inner">
-                <h1 class="header-title"></h1>
-                <h2 class="header-description" id="hitokoto"></h2>
-                <h3 class="header-info" id="hitokotoAuthor"></h3>
-                <!--
-                <h1 class="header-subtitle"></h1>
-                <p class="header-subinfo"></p>
-                -->
+                <h1 class="header-subtitle">最长回文子串-dp</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2021-06-25
+                        </span>
+                        
+                            <span id="/2021/06/25/最长回文子串-dp/" class="leancloud_visitors" data-flag-title="最长回文子串-dp">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2021/06/25/最长回文子串-dp/"></span>
+                        </span>  
+                    </p>                 
+                </div>
             </div>
         </div>
-        <a class="scroll-down" href="javascript:;" target="_self" data-offset="-45">
-            <span class="hidden">Scroll Down</span>
-            <i class="scroll-down-icon iconfont icon-return"></i>
-        </a>
+        <canvas id="articleHeaderCanvas"></canvas>
     </div>
 </div>
     <div id="container">
     <div id="content">
-        <div class="articles">
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2020/01/01/HelloWorld/">Hello World</a>
-                
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h1><h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><p>给你一个字符串 <code>s</code>，找到 <code>s</code> 中最长的回文子串。</p>
+<h2 id="示例-："><a href="#示例-：" class="headerlink" title="示例 ："></a>示例 ：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;babad&quot;</span><br><span class="line">输出：&quot;bab&quot;</span><br><span class="line">解释：&quot;aba&quot; 同样是符合题意的答案。</span><br></pre></td></tr></table></figure>
+
+<h1 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h1><ul>
+<li>动态规划说白了就是空间换时间，保存上次求解的数据，用于此次求解。</li>
+<li>二维数组dp用于存放当前已求得的解，<code>dp[i][j] = true</code>表示 字符串<code>s</code>从第<code>i</code>个到第<code>j</code>个是一个回文子串，并且数组<code>dp[i][j]=dp[j][i]</code>关于对角线对称，所以只需要用<code>i&lt;=j</code>的上半部分。</li>
+<li>因此初始化时二维数组的对角线初始化为<code>true</code>，且如果有两个相邻相同的元素则把<code>dp[i][i+1]</code>也置为<code>true</code>。</li>
+<li>最后填充数组<code>dp</code>，当第<code>i</code>个元素等于第<code>j</code>个元素，即<code>charArray[i] == charArray[j]</code>时，判断前一个元素是否相同即<code>dp[i+1][j-1]</code>是否为<code>true</code>，两个条件同时满足则把当前<code>dp[i][j]</code>置为<code>true</code>并记录当前回文子串的起始位置和长度。</li>
+</ul>
+<h1 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">longestPalindrome</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = s.<span class="built_in">length</span>();</span><br><span class="line">        <span class="keyword">if</span> (length &lt; <span class="number">2</span>) <span class="keyword">return</span> s;</span><br><span class="line">        <span class="keyword">int</span> maxLen = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> begin = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">char</span>[] charArray = s.<span class="built_in">toCharArray</span>();</span><br><span class="line">        boolean[][] dp = <span class="keyword">new</span> boolean[length][length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">            dp[i][i] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span> ( i&lt; length <span class="number">-1</span> &amp;&amp; charArray[i] == charArray[i+<span class="number">1</span>])&#123;</span><br><span class="line">                dp[i][i+<span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">                maxLen = <span class="number">2</span>;</span><br><span class="line">                begin = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> l = <span class="number">2</span>; l &lt;= length; l++) &#123;		<span class="comment">//子串长度</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;=length -l ; i++) &#123;	<span class="comment">//子串起始地址</span></span><br><span class="line">                <span class="keyword">int</span> j = l + i - <span class="number">1</span>;					<span class="comment">//字串结束地址</span></span><br><span class="line">                <span class="keyword">if</span>(dp[i+<span class="number">1</span>][j<span class="number">-1</span>] &amp;&amp; charArray[i] == charArray[j])&#123;</span><br><span class="line">                    dp[i][j] = <span class="literal">true</span>;</span><br><span class="line">                    maxLen = l;</span><br><span class="line">                    begin = i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s.<span class="built_in">substring</span>(begin, begin + maxLen);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="/image/sidebar/avatar.gif" alt="陈葛杰">
             </div>
-            <div class="article-abstract">
-                
-                    摘要：Hexo相关资料以及简单的使用教程.
-                    <a href="/2020/01/01/HelloWorld/">阅读全文</a>
-                
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：陈葛杰
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2021/06/25/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2-dp/" target="_blank">最长回文子串-dp</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：路漫漫其修远兮,吾将上下而求索.
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
             </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2020-01-01
-                </span>
-                
-                    <span id="/2020/01/01/HelloWorld/" class="leancloud_visitors" data-flag-title="Hello World">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/01/01/HelloWorld/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+            <div style="clear: both;"></div>
         </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/categories/%E7%AE%97%E6%B3%95%E4%B8%8D%E8%83%BD%E4%B8%A2/">算法不能丢</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tags/%E7%AE%97%E6%B3%95%E4%B8%8D%E8%83%BD%E4%B8%A2/">算法不能丢</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+            
+                <a href="/2021/04/14/docker%E4%B8%8B%E5%AE%89%E8%A3%85code-server/" class="next-prefix">» </a> 下一篇：    <a href="/2021/04/14/docker%E4%B8%8B%E5%AE%89%E8%A3%85code-server/" title="发布于 2021-04-14 12:00">docker下安装code-server</a>
+            
+        </div>
+    </div>
     
-    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
 </div>
 
     </div>
@@ -369,8 +416,8 @@
         FooterStyle : 2,
         BottomText  : {
             icon    : 'like-fill',
-            left    : '路漫漫其修远兮',
-            right   : '吾将上下而求索'
+            left    : '埋骨何须桑梓地',
+            right   : '人生无处不青山'
         },
         ThemeInfo   : false,
 
@@ -579,7 +626,7 @@
         },
 
         Suffix : {
-            about : '埋骨何须桑梓地, 人生无处不青山.'
+            about : '路漫漫其修远兮,吾将上下而求索.'
         },
             
         Theme : {
