@@ -24,7 +24,7 @@
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="陈葛杰的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="马振东的博客" type="application/atom+xml">
 </head>
 <body>
     <a id="cover"></a>
@@ -58,7 +58,7 @@
         <div id="article">
     <div class="toc"></div>
     <div class="article-body">
-        <h1 id="一、更新yum源及必要软件安装"><a href="#一、更新yum源及必要软件安装" class="headerlink" title="一、更新yum源及必要软件安装"></a>一、更新yum源及必要软件安装</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#安装wget</span><br><span class="line">[root@localhost ~]# yum -y install wget</span><br><span class="line"></span><br><span class="line">#备份CentOS-Base.repo，更新失败时切换回去</span><br><span class="line">[root@localhost ~]# mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br><span class="line"> </span><br><span class="line">#下载新的CentOS-Base.repo到/etc/yum.repos.d/</span><br><span class="line">[root@localhost ~]# wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"> </span><br><span class="line">#生成缓存</span><br><span class="line">[root@localhost ~]# yum makecache</span><br><span class="line"></span><br><span class="line">#安装必要软件</span><br><span class="line">[root@localhost ~]# yum -y install gcc glibc gcc-c++ make net-tools screen vim lrzsz tree dos2unix lsof tcpdump bash-completion ntp</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+        <h1 id="一、更新yum源"><a href="#一、更新yum源" class="headerlink" title="一、更新yum源"></a>一、更新yum源</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#安装wget</span><br><span class="line">[root@localhost ~]# yum -y install wget</span><br><span class="line"></span><br><span class="line">#备份CentOS-Base.repo，更新失败时切换回去</span><br><span class="line">[root@localhost ~]# mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br><span class="line"> </span><br><span class="line">#下载新的CentOS-Base.repo到/etc/yum.repos.d/</span><br><span class="line">[root@localhost ~]# wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"> </span><br><span class="line">#生成缓存</span><br><span class="line">[root@localhost ~]# yum makecache</span><br></pre></td></tr></table></figure>
 
 
 
@@ -82,7 +82,7 @@
 <p>全部配置文件：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=static    #设置为静态IP</span><br><span class="line">NETMASK=255.255.255.0   #网段的子网掩码</span><br><span class="line">IPADDR=10.32.77.35  #网段的静态IP</span><br><span class="line">GATEWAY=10.32.77.1  #网关</span><br><span class="line">DNS1=202.194.104.35 #DNS1服务器</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6_INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=ens33</span><br><span class="line">UUID=ae3bba41-51d9-4efd-909e-9f726590df7f</span><br><span class="line">DEVICE=ens33</span><br><span class="line">ONBOOT=yes  # 是否开机起用，永久生效</span><br></pre></td></tr></table></figure>
 
-<h3 id="3-重启网络服务"><a href="#3-重启网络服务" class="headerlink" title="3.重启网络服务"></a>3.重启网络服务</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# service network restart</span><br></pre></td></tr></table></figure>
+<h2 id="3-重启网络服务"><a href="#3-重启网络服务" class="headerlink" title="3.重启网络服务"></a>3.重启网络服务</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# service network restart</span><br></pre></td></tr></table></figure>
 
 <p>再次输入ifconfig查看ens33下的inet，即可看到配置好的静态ip</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ifconfig</span><br></pre></td></tr></table></figure>
@@ -95,9 +95,15 @@
 
 
 
+<h1 id="四、创建用户并授权"><a href="#四、创建用户并授权" class="headerlink" title="四、创建用户并授权"></a>四、创建用户并授权</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">创建新用户</span></span><br><span class="line">[root@localhost ~]# useradd  username</span><br><span class="line"><span class="meta">#</span><span class="bash">创建密码</span></span><br><span class="line">[root@localhost ~]# passwd username</span><br><span class="line"><span class="meta">#</span><span class="bash">sudo命令的授权管理是在sudoers文件里的</span></span><br><span class="line">[root@localhost ~]# ls -l /etc/sudoers		#sudoers 文件只有查看权，</span><br><span class="line">-r--r-----. 1 root root 4328 11月 28 2019 /etc/sudoers</span><br><span class="line"><span class="meta">#</span><span class="bash">添加修改权限</span></span><br><span class="line">[root@localhost ~]# chmod -v u+w /etc/sudoers	</span><br><span class="line"><span class="meta">#</span><span class="bash">为新用户添加sudo权限</span></span><br><span class="line">[root@localhost ~]# vim /etc/sudoers</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># Allow root to run any commands anywher</span></span>  </span><br><span class="line">root    ALL=(ALL)       ALL  </span><br><span class="line">username  ALL=(ALL)       ALL  #这个是新增的用户</span><br><span class="line"><span class="meta">#</span><span class="bash">收回 sudoers   修改权限</span></span><br><span class="line">[root@localhost ~]# chmod -v u-w /etc/sudoers</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
+<h1 id="五、调整字符集，使其支持中文"><a href="#五、调整字符集，使其支持中文" class="headerlink" title="五、调整字符集，使其支持中文"></a>五、调整字符集，使其支持中文</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vim /etc/locale.conf</span><br><span class="line">LANG=&quot;zh_CN.UTF-8&quot;</span><br><span class="line">[root@localhost ~]# source /etc/locale.conf</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="六、Linux清理内存缓存"><a href="#六、Linux清理内存缓存" class="headerlink" title="六、Linux清理内存缓存"></a>六、Linux清理内存缓存</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# free -h</span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:           3.7G        223M        2.7G         11M        823M        3.2G</span><br><span class="line">Swap:          3.9G          0B        3.9G</span><br><span class="line">[root@localhost ~]# echo 1 &gt; /proc/sys/vm/drop_caches</span><br></pre></td></tr></table></figure>
 
 
 
@@ -105,10 +111,10 @@
         <p class="suffix-end">__END__</p>
         <div class="suffix-box">
             <div class="suffix-box-left">
-                <img src="/image/sidebar/avatar.gif" alt="陈葛杰">
+                <img src="/image/sidebar/avatar.gif" alt="马振东的博客">
             </div>
             <div class="suffix-box-right">
-                <span class="suffix-box-title">文章作者</span>：陈葛杰
+                <span class="suffix-box-title">文章作者</span>：马振东的博客
                 <br>
                 <span class="suffix-box-title">文章出处</span>：<a href="/2020/11/16/CentOS7%E5%88%9D%E5%A7%8B%E5%8C%96%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" target="_blank">CentOS7初始化环境搭建</a>
                 <br>
@@ -221,7 +227,7 @@
         GitHubUserName     : 'PlumDong',
         GitHubRepositories : 'PlumDong.github.io',
 
-        BlogUser      : '陈葛杰',
+        BlogUser      : '马振东的博客',
         BlogAvatar    : '/image/sidebar/avatar.gif',
         BlogStartDate : '2019-01-01',
 

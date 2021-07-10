@@ -6,7 +6,7 @@
     <meta name="referrer" content="origin">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-    <title>docker下安装code-server</title>
+    <title>docker中安装code-server</title>
 
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css">
@@ -24,7 +24,7 @@
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="陈葛杰的博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="马振东的博客" type="application/atom+xml">
 </head>
 <body>
     <a id="cover"></a>
@@ -32,14 +32,14 @@
     <div class="header">
         <div class="vertical">
             <div class="inner">
-                <h1 class="header-subtitle">docker下安装code-server</h1>
+                <h1 class="header-subtitle">docker中安装code-server</h1>
                 <div class="header-subinfo">
                     <p class="article-info-text">
                         <span>
                             <i class="iconfont icon-time"></i> 发表时间：2021-04-14
                         </span>
                         
-                            <span id="/2021/04/14/docker下安装code-server/" class="leancloud_visitors" data-flag-title="docker下安装code-server">
+                            <span id="/2021/04/14/docker下安装code-server/" class="leancloud_visitors" data-flag-title="docker中安装code-server">
                                 <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
                             </span>
                         
@@ -62,18 +62,19 @@
 <p>将下列代码保存为 <code>dockerinstall.sh</code> 并运行    <code>sh dockerinstall.sh</code></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># remove old version</span></span><br><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine-selinux \</span><br><span class="line">                  docker-engine</span><br><span class="line"></span><br><span class="line"><span class="comment"># remove all docker data </span></span><br><span class="line">sudo rm -rf /var/lib/docker</span><br><span class="line"></span><br><span class="line"><span class="comment">#  preinstall utils </span></span><br><span class="line">sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br><span class="line"></span><br><span class="line"><span class="comment"># add repository</span></span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"></span><br><span class="line"><span class="comment"># make cache</span></span><br><span class="line">sudo yum makecache fast</span><br><span class="line"></span><br><span class="line"><span class="comment"># install the latest stable version of docker</span></span><br><span class="line">sudo yum install -y docker-ce</span><br><span class="line"></span><br><span class="line"><span class="comment"># start deamon and enable auto start when power on</span></span><br><span class="line">sudo systemctl start docker</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># add current user </span></span><br><span class="line">sudo groupadd docker</span><br><span class="line">sudo gpasswd -a <span class="variable">$&#123;USER&#125;</span> docker</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
 
-<h1 id="二、"><a href="#二、" class="headerlink" title="二、"></a>二、</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">nginx命令大全</span><br><span class="line"> 508 次浏览  发表于 2021-03-30 11:04 版权</span><br><span class="line">nginx -s reopen #重启Nginx</span><br><span class="line"></span><br><span class="line">nginx -s reload #重新加载Nginx配置文件，然后以优雅的方式重启Nginx</span><br><span class="line"></span><br><span class="line">nginx -s stop #强制停止Nginx服务</span><br><span class="line"></span><br><span class="line">killall nginx #杀死所有nginx进程  </span><br><span class="line"></span><br><span class="line">nginx -s quit #优雅地停止Nginx服务（即处理完所有请求后再停止服务）</span><br><span class="line"></span><br><span class="line">nginx -t #检测配置文件是否有语法错误，然后退出</span><br><span class="line"></span><br><span class="line">nginx -v #显示版本信息并退出</span><br><span class="line"></span><br><span class="line">nginx -V #显示版本和配置选项信息，然后退出</span><br><span class="line"></span><br><span class="line">nginx -t #检测配置文件是否有语法错误，然后退出</span><br><span class="line"></span><br><span class="line">nginx -T #检测配置文件是否有语法错误，转储并退出</span><br><span class="line"></span><br><span class="line">nginx -q #在检测配置文件期间屏蔽非错误信息</span><br><span class="line"></span><br><span class="line">nginx -?,-h #打开帮助信息  </span><br><span class="line"></span><br><span class="line">nginx -p prefix #设置前缀路径(默认是:/usr/share/nginx/)</span><br><span class="line"></span><br><span class="line">nginx -c filename #设置配置文件(默认是:/etc/nginx/nginx.conf)</span><br><span class="line"></span><br><span class="line">nginx -g directives #设置配置文件外的全局指令</span><br></pre></td></tr></table></figure>
+<h1 id="二、"><a href="#二、" class="headerlink" title="二、"></a>二、</h1><p>//TODO</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">nginx命令大全</span><br><span class="line"> 508 次浏览  发表于 2021-03-30 11:04 版权</span><br><span class="line">nginx -s reopen #重启Nginx</span><br><span class="line"></span><br><span class="line">nginx -s reload #重新加载Nginx配置文件，然后以优雅的方式重启Nginx</span><br><span class="line"></span><br><span class="line">nginx -s stop #强制停止Nginx服务</span><br><span class="line"></span><br><span class="line">killall nginx #杀死所有nginx进程  </span><br><span class="line"></span><br><span class="line">nginx -s quit #优雅地停止Nginx服务（即处理完所有请求后再停止服务）</span><br><span class="line"></span><br><span class="line">nginx -t #检测配置文件是否有语法错误，然后退出</span><br><span class="line"></span><br><span class="line">nginx -v #显示版本信息并退出</span><br><span class="line"></span><br><span class="line">nginx -V #显示版本和配置选项信息，然后退出</span><br><span class="line"></span><br><span class="line">nginx -t #检测配置文件是否有语法错误，然后退出</span><br><span class="line"></span><br><span class="line">nginx -T #检测配置文件是否有语法错误，转储并退出</span><br><span class="line"></span><br><span class="line">nginx -q #在检测配置文件期间屏蔽非错误信息</span><br><span class="line"></span><br><span class="line">nginx -?,-h #打开帮助信息  </span><br><span class="line"></span><br><span class="line">nginx -p prefix #设置前缀路径(默认是:/usr/share/nginx/)</span><br><span class="line"></span><br><span class="line">nginx -c filename #设置配置文件(默认是:/etc/nginx/nginx.conf)</span><br><span class="line"></span><br><span class="line">nginx -g directives #设置配置文件外的全局指令</span><br></pre></td></tr></table></figure>
 
 
         <p class="suffix-end">__END__</p>
         <div class="suffix-box">
             <div class="suffix-box-left">
-                <img src="/image/sidebar/avatar.gif" alt="陈葛杰">
+                <img src="/image/sidebar/avatar.gif" alt="马振东的博客">
             </div>
             <div class="suffix-box-right">
-                <span class="suffix-box-title">文章作者</span>：陈葛杰
+                <span class="suffix-box-title">文章作者</span>：马振东的博客
                 <br>
-                <span class="suffix-box-title">文章出处</span>：<a href="/2021/04/14/docker%E4%B8%8B%E5%AE%89%E8%A3%85code-server/" target="_blank">docker下安装code-server</a>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2021/04/14/docker%E4%B8%8B%E5%AE%89%E8%A3%85code-server/" target="_blank">docker中安装code-server</a>
                 <br>
                 <span class="suffix-box-title">作者签名</span>：路漫漫其修远兮,吾将上下而求索.
                 <br>
@@ -184,7 +185,7 @@
         GitHubUserName     : 'PlumDong',
         GitHubRepositories : 'PlumDong.github.io',
 
-        BlogUser      : '陈葛杰',
+        BlogUser      : '马振东的博客',
         BlogAvatar    : '/image/sidebar/avatar.gif',
         BlogStartDate : '2019-01-01',
 
