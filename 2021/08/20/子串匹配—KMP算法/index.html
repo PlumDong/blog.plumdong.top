@@ -6,7 +6,7 @@
     <meta name="referrer" content="origin">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-    <title>马振东的博客</title>
+    <title>子串匹配—KMP算法实现</title>
 
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css">
@@ -17,198 +17,112 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css">
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/normal.css">
+    
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
+
 <meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="马振东的博客" type="application/atom+xml">
 </head>
 <body>
     <a id="cover"></a>
     <div id="header">
-    <div class="header" >
+    <div class="header">
         <div class="vertical">
             <div class="inner">
-                <h1 class="header-title"></h1>
-                <h2 class="header-description" id="hitokoto"></h2>
-                <h3 class="header-info" id="hitokotoAuthor"></h3>
-                <!--
-                <h1 class="header-subtitle"></h1>
-                <p class="header-subinfo"></p>
-                -->
+                <h1 class="header-subtitle">子串匹配—KMP算法实现</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2021-08-20
+                        </span>
+                        
+                            <span id="/2021/08/20/子串匹配—KMP算法/" class="leancloud_visitors" data-flag-title="子串匹配—KMP算法实现">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2021/08/20/子串匹配—KMP算法/"></span>
+                        </span>  
+                    </p>                 
+                </div>
             </div>
         </div>
-        <a class="scroll-down" href="javascript:;" target="_self" data-offset="-45">
-            <span class="hidden">Scroll Down</span>
-            <i class="scroll-down-icon iconfont icon-return"></i>
-        </a>
+        <canvas id="articleHeaderCanvas"></canvas>
     </div>
 </div>
     <div id="container">
     <div id="content">
-        <div class="articles">
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2019/11/05/%E7%94%B5%E8%B7%AF%E6%9D%BF%E6%8E%92%E7%89%88%E9%97%AE%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95/">电路板排版问题--回溯法</a>
-                
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h1><p>实现 strStr() 函数。</p>
+<p>给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回  -1 。</p>
+<p>当 <code>needle</code> 是空字符串时，应当返回0。</p>
+<h1 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h1><p>KMP算法是用于求解字符串匹配的算法，其可以把时间复杂度降为O(m+n)，进而大大提升效率。</p>
+<p>第一步是求解next数组，是子串needle自己对自己做匹配，其定义为： t[0]~t[x] 这一段字符串，使得<strong>K-前缀恰等于K-后缀</strong>的最大的K.</p>
+<p>因此计算next[x]则需要先知道next[x-1]，记为k，然后判断t[x-1]与t[k]是否相等，如果相等表明最长前后相等的前后缀增大了一位即next[x]=k+1，</p>
+<p>如果不相等应该减小k，然后再次判断t[x-1]与t[k]是否相等，为了使k尽可能的大，k应该等于next[k]。</p>
+<p>第二步就是根据所求得的next数组，与s字符数组进行匹配，如果t与s相等则两者都向前移一位，如果相等则t串的指针移至此时的指针对应的next数组的值。</p>
+<p>整个匹配过程s字符串的指针不会后退因此只需要遍历一边s字符串等到结果提升了匹配效率。</p>
+<h1 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KMP</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        KMP kmp = <span class="keyword">new</span> KMP();</span><br><span class="line">        System.out.println(kmp.strStr(<span class="string">&quot;abcabaabaabcacb&quot;</span>, <span class="string">&quot;abaabcac&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">strStr</span><span class="params">(String haystack, String needle)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] s = haystack.toCharArray();</span><br><span class="line">        <span class="keyword">char</span>[] t = needle.toCharArray();</span><br><span class="line">        <span class="keyword">int</span>[] next = getNext(t);</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i&lt;s.length &amp;&amp; j&lt;t.length)&#123;</span><br><span class="line">            <span class="keyword">if</span> (j == -<span class="number">1</span> || s[i] == t[j])&#123;</span><br><span class="line">                i++;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                j = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (j == t.length)</span><br><span class="line">            <span class="keyword">return</span> i-j;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] getNext(<span class="keyword">char</span>[] t)&#123;</span><br><span class="line">        <span class="keyword">int</span>[] next = <span class="keyword">new</span> <span class="keyword">int</span>[t.length];</span><br><span class="line">        next[<span class="number">0</span>] = -<span class="number">1</span>;</span><br><span class="line">        next[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; t.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> k = next[i-<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">while</span> (k != -<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (t[i-<span class="number">1</span>] == t[k])&#123;</span><br><span class="line">                    next[i] = k+<span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    k = next[k];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="/image/sidebar/avatar.gif" alt="马振东的博客">
             </div>
-            <div class="article-abstract">
-                
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：马振东的博客
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2021/08/20/%E5%AD%90%E4%B8%B2%E5%8C%B9%E9%85%8D%E2%80%94KMP%E7%AE%97%E6%B3%95/" target="_blank">子串匹配—KMP算法实现</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：路漫漫其修远兮,吾将上下而求索.
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
             </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2019-11-05
-                </span>
-                
-                    <span id="/2019/11/05/电路板排版问题-回溯法/" class="leancloud_visitors" data-flag-title="电路板排版问题--回溯法">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2019/11/05/电路板排版问题-回溯法/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+            <div style="clear: both;"></div>
         </div>
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2019/11/04/14%E5%B1%8A%E6%81%A9%E6%99%BA%E6%B5%A6%E6%9D%AF%E6%99%BA%E8%83%BD%E6%B1%BD%E8%BD%A6%E5%A4%A7%E8%B5%9B%E7%9B%B4%E7%AB%8B%E8%BD%A6%E6%A8%A1%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">14届恩智浦杯智能汽车大赛——直立车模实现原理</a>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/categories/%E7%AE%97%E6%B3%95%E4%B8%8D%E8%83%BD%E4%B8%A2/">算法不能丢</a>
                 
             </div>
-            <div class="article-abstract">
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tags/%E7%AE%97%E6%B3%95%E4%B8%8D%E8%83%BD%E4%B8%A2/">算法不能丢</a>
                 
             </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2019-11-04
-                </span>
-                
-                    <span id="/2019/11/04/14届恩智浦杯智能汽车大赛直立车模实现原理/" class="leancloud_visitors" data-flag-title="14届恩智浦杯智能汽车大赛——直立车模实现原理">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2019/11/04/14届恩智浦杯智能汽车大赛直立车模实现原理/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+        
+        <div class="article-prev-next">
+            
+            
+                <a href="/2021/07/06/Java%E4%B8%AD%E5%AE%9E%E7%8E%B0a==1&&a==2&&a==3/" class="next-prefix">» </a> 下一篇：    <a href="/2021/07/06/Java%E4%B8%AD%E5%AE%9E%E7%8E%B0a==1&&a==2&&a==3/" title="发布于 2021-07-06 12:00">Java中实现a==1&&a==2&&a==3</a>
+            
         </div>
+    </div>
     
-        <div class="article">
-            <div class="article-title">
-                <a href="/2019/11/04/14%E5%B1%8A%E6%81%A9%E6%99%BA%E6%B5%A6%E6%9D%AF%E6%99%BA%E8%83%BD%E6%B1%BD%E8%BD%A6%E5%A4%A7%E8%B5%9B-%E6%91%84%E5%83%8F%E5%A4%B4%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/">14届恩智浦杯智能汽车大赛_摄像头处理方法</a>
-                
-            </div>
-            <div class="article-abstract">
-                
-                    摘要：C车模采用摄像头曲线拟合处理方案。
-                    <a href="/2019/11/04/14%E5%B1%8A%E6%81%A9%E6%99%BA%E6%B5%A6%E6%9D%AF%E6%99%BA%E8%83%BD%E6%B1%BD%E8%BD%A6%E5%A4%A7%E8%B5%9B-%E6%91%84%E5%83%8F%E5%A4%B4%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/">阅读全文</a>
-                
-            </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2019-11-04
-                </span>
-                
-                    <span id="/2019/11/04/14届恩智浦杯智能汽车大赛-摄像头处理方法/" class="leancloud_visitors" data-flag-title="14届恩智浦杯智能汽车大赛_摄像头处理方法">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2019/11/04/14届恩智浦杯智能汽车大赛-摄像头处理方法/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
         </div>
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2019/11/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%93%E4%B8%9A%E5%AD%A6%E7%94%9F%E7%9A%847%E4%B8%AA%E5%BB%BA%E8%AE%AE/">计算机专业学生的7个建议</a>
-                
-            </div>
-            <div class="article-abstract">
-                
-            </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2019-11-01
-                </span>
-                
-                    <span id="/2019/11/01/计算机专业学生的7个建议/" class="leancloud_visitors" data-flag-title="计算机专业学生的7个建议">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2019/11/01/计算机专业学生的7个建议/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
+        <div class="comments-content">
         </div>
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2019/10/30/%E4%B8%8D%E5%8F%AF%E5%8F%98%E6%80%A7%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%88%E4%BB%A5String%E4%B8%BA%E4%BE%8B%EF%BC%89/">不可变性的优点（以String为例）</a>
-                
-            </div>
-            <div class="article-abstract">
-                
-            </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2019-10-30
-                </span>
-                
-                    <span id="/2019/10/30/不可变性的优点（以String为例）/" class="leancloud_visitors" data-flag-title="不可变性的优点（以String为例）">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2019/10/30/不可变性的优点（以String为例）/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
-        </div>
-    
-        <div class="article">
-            <div class="article-title">
-                <a href="/2019/10/30/%E4%BC%9A%E5%9C%BA%E5%AE%89%E6%8E%92%E9%97%AE%E9%A2%98-%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">会场安排问题-贪心算法</a>
-                
-            </div>
-            <div class="article-abstract">
-                
-            </div>
-            <div class="clear"></div>
-            <div class="article-info">
-                <span>
-                    <i class="iconfont icon-time"></i> 发表时间：2019-10-30
-                </span>
-                
-                    <span id="/2019/10/30/会场安排问题-贪心算法/" class="leancloud_visitors" data-flag-title="会场安排问题-贪心算法">
-                        <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                    </span>
-                
-                <span>
-                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2019/10/30/会场安排问题-贪心算法/"></span>
-                </span>
-            </div>
-            <div class="clear"></div>     
-        </div>
-    
-    
-        <div class="pagination-bottom">
-            <div class="pagination">
-                
-                    <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
-                
-            </div>
-        </div>
-    
+    </div>
+
 </div>
 
     </div>
