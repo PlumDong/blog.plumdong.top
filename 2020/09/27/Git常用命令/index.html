@@ -62,36 +62,66 @@
 <span id="more"></span>
 <h1 id="一、-首次使用"><a href="#一、-首次使用" class="headerlink" title="一、 首次使用"></a>一、 首次使用</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 设置用户信息</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.name <span class="string">&quot;John Doe&quot;</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.email johndoe@example.com</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 初始化 Git 本地仓库</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git init</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 可选，若初始化了本地仓库则跳过</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/libgit2/libgit2 mylibgit</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用命令 git add 开始跟踪一个文件[-A]是跟踪所有文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git add [-A]</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 检查当前文件状态</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git status -s</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 提交更新到仓库</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">&quot;本次提交的描述信息&quot;</span></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 添加远程仓库,&lt;url&gt;是远程仓库地址。</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin &lt;url&gt;</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除远程仓库</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote rm origin</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改远程仓库</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote set-url origin &lt;url&gt;</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 推送到远程仓库</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push origin master</span></span><br></pre></td></tr></table></figure>
 <p><strong>至此一个初步的项目完成</strong></p>
-<h1 id="二、Git基础-常用命令"><a href="#二、Git基础-常用命令" class="headerlink" title="二、Git基础-常用命令"></a>二、Git基础-常用命令</h1><h2 id="检查当前文件状态"><a href="#检查当前文件状态" class="headerlink" title="检查当前文件状态"></a>检查当前文件状态</h2><p>可以用 git status 命令查看哪些文件处于什么状态：已跟踪 或 未跟踪</p>
+<h1 id="二、回滚分支操作—时光倒流"><a href="#二、回滚分支操作—时光倒流" class="headerlink" title="二、回滚分支操作—时光倒流"></a>二、回滚分支操作—时光倒流</h1><p>git给了我们不断试错的机会：</p>
+<p>首先用查看历史提交：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 查看提交详情</span><br><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span></span></span><br><span class="line">// 查看提交简介</span><br><span class="line">git log --pretty=oneline</span><br></pre></td></tr></table></figure>
+
+<p>根据提交的hash值回滚到指定版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git reset --hard b1a00a5936d53ac2880911125a265b9a3a4e3b45</span></span><br></pre></td></tr></table></figure>
+
+<p>如果想再回到未来版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//查看被回退的提交</span><br><span class="line"><span class="meta">$</span><span class="bash"> git reflog</span></span><br><span class="line">//跳转到到指定版本</span><br><span class="line"><span class="meta">$</span><span class="bash"> git reset --hard cf36443</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="三、Git基础-常用命令"><a href="#三、Git基础-常用命令" class="headerlink" title="三、Git基础-常用命令"></a>三、Git基础-常用命令</h1><p><strong>1. 检查当前文件状态</strong></p>
+<p>可以用 git status 命令查看哪些文件处于什么状态：已跟踪 或 未跟踪</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git status</span></span><br></pre></td></tr></table></figure>
-<p><strong>简洁输出</strong></p>
+<p><strong>2. 简洁输出</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git status -s</span></span><br></pre></td></tr></table></figure>
-<h2 id="跟踪新文件并让其处于暂存状态"><a href="#跟踪新文件并让其处于暂存状态" class="headerlink" title="跟踪新文件并让其处于暂存状态"></a>跟踪新文件并让其处于暂存状态</h2><p>使用命令 git add 开始跟踪一个文件。 所以，要跟踪 README 文件，运行：</p>
+<p><strong>3. 跟踪新文件并让其处于暂存状态</strong></p>
+<p>使用命令 git add 开始跟踪一个文件。 所以，要跟踪 README 文件，运行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git add README</span></span><br></pre></td></tr></table></figure>
-<h2 id="查看已暂存和未暂存的修改"><a href="#查看已暂存和未暂存的修改" class="headerlink" title="查看已暂存和未暂存的修改"></a>查看已暂存和未暂存的修改</h2><p>要查看尚未暂存的文件更新了哪些部分</p>
+<p><strong>5. 查看已暂存和未暂存的修改</strong></p>
+<p>要查看尚未暂存的文件更新了哪些部分</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git diff</span></span><br></pre></td></tr></table></figure>
 <p>查看已暂存的将要添加到下次提交里的内容</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git diff --staged</span></span><br></pre></td></tr></table></figure>
-<h2 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat filename</span></span><br></pre></td></tr></table></figure>
-<h2 id="跳过使用暂存区域"><a href="#跳过使用暂存区域" class="headerlink" title="跳过使用暂存区域"></a>跳过使用暂存区域</h2><p>Git 提供了一个跳过使用暂存区域的方式， 只要在提交的时候，给 git commit 加上 -a 选项，Git 就会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 git add 步骤：</p>
+<p><strong>6. 忽略文件</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat filename</span></span><br></pre></td></tr></table></figure>
+<p>** 7.跳过使用暂存区域**</p>
+<p>Git 提供了一个跳过使用暂存区域的方式， 只要在提交的时候，给 git commit 加上 -a 选项，Git 就会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 git add 步骤：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git commit -a -m <span class="string">&#x27;提交信息&#x27;</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="从暂存区域移除文件"><a href="#从暂存区域移除文件" class="headerlink" title="从暂存区域移除文件"></a>从暂存区域移除文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rm --cached PROJECTS.md</span></span><br></pre></td></tr></table></figure>
-<h2 id="查看远程仓库"><a href="#查看远程仓库" class="headerlink" title="查看远程仓库"></a>查看远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote -v</span></span><br></pre></td></tr></table></figure>
-<h2 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h2><p>运行 git remote add <shortname> <url> 添加一个新的远程 Git 仓库，同时指定一个方便使用的简写：</p>
+<p><strong>8. 从暂存区域移除文件</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rm --cached PROJECTS.md</span></span><br></pre></td></tr></table></figure>
+<p><strong>9. 查看远程仓库</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote -v</span></span><br></pre></td></tr></table></figure>
+<p><strong>10. 添加远程仓库</strong></p>
+<p>运行 git remote add <shortname> <url> 添加一个新的远程 Git 仓库，同时指定一个方便使用的简写：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote</span></span><br><span class="line">origin</span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add pb https://github.com/paulboone/ticgit</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote -v</span></span><br><span class="line">origin	https://github.com/schacon/ticgit (fetch)</span><br><span class="line">origin	https://github.com/schacon/ticgit (push)</span><br><span class="line">pb	https://github.com/paulboone/ticgit (fetch)</span><br><span class="line">pb	https://github.com/paulboone/ticgit (push)</span><br></pre></td></tr></table></figure>
-<h2 id="从远程仓库中抓取与拉取"><a href="#从远程仓库中抓取与拉取" class="headerlink" title="从远程仓库中抓取与拉取"></a>从远程仓库中抓取与拉取</h2><p>这个命令会访问远程仓库，从中拉取所有你还没有的数据。 执行完成后，你将会拥有那个远程仓库中所有分支的引用，可以随时合并或查看。</p>
+<p><strong>11. 从远程仓库中抓取与拉取</strong></p>
+<p>这个命令会访问远程仓库，从中拉取所有你还没有的数据。 执行完成后，你将会拥有那个远程仓库中所有分支的引用，可以随时合并或查看。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git fetch origin</span></span><br></pre></td></tr></table></figure>
-<h2 id="推送到远程仓库"><a href="#推送到远程仓库" class="headerlink" title="推送到远程仓库"></a>推送到远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git push origin master</span></span><br></pre></td></tr></table></figure>
+<p><strong>12. 推送到远程仓库</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git push origin master</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="查看提交历史"><a href="#查看提交历史" class="headerlink" title="查看提交历史"></a>查看提交历史</h2><p>–stat 选项在每次提交的下面列出所有被修改过的文件、有多少文件被修改了以及被修改过的文件的哪些行被移除或是添加了。 在每次提交的最后还有一个总结。</p>
+<p><strong>13. 查看提交历史</strong></p>
+<p>–stat 选项在每次提交的下面列出所有被修改过的文件、有多少文件被修改了以及被修改过的文件的哪些行被移除或是添加了。 在每次提交的最后还有一个总结。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">log</span> [--<span class="built_in">stat</span>]</span></span><br></pre></td></tr></table></figure>
-<h2 id="打标签"><a href="#打标签" class="headerlink" title="打标签"></a>打标签</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git tag -a v1.4 -m <span class="string">&quot;my version 1.4&quot;</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>14. 打标签</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git tag -a v1.4 -m <span class="string">&quot;my version 1.4&quot;</span></span></span><br></pre></td></tr></table></figure>
 
-
-
-<h2 id="检查配置信息"><a href="#检查配置信息" class="headerlink" title="检查配置信息"></a>检查配置信息</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git config --list</span></span><br></pre></td></tr></table></figure>
-<h2 id="获取帮助"><a href="#获取帮助" class="headerlink" title="获取帮助"></a>获取帮助</h2><p><strong>查询Git命令的三种等价方法</strong></p>
+<p><strong>15. 检查配置信息</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git config --list</span></span><br></pre></td></tr></table></figure>
+<p><strong>16. 获取帮助</strong></p>
+<p><strong>查询Git命令的三种等价方法</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">help</span> &lt;verb&gt;</span>   </span><br><span class="line"><span class="meta">$</span><span class="bash"> git &lt;verb&gt; --<span class="built_in">help</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> man git-&lt;verb&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="git命令思维导图"><a href="#git命令思维导图" class="headerlink" title="git命令思维导图"></a>git命令思维导图</h1><p><img src="/myimages/git%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.png" alt="在这里插入图片描述"></p>
 
         <p class="suffix-end">__END__</p>
         <div class="suffix-box">
