@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>Java—面向面试</title>
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/normal.css">
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="马某人博客" type="application/atom+xml">
+</head>
+<body>
+    <a id="cover"></a>
+    <div id="header">
+    <div class="header">
+        <div class="vertical">
+            <div class="inner">
+                <h1 class="header-subtitle">Java—面向面试</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2020-10-29
+                        </span>
+                        
+                            <span id="/2020/10/29/Java—面向面试/" class="leancloud_visitors" data-flag-title="Java—面向面试">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/10/29/Java—面向面试/"></span>
+                        </span>  
+                    </p>                 
+                </div>
+            </div>
+        </div>
+        <canvas id="articleHeaderCanvas"></canvas>
+    </div>
+</div>
+    <div id="container">
+    <div id="content">
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="一、计算机底层概念"><a href="#一、计算机底层概念" class="headerlink" title="一、计算机底层概念"></a>一、计算机底层概念</h1><h2 id="1、进程是什么？"><a href="#1、进程是什么？" class="headerlink" title="1、进程是什么？"></a>1、进程是什么？</h2><ul>
+<li>进程是资源分配的基本单位<h2 id="2、线程是什么？"><a href="#2、线程是什么？" class="headerlink" title="2、线程是什么？"></a>2、线程是什么？</h2></li>
+<li>线程是程序执行的基本单位<span id="more"></span>
+<h2 id="3、程序如何开始运行"><a href="#3、程序如何开始运行" class="headerlink" title="3、程序如何开始运行"></a>3、程序如何开始运行</h2></li>
+<li>CPU从PC中读指令（PC程序计数器），然后从内存中读数据放在寄存器中，通过ALU计算，最后把结果写入内存并读下一条指令。<h2 id="4、协程与线程"><a href="#4、协程与线程" class="headerlink" title="4、协程与线程"></a>4、协程与线程</h2></li>
+<li>协程和线程数不是一一对应，一般协程数要远大于线程。协程更像是一个个在队列中的任务，交由适量线程一个个执行，因此协程数量再多也不会影响CPU效率。而线程数目过多会导致CPU花费在线程调度的时间大幅上升，导致CPU效率降低甚至程序崩溃。<h2 id="5、计算机中的四核八线程原理"><a href="#5、计算机中的四核八线程原理" class="headerlink" title="5、计算机中的四核八线程原理"></a>5、计算机中的四核八线程原理</h2></li>
+</ul>
+<ul>
+<li>CPU中主要包含：计算单元 ALU、寄存器、程序计数器 PC、缓存 chche</li>
+<li>一个ALU对应一组寄存器可以执行一个线程</li>
+<li>一个ALU对应两组寄存器可以执行两个线程</li>
+<li>一个ALU就是一核，对应两组寄存器就是两线程。</li>
+</ul>
+<h1 id="二、锁"><a href="#二、锁" class="headerlink" title="二、锁"></a>二、锁</h1><h2 id="1、Java中sleep-和wait-的区别"><a href="#1、Java中sleep-和wait-的区别" class="headerlink" title="1、Java中sleep()和wait()的区别"></a>1、Java中sleep()和wait()的区别</h2><ol>
+<li><p>最主要是sleep方法没有释放锁，而wait方法释放了锁。sleep不出让系统资源；wait是进入线程等待池等待，出让系统资源。</p>
+</li>
+<li><p>这两个方法来自不同的类分别是，sleep来自Thread类，和wait来自Object类。sleep()是Thread的静态类方法，在a线程里调用了b的sleep方法，实际上还是a去睡觉。</p>
+</li>
+<li><p>使用范围：wait，notify和notifyAll只能在同步控制方法或者同步控制块里面使用，而sleep可以在任何地方使用.</p>
+</li>
+<li><p>sleep必须捕获异常，而wait，notify和notifyAll不需要捕获异常</p>
+</li>
+</ol>
+<h2 id="2、synchronized修饰方法"><a href="#2、synchronized修饰方法" class="headerlink" title="2、synchronized修饰方法"></a>2、synchronized修饰方法</h2><p><strong>1.修饰普通函数：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>等价于</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="keyword">synchronized</span>(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>2.修饰静态函数：（Demo是类名）</strong>*</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>等价于</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123;<span class="keyword">synchronized</span>(Demo.class);&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、轻量级锁与重量级锁"><a href="#3、轻量级锁与重量级锁" class="headerlink" title="3、轻量级锁与重量级锁"></a>3、轻量级锁与重量级锁</h2><p><strong>1.两者比较</strong></p>
+<ul>
+<li>轻量级锁不进入等待队列，执行时不需要唤醒，效率高</li>
+<li>重量级锁需要进入等待队列，执行时需要系统唤醒，需要耗费时间</li>
+</ul>
+<p><strong>2.使用策略</strong></p>
+<ul>
+<li>当竞争不激烈时，每个线程等待时间很短，此时应该选用轻量锁</li>
+<li>当竞争非常激烈，线程需要等待很长时间才会执行，此时应使用重量级锁，使用轻量锁会导致CPU浪费。</li>
+</ul>
+<h2 id="4-volatile-使用"><a href="#4-volatile-使用" class="headerlink" title="4. volatile 使用"></a>4. volatile 使用</h2><ul>
+<li>volatile只能保证变量在多线程中可见性，无法保证原子性。</li>
+</ul>
+<h2 id="5-自旋锁中的CAS方法"><a href="#5-自旋锁中的CAS方法" class="headerlink" title="5. 自旋锁中的CAS方法"></a>5. 自旋锁中的CAS方法</h2><p><strong>1.原理</strong></p>
+<ul>
+<li>要修改一个变量数值时：假如要把变量m的数值由1加上4，</li>
+<li>首先记录变量m当前的值0，然后调用对变量修改的函数加上4，修改完成后比较此时变量m是否还是0，</li>
+<li>如果还是0，则把变量m改为新值5，结束。</li>
+<li>如果不是0，则重新记录m的当前值，循环执行直至变量没有被其他线程修改。</li>
+</ul>
+<p><strong>2.CAS方法存在的ABA问题</strong></p>
+<ul>
+<li>ABA问题是指一个变量被其他线程修改后由改回原先值的问题，是针对于上述CAS的原理中存在的问题。</li>
+<li>解决方法：添加版本号，每次被其他线程调用版本号改变。</li>
+</ul>
+<p><strong>3.CAS方法存在的原子性问题</strong></p>
+<ul>
+<li>如果变量在CAS判断相同后和赋值前，抢先对其修改了，则CAS方法就失效了。</li>
+<li>因此应该在这里保证原子性</li>
+<li>解决方法：底层汇编代码使用<code>lock</code>指令锁住总线，其他指定无法执行。</li>
+</ul>
+<h2 id="6-synchronized锁升级过程"><a href="#6-synchronized锁升级过程" class="headerlink" title="6. synchronized锁升级过程"></a>6. synchronized锁升级过程</h2><p><strong>1.升级过程</strong><br>偏向锁 —&gt; 轻量锁 —&gt; 重量锁<br><img src="/myimages/20201028211136787.png" alt="在这里插入图片描述"></p>
+<p><strong>2.偏向锁</strong></p>
+<ul>
+<li>偏向锁是一种无锁状态，即线程声明这把锁是自己的即可，不用需要竞争，因为大部分的代码是单线程执行的，这样会大幅节省时间。</li>
+<li>升级时机：只要有一个线程来抢锁，就必须升级为轻量级锁。</li>
+</ul>
+<p><strong>3.轻量级锁</strong></p>
+<ul>
+<li>轻量级锁用于多线程竞争比激烈的情况，此时没有获得锁的线程不会进入阻塞状态，会在原地等待或者尝试获得锁</li>
+<li>如果等待的线程过多或等待时间过长，就会升级为重量级锁.</li>
+</ul>
+<p><strong>4.重量级锁</strong></p>
+<ul>
+<li>没有获得锁的线程会自动进入阻塞状态，当有线程释放锁时会唤醒线程来竞争</li>
+<li>线程进入阻塞状态或者唤醒线程时cpu会切换到内核态执行，会消耗一定的cpu资源.</li>
+</ul>
+<h2 id="7-Object-o-new-Object-发生了什么"><a href="#7-Object-o-new-Object-发生了什么" class="headerlink" title="7. Object o = new Object();发生了什么"></a>7. Object o = new Object();发生了什么</h2><ul>
+<li>这个问题好像就是问：把大象装冰箱需要几步，1把冰箱门打开，2把大象装进去，3把冰箱门关上。</li>
+<li>编译器执行时也分三步：</li>
+</ul>
+<blockquote>
+<p>1.申请一个内存空间，变量都是默认值，基础变量是0，引用变量是null。<br>2.调用构造方法，对变量进行初始化。<br>3.建立对象与其引用的联系。</p>
+</blockquote>
+<h2 id="8-简单的单例类"><a href="#8-简单的单例类" class="headerlink" title="8. 简单的单例类"></a>8. 简单的单例类</h2><ul>
+<li><strong>写法一：加载时创建</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mgr01</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Mgr01 INSTANCE = <span class="keyword">new</span> Mgr01();</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Mgr01</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Mgr01 <span class="title">getInstance</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> INSTANCE;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">m</span><span class="params">()</span></span>&#123; System.out.println(<span class="string">&quot;m&quot;</span>);&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Mgr01 m1 = Mgr01.getInstance();</span><br><span class="line">        Mgr01 m2 = Mgr01.getInstance();</span><br><span class="line">        System.out.println(m1 == m2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure></li>
+<li><strong>写法二：使用时创建该类的对象</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mgr01</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Mgr01 INSTANCE;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Mgr01</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Mgr01 <span class="title">getInstance</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="keyword">if</span>(INSTANCE == <span class="keyword">null</span>)&#123;</span><br><span class="line">             INSTANCE = <span class="keyword">new</span> Mgr01();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>写法三DCL（Double Check Lock）单例模式</strong>：采用锁双重验证锁机制，保证线程安全。同时降低锁粒度提高并发效率。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mgr01</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Mgr01 INSTANCE;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Mgr01</span><span class="params">()</span></span>&#123;&#125;;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Mgr01 <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//多个业务逻辑</span></span><br><span class="line">        <span class="keyword">if</span>(INSTANCE == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Mgr01.class) &#123;</span><br><span class="line">                <span class="keyword">if</span>(INSTANCE == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="comment">//多个业务</span></span><br><span class="line">                    INSTANCE = <span class="keyword">new</span> Mgr01();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>DCL单例模式需要加volatile修饰吗？答案：必须加！</strong><blockquote>
+<p><strong>1.原因分析：</strong> 采用DCL方法创建单例模式时，若不加<strong>volatile</strong>修饰<strong>INSTANCE</strong>变量CPU在执行时会对指令或语句进行重排序。就会存在这样的情况：<br><strong>2.特殊情况：</strong> 线程1获得锁在new一个相应的单例对象，分三步1：申请空间2：变量赋值3：<strong>INSTANCE</strong>指向内存空间。CPU优化指令把第2步与第3步顺序交换，就会导致提前返回一个未完全初始的对象。此时恰好轮到线程2执行，线程2将判断<strong>INSTANCE</strong>是否是空，由于线程1已经将其指向相应的内存，就会导致<strong>INSTANCE</strong>非空，函数就会返回一个未完全初始化的对象。。<br><strong>3.解决办法：</strong> 使用<strong>volatile</strong>修饰则可避免CPU在执行时对其重排序问题。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="9-JVM内存屏障"><a href="#9-JVM内存屏障" class="headerlink" title="9.JVM内存屏障"></a>9.JVM内存屏障</h2><p><strong>屏障两边的指令不可以重排，保障有序。</strong></p>
+<ul>
+<li><strong>hotspot实现方式</strong><br>汇编层通<strong>LOCK</strong>执行一条空语句实现</li>
+</ul>
+<p><strong>LOCK用于在多处理器中执行命令时对共享内存的独占使用。<br>它的作用是能够将当前处理器对应缓存的内容刷新到内存中，并使其他处理器对应的缓存失效。另外还提供了有序的指令无法越过这个内存屏障的作用。</strong></p>
+<h1 id="三、JVM-GC（Garbage-Collector）"><a href="#三、JVM-GC（Garbage-Collector）" class="headerlink" title="三、JVM GC（Garbage Collector）"></a>三、JVM GC（Garbage Collector）</h1><h2 id="1-怎么判断一块内存是垃圾："><a href="#1-怎么判断一块内存是垃圾：" class="headerlink" title="1.怎么判断一块内存是垃圾："></a><strong>1.怎么判断一块内存是垃圾：</strong></h2><p>Root Searching算法：从ROOT根上开始找，凡是能找到的就不是垃圾，否则就清除。</p>
+<h2 id="2-三种垃圾回收算法："><a href="#2-三种垃圾回收算法：" class="headerlink" title="2.三种垃圾回收算法："></a><strong>2.三种垃圾回收算法：</strong></h2><p><strong>Mark-Sweep(标记清除)、Copying(拷贝)、Mark-Compact(标记压缩)</strong></p>
+<ul>
+<li><strong>标记清除</strong>：把可回收的对象标记为未使用的，缺点会差生大量碎片</li>
+<li><strong>拷贝</strong>：把内存一分为二，把存活对象复制到另一半，然后把前一半内存全部清除。缺点内存浪费</li>
+<li><strong>标记压缩</strong>：标记清楚后，把存活的对象压缩到连续的内存空间。缺点效率低</li>
+</ul>
+<h2 id="3-Garbage-Collector的十种垃圾回收器："><a href="#3-Garbage-Collector的十种垃圾回收器：" class="headerlink" title="3.Garbage Collector的十种垃圾回收器："></a><strong>3.Garbage Collector的十种垃圾回收器：</strong></h2><p><img src="/myimages/202011020945.png" alt="十种垃圾回收器"><br><strong>JDK1.8默认垃圾回收器(PS + PO)</strong><br>垃圾回收器分为两种——分代模型和分区模型</p>
+<ul>
+<li><strong>分代模型：</strong><br>分为新生代和老年代。原理：新生代存放新new出来的对象，老年代存放多次清理未清理掉的对象，新生代区域采用Copying(拷贝)回收算法，老年代采用Mark-Sweep或者Mark-Compact回收算法。<br><img src="/myimages/20201101190805587.png" alt="分代模型"></li>
+<li><strong>分代模型中对象创建过程</strong><br>对象在创建时第一步会检测对象能否创建在栈上（逃逸分析和标量替换）如果能则直接创建在栈上，如果不能则放在堆上：对象比较大直接放在老年代（因为老年代分区大）较小则放在新生代，在新生代中多次回收后没回收的对象转移到老年代。<br><img src="/myimages/20201101193300930.png" alt="分代模型"></li>
+</ul>
+<h2 id="4-STW现象"><a href="#4-STW现象" class="headerlink" title="4.STW现象"></a>4.STW现象</h2><p> <strong>STW全称stop-the-world（世界停止），原因：垃圾回收器开始工作，所有业务必须停止等待，在JVM调优时应极力缩短STW现象的时间。</strong></p>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="/image/sidebar/avatar.gif" alt="马某人的技术分享博客">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：马某人的技术分享博客
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2020/10/29/Java%E2%80%94%E9%9D%A2%E5%90%91%E9%9D%A2%E8%AF%95/" target="_blank">Java—面向面试</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：路漫漫其修远兮,吾将上下而求索.
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tags/Java/">Java</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+                <a href="/2020/11/02/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0/" class="prev-prefix">« </a> 上一篇：    <a href="/2020/11/02/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0/" title="发布于 2020-11-02 07:32">深入理解Java线程池</a>
+                <br>
+            
+            
+                <a href="/2020/10/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" class="next-prefix">» </a> 下一篇：    <a href="/2020/10/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" title="发布于 2020-10-28 10:06">设计模式-观察者模式</a>
+            
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
+</div>
+
+    </div>
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar"></div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span></span></div>        
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul></ul> 
+            </div> 
+            <div class="menu-link"></div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+
+    
+    
+    <div class="wrap-right"></div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : 'PlumDong',
+        GitHubRepositories : 'PlumDong.github.io',
+
+        BlogUser      : '马某人的技术分享博客',
+        BlogAvatar    : '/image/sidebar/avatar.gif',
+        BlogStartDate : '2019-01-01',
+
+        WebsiteTitleBlur         : '(◍´꒳`◍) Hi',
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : '/image/sidebar/avatar.gif',
+
+        ProgressBar: {
+            id       : 'topProgressBar',
+            color    : '#77B6FF',
+            height   : '2px',
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound: {
+                tension  : 16,
+                friction : 5
+            },
+            spinner: {
+                id     : 'spinner',
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : '#F0F0F0',
+                    stroke     : '#272633',
+                    base       : '',
+                    child      : '#272633'
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : false,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : 'rgba(255, 255, 255, .2)',
+            clearOffset : 0.3
+        },
+
+        ArticleHeaderAnimationRendered : false,
+        ArticleHeaderAnimation         : {
+            triW                  : 14,
+            triH                  : 20,
+            neighbours            : [
+                
+                    'side',
+                
+                    'top',
+                
+                    'bottom',
+                
+            ],
+            speedTrailAppear      : 0.1,
+            speedTrailDisappear   : 0.1,
+            speedTriOpen          : 1,
+            trailMaxLength        : 30,
+            trailIntervalCreation : 100,
+            delayBeforeDisappear  : 2,
+            colors                : [
+                
+                    '#96EDA6',
+                
+                    '#5BC6A9',
+                
+                    '#38668C',
+                
+                    '#374D84',
+                
+                    '#BED5CB',
+                
+                    '#62ADC6',
+                
+                    '#8EE5DE',
+                
+                    '#304E7B',
+                
+            ]
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : '60%',
+            colorBrightness  : '50%',
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : 'random',
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                '/image/header/home3.jpg',
+            
+                '/image/header/home4.jpg',
+            
+                '/image/header/home5.jpg',
+            
+                '/image/header/home6.jpg',
+            
+                '/image/header/home7.jpg',
+            
+                '/image/header/home8.jpg',
+            
+        ],
+        HomeBannerText  : '',
+
+        ArticleHeaderImage : [
+            
+                '/image/header/WZBJ1.jpg',
+            
+                '/image/header/WZBJ2.jpg',
+            
+                '/image/header/WZBJ3.jpg',
+            
+                '/image/header/WZBJ4.jpg',
+            
+                '/image/header/WZBJ5.jpg',
+            
+        ],
+
+        OtherBannerText : '',
+
+        MenuList : [
+            
+                {
+                    name   : '首页',
+                    href   : '/',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '标签',
+                    href   : '/tag',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '分类',
+                    href   : '/category',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '归档',
+                    href   : '/archives',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '关于',
+                    href   : '/about',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '订阅',
+                    href   : '/atom.xml',    
+                    target : '_blank',
+                    class  : ''
+                },
+            
+                {
+                    name   : '搜索',
+                    href   : '',    
+                    target : '',
+                    class  : 'search'
+                },
+            
+                {
+                    name   : '留言板',
+                    href   : '/comment',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '友情链接',
+                    href   : '/friend',    
+                    target : '',
+                    class  : ''
+                },
+            
+        ],
+        MenuLink : [
+            
+                
+                    {
+                        icon : 'icon-weibo', 
+                        url  : ''
+                    },
+                
+                    {
+                        icon : 'icon-wechat', 
+                        url  : ''
+                    },
+                
+                    {
+                        icon : 'icon-qq', 
+                        url  : ''
+                    },
+                
+                    {
+                        icon : 'icon-github', 
+                        url  : 'https://github.com/PlumDong'
+                    },
+                
+            
+        ],
+
+        FooterStyle : 3,
+        BottomText  : {
+            icon    : 'like-fill',
+            left    : '埋骨何须桑梓地',
+            right   : '人生何处不青山'
+        },
+        ThemeInfo   : false,
+
+        ConsoleList : [
+            
+        ],
+
+        FontIconExtend : '',
+
+        Donate : {
+            paypal  : '',
+            bitcoin : '',
+            alipay  : '',
+            wechat  : ''
+        },
+
+        Code : {
+            style : 'normal'
+        },  
+
+        Search : {
+            applicationID : 'L9VHR7NJYP',
+            apiKey        : 'a14cfc1cbbcbe531922284e99981692f',
+            indexName     : 'myhexo',
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : '搜索',
+                empty       : '未发现与 「${query}」 相关的内容',
+                stats       : '${hits} 条相关条目，使用了 ${time} 毫秒',
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : '.comments-content',
+            appId          : 'vUym7Ev8ixBbcY0wfsBzRd7n-gzGzoHsz',
+            appKey         : 'ajiuTP3iLRO3wky6ikwuPTsV',
+            placeholder    : '你是我一生只会遇见一次的惊喜...',
+            avatar         : 'mm',
+            meta           : 'nick,mail,link',
+            requiredFields : 'nick',
+            pageSize       : 5,
+            lang           : 'zh-cn',
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : '.toc',
+            contentSelector       : '.article-body',
+            headingSelector       : 'h1, h2, h3, h4, h5',
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : '.toc',
+            positionFixedClass    : 'toc-fixed',
+            fixedSidebarOffset    : '',
+        },
+
+        Require : {
+            baseUrl     : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/',
+            waitSeconds : 100
+        },
+
+        Music : {
+            type : 'Meting2'
+        },
+        APlayer : {
+            container : 'aplayer',
+            fixed     : true,
+            autoplay  : false,
+            loop      : 'all',
+            order     : 'random',
+            preload   : 'auto',
+            volume    : 0.67,
+            mutex     : true,
+            lrcType   : 3,
+            audio     : [
+                
+                    {
+                        name   : 'aLIEz',
+                        artist : 'mizuki（瑞葵）',
+                        cover  : '/music/cover/aLIEz.jpg',
+                        url    : '/music/song/aLIEz.mp3',
+                        lrc    : '/music/lrc/aLIEz.lrc'
+                    },
+                
+                    {
+                        name   : 'Endless Tears',
+                        artist : 'CLIFF EDGE',
+                        cover  : '/music/cover/Endless Tears.jpg',
+                        url    : '/music/song/Endless Tears.mp3',
+                        lrc    : '/music/lrc/Endless Tears.lrc'
+                    },
+                
+                    {
+                        name   : 'Miracle',
+                        artist : 'Cascada',
+                        cover  : '/music/cover/Miracle.jpg',
+                        url    : '/music/song/Miracle.mp3',
+                        lrc    : '/music/lrc/Miracle.lrc'
+                    },
+                
+                    {
+                        name   : 'Roll The Dice',
+                        artist : '高珊',
+                        cover  : '/music/cover/Roll The Dice.jpg',
+                        url    : '/music/song/Roll The Dice.mp3',
+                        lrc    : '/music/lrc/Roll The Dice.lrc'
+                    },
+                
+                    {
+                        name   : 'See You Again',
+                        artist : 'Charlie Puth, Wiz Khalifa',
+                        cover  : '/music/cover/See You Again.jpg',
+                        url    : '/music/song/See You Again.mp3',
+                        lrc    : '/music/lrc/See You Again.lrc'
+                    },
+                
+                    {
+                        name   : 'Traveling Light',
+                        artist : 'Joel Hanson, Sara Groves',
+                        cover  : '/music/cover/Traveling Light.jpg',
+                        url    : '/music/song/Traveling Light.mp3',
+                        lrc    : '/music/lrc/Traveling Light.lrc'
+                    },
+                
+                    {
+                        name   : '痴心绝对',
+                        artist : '李圣杰',
+                        cover  : '/music/cover/痴心绝对.jpg',
+                        url    : '/music/song/痴心绝对.mp3',
+                        lrc    : '/music/lrc/痴心绝对.lrc'
+                    },
+                
+                    {
+                        name   : '好想大声说爱你',
+                        artist : 'BAAD（バード）',
+                        cover  : '/music/cover/好想大声说爱你.jpg',
+                        url    : '/music/song/好想大声说爱你.mp3',
+                        lrc    : '/music/lrc/好想大声说爱你.lrc'
+                    },
+                
+            ]
+        },
+        Meting : {
+            id       : '3778678', 
+            lrcshow  : false, 
+            server   : 'netease', 
+            type     : 'playlist', 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : 'all', 
+            order    : 'random', 
+            preload  : 'auto', 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        LazyLoad : {
+            default : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/website/lazyload.svg'
+        },
+  
+        Style : {
+            aplayer          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css',
+            archive          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.css',
+            donate           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.css',
+            fancybox         : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.css',
+            footer           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.css',
+            iconfont         : 'https://at.alicdn.com/t/font_1546312_l3yohatebw.css',
+            index            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.css',
+            menuBubble       : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.css',
+            page             : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.css',
+            post             : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css',
+            search           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css',
+            tocbot           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.css',
+            normal           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/normal.css',
+            night            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/night.css',
+            clipboard        : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.css'
+        },
+
+        Script: {
+            aplayer          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js',
+            config           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.js',
+            index            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js',
+            instantSearch    : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js',
+            jQuery           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js',
+            loading          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.js',
+            meting           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js',
+            iscroll          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js',
+            require          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.min.js'
+        },
+
+        Font: {
+            LongCang   : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css',
+            Monda      : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css',
+            NotoSansSC : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css',
+            Playball   : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css',
+            PTMono     : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css',
+            RobotoSlab : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css',
+            Rosario    : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css',
+            UbuntuMono : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css'
+        },
+
+        Suffix : {
+            about : '路漫漫其修远兮,吾将上下而求索.'
+        },
+            
+        Theme : {
+            url  : '',
+            name : ''
+        }  
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js"></script>
+</body>
+</html>

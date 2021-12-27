@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>MySQL七种JOIN理论</title>
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/normal.css">
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="马某人博客" type="application/atom+xml">
+</head>
+<body>
+    <a id="cover"></a>
+    <div id="header">
+    <div class="header">
+        <div class="vertical">
+            <div class="inner">
+                <h1 class="header-subtitle">MySQL七种JOIN理论</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2020-11-19
+                        </span>
+                        
+                            <span id="/2020/11/19/MySQL七种JOIN理论/" class="leancloud_visitors" data-flag-title="MySQL七种JOIN理论">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/19/MySQL七种JOIN理论/"></span>
+                        </span>  
+                    </p>                 
+                </div>
+            </div>
+        </div>
+        <canvas id="articleHeaderCanvas"></canvas>
+    </div>
+</div>
+    <div id="container">
+    <div id="content">
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <h1 id="一、读取JOIN语句过程"><a href="#一、读取JOIN语句过程" class="headerlink" title="一、读取JOIN语句过程"></a>一、读取JOIN语句过程</h1><p><img src="/myimages/202011191022.png" alt="JOIN图"></p>
+<span id="more"></span>
+
+
+
+<h1 id="二、JOIN查询方式图"><a href="#二、JOIN查询方式图" class="headerlink" title="二、JOIN查询方式图"></a>二、JOIN查询方式图</h1><p><img src="/myimages/202011190913.png" alt="JOIN图"></p>
+<h1 id="三、JOIN查询语句示例"><a href="#三、JOIN查询语句示例" class="headerlink" title="三、JOIN查询语句示例"></a>三、JOIN查询语句示例</h1><h2 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">drop</span> <span class="keyword">table</span> if <span class="keyword">exists</span> tbl_emp;</span><br><span class="line"> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `tbl_emp`  (</span><br><span class="line"> `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">`name` <span class="type">varchar</span>(<span class="number">20</span>)  <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">`deptId` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line"> <span class="keyword">PRIMARY</span> KEY (`id`) ,</span><br><span class="line">KEY `fk_dept_id`(`deptId`)</span><br><span class="line">)ENGINE <span class="operator">=</span> InnoDB AUTO_INCREMENT <span class="operator">=</span> <span class="number">1</span> <span class="type">CHARACTER</span> <span class="keyword">SET</span> <span class="operator">=</span> utf8;</span><br><span class="line"> <span class="keyword">drop</span> <span class="keyword">table</span> if <span class="keyword">exists</span> tbl_dept;</span><br><span class="line"> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `tbl_dept`  (</span><br><span class="line"> `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">`deptName` <span class="type">varchar</span>(<span class="number">30</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line"> `locAdd` <span class="type">varchar</span>(<span class="number">40</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line"> <span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">) ENGINE <span class="operator">=</span> InnoDB AUTO_INCREMENT <span class="operator">=</span> <span class="number">1</span> <span class="type">CHARACTER</span> <span class="keyword">SET</span> <span class="operator">=</span> utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_dept(deptName,locAdd) <span class="keyword">VALUES</span>(<span class="string">&#x27;RD&#x27;</span>,<span class="number">11</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_dept(deptName,locAdd) <span class="keyword">VALUES</span>(<span class="string">&#x27;HR&#x27;</span>,<span class="number">12</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_dept(deptName,locAdd) <span class="keyword">VALUES</span>(<span class="string">&#x27;MK&#x27;</span>,<span class="number">13</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_dept(deptName,locAdd) <span class="keyword">VALUES</span>(<span class="string">&#x27;MIS&#x27;</span>,<span class="number">14</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_dept(deptName,locAdd) <span class="keyword">VALUES</span>(<span class="string">&#x27;FD&#x27;</span>,<span class="number">15</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_dept(deptName,locAdd) <span class="keyword">VALUES</span>(<span class="string">&#x27;BSR&#x27;</span>,<span class="number">250</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_emp(NAME ,deptId) <span class="keyword">VALUES</span>(<span class="string">&#x27;z3&#x27;</span>,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_emp(NAME,deptId) <span class="keyword">VALUES</span>(<span class="string">&#x27;z4&#x27;</span>,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_emp(NAME ,deptId) <span class="keyword">VALUES</span>(<span class="string">&#x27;z5&#x27;</span>,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_emp(NAME ,deptId) <span class="keyword">VALUES</span>(<span class="string">&#x27;w5&#x27;</span>,<span class="number">2</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_emp(NAME,deptId) <span class="keyword">VALUES</span>(<span class="string">&#x27;w6&#x27;</span>,<span class="number">2</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_emp(NAME,deptId) <span class="keyword">VALUES</span>(<span class="string">&#x27;s7&#x27;</span>,<span class="number">3</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_emp(NAME,deptId) <span class="keyword">VALUES</span>(<span class="string">&#x27;s8&#x27;</span>,<span class="number">4</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_emp(NAME,deptId) <span class="keyword">VALUES</span>(<span class="string">&#x27;s9&#x27;</span>,<span class="number">5</span> );</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tbl_emp(NAME,deptId) <span class="keyword">VALUES</span>(<span class="string">&#x27;wgk&#x27;</span>,<span class="number">999</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-示例一"><a href="#1-示例一" class="headerlink" title="1. 示例一"></a>1. 示例一</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> tbl_emp a <span class="keyword">inner</span> <span class="keyword">join</span> tbl_dept b <span class="keyword">on</span> a.deptId <span class="operator">=</span> b.id;</span><br></pre></td></tr></table></figure>
+<p>查询返回两个表共有的记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">+</span><span class="comment">----+------+--------+----+----------+--------+</span></span><br><span class="line"><span class="operator">|</span> id <span class="operator">|</span> name <span class="operator">|</span> deptId <span class="operator">|</span> id <span class="operator">|</span> deptName <span class="operator">|</span> locAdd <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+--------+----+----------+--------+</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">1</span> <span class="operator">|</span> z3   <span class="operator">|</span>      <span class="number">1</span> <span class="operator">|</span>  <span class="number">1</span> <span class="operator">|</span> RD       <span class="operator">|</span> <span class="number">11</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">2</span> <span class="operator">|</span> z4   <span class="operator">|</span>      <span class="number">1</span> <span class="operator">|</span>  <span class="number">1</span> <span class="operator">|</span> RD       <span class="operator">|</span> <span class="number">11</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">3</span> <span class="operator">|</span> z5   <span class="operator">|</span>      <span class="number">1</span> <span class="operator">|</span>  <span class="number">1</span> <span class="operator">|</span> RD       <span class="operator">|</span> <span class="number">11</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">4</span> <span class="operator">|</span> w5   <span class="operator">|</span>      <span class="number">2</span> <span class="operator">|</span>  <span class="number">2</span> <span class="operator">|</span> HR       <span class="operator">|</span> <span class="number">12</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">5</span> <span class="operator">|</span> w6   <span class="operator">|</span>      <span class="number">2</span> <span class="operator">|</span>  <span class="number">2</span> <span class="operator">|</span> HR       <span class="operator">|</span> <span class="number">12</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">6</span> <span class="operator">|</span> s7   <span class="operator">|</span>      <span class="number">3</span> <span class="operator">|</span>  <span class="number">3</span> <span class="operator">|</span> MK       <span class="operator">|</span> <span class="number">13</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">7</span> <span class="operator">|</span> s8   <span class="operator">|</span>      <span class="number">4</span> <span class="operator">|</span>  <span class="number">4</span> <span class="operator">|</span> MIS      <span class="operator">|</span> <span class="number">14</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">8</span> <span class="operator">|</span> s9   <span class="operator">|</span>      <span class="number">5</span> <span class="operator">|</span>  <span class="number">5</span> <span class="operator">|</span> FD       <span class="operator">|</span> <span class="number">15</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+--------+----+----------+--------+</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-示例二"><a href="#2-示例二" class="headerlink" title="2. 示例二"></a>2. 示例二</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> tbl_emp a <span class="keyword">left</span> <span class="keyword">join</span> tbl_dept b <span class="keyword">on</span> a.deptId <span class="operator">=</span> b.id;</span><br></pre></td></tr></table></figure>
+<p>查询返回 tbl_emp 所有记录和两个表共有的记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">+</span><span class="comment">----+------+--------+------+----------+--------+</span></span><br><span class="line"><span class="operator">|</span> id <span class="operator">|</span> name <span class="operator">|</span> deptId <span class="operator">|</span> id   <span class="operator">|</span> deptName <span class="operator">|</span> locAdd <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+--------+------+----------+--------+</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">1</span> <span class="operator">|</span> z3   <span class="operator">|</span>      <span class="number">1</span> <span class="operator">|</span>    <span class="number">1</span> <span class="operator">|</span> RD       <span class="operator">|</span> <span class="number">11</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">2</span> <span class="operator">|</span> z4   <span class="operator">|</span>      <span class="number">1</span> <span class="operator">|</span>    <span class="number">1</span> <span class="operator">|</span> RD       <span class="operator">|</span> <span class="number">11</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">3</span> <span class="operator">|</span> z5   <span class="operator">|</span>      <span class="number">1</span> <span class="operator">|</span>    <span class="number">1</span> <span class="operator">|</span> RD       <span class="operator">|</span> <span class="number">11</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">4</span> <span class="operator">|</span> w5   <span class="operator">|</span>      <span class="number">2</span> <span class="operator">|</span>    <span class="number">2</span> <span class="operator">|</span> HR       <span class="operator">|</span> <span class="number">12</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">5</span> <span class="operator">|</span> w6   <span class="operator">|</span>      <span class="number">2</span> <span class="operator">|</span>    <span class="number">2</span> <span class="operator">|</span> HR       <span class="operator">|</span> <span class="number">12</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">6</span> <span class="operator">|</span> s7   <span class="operator">|</span>      <span class="number">3</span> <span class="operator">|</span>    <span class="number">3</span> <span class="operator">|</span> MK       <span class="operator">|</span> <span class="number">13</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">7</span> <span class="operator">|</span> s8   <span class="operator">|</span>      <span class="number">4</span> <span class="operator">|</span>    <span class="number">4</span> <span class="operator">|</span> MIS      <span class="operator">|</span> <span class="number">14</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">8</span> <span class="operator">|</span> s9   <span class="operator">|</span>      <span class="number">5</span> <span class="operator">|</span>    <span class="number">5</span> <span class="operator">|</span> FD       <span class="operator">|</span> <span class="number">15</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">9</span> <span class="operator">|</span> wgk  <span class="operator">|</span>    <span class="number">999</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span> <span class="keyword">NULL</span>   <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+--------+------+----------+--------+</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-示例三"><a href="#3-示例三" class="headerlink" title="3. 示例三"></a>3. 示例三</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> tbl_emp a <span class="keyword">right</span> <span class="keyword">join</span> tbl_dept b <span class="keyword">on</span> a.deptId <span class="operator">=</span> b.id;</span><br></pre></td></tr></table></figure>
+<p>查询返回 tbl_dept 所有记录和两个表共有的记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">+</span><span class="comment">------+------+--------+----+----------+--------+</span></span><br><span class="line"><span class="operator">|</span> id   <span class="operator">|</span> name <span class="operator">|</span> deptId <span class="operator">|</span> id <span class="operator">|</span> deptName <span class="operator">|</span> locAdd <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+------+--------+----+----------+--------+</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">1</span> <span class="operator">|</span> z3   <span class="operator">|</span>      <span class="number">1</span> <span class="operator">|</span>  <span class="number">1</span> <span class="operator">|</span> RD       <span class="operator">|</span> <span class="number">11</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">2</span> <span class="operator">|</span> z4   <span class="operator">|</span>      <span class="number">1</span> <span class="operator">|</span>  <span class="number">1</span> <span class="operator">|</span> RD       <span class="operator">|</span> <span class="number">11</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">3</span> <span class="operator">|</span> z5   <span class="operator">|</span>      <span class="number">1</span> <span class="operator">|</span>  <span class="number">1</span> <span class="operator">|</span> RD       <span class="operator">|</span> <span class="number">11</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">4</span> <span class="operator">|</span> w5   <span class="operator">|</span>      <span class="number">2</span> <span class="operator">|</span>  <span class="number">2</span> <span class="operator">|</span> HR       <span class="operator">|</span> <span class="number">12</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">5</span> <span class="operator">|</span> w6   <span class="operator">|</span>      <span class="number">2</span> <span class="operator">|</span>  <span class="number">2</span> <span class="operator">|</span> HR       <span class="operator">|</span> <span class="number">12</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">6</span> <span class="operator">|</span> s7   <span class="operator">|</span>      <span class="number">3</span> <span class="operator">|</span>  <span class="number">3</span> <span class="operator">|</span> MK       <span class="operator">|</span> <span class="number">13</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">7</span> <span class="operator">|</span> s8   <span class="operator">|</span>      <span class="number">4</span> <span class="operator">|</span>  <span class="number">4</span> <span class="operator">|</span> MIS      <span class="operator">|</span> <span class="number">14</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">8</span> <span class="operator">|</span> s9   <span class="operator">|</span>      <span class="number">5</span> <span class="operator">|</span>  <span class="number">5</span> <span class="operator">|</span> FD       <span class="operator">|</span> <span class="number">15</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span>   <span class="keyword">NULL</span> <span class="operator">|</span>  <span class="number">6</span> <span class="operator">|</span> BSR      <span class="operator">|</span> <span class="number">250</span>    <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+------+--------+----+----------+--------+</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-示例四"><a href="#4-示例四" class="headerlink" title="4. 示例四"></a>4. 示例四</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> tbl_emp a <span class="keyword">left</span> <span class="keyword">join</span> tbl_dept b <span class="keyword">on</span> a.deptId <span class="operator">=</span> b.id <span class="keyword">where</span> b.id <span class="keyword">is</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<p>查询返回 tbl_emp 独有的记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">+</span><span class="comment">----+------+--------+------+----------+--------+</span></span><br><span class="line"><span class="operator">|</span> id <span class="operator">|</span> name <span class="operator">|</span> deptId <span class="operator">|</span> id   <span class="operator">|</span> deptName <span class="operator">|</span> locAdd <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+--------+------+----------+--------+</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">9</span> <span class="operator">|</span> wgk  <span class="operator">|</span>    <span class="number">999</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span> <span class="keyword">NULL</span>   <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+--------+------+----------+--------+</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-示例五"><a href="#5-示例五" class="headerlink" title="5. 示例五"></a>5. 示例五</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> tbl_emp a <span class="keyword">right</span> <span class="keyword">join</span> tbl_dept b <span class="keyword">on</span> a.deptId <span class="operator">=</span> b.id <span class="keyword">where</span> a.deptId <span class="keyword">is</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<p>查询返回 tbl_dept 独有的记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">+</span><span class="comment">------+------+--------+----+----------+--------+</span></span><br><span class="line"><span class="operator">|</span> id   <span class="operator">|</span> name <span class="operator">|</span> deptId <span class="operator">|</span> id <span class="operator">|</span> deptName <span class="operator">|</span> locAdd <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+------+--------+----+----------+--------+</span></span><br><span class="line"><span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span>   <span class="keyword">NULL</span> <span class="operator">|</span>  <span class="number">6</span> <span class="operator">|</span> BSR      <span class="operator">|</span> <span class="number">250</span>    <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+------+--------+----+----------+--------+</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-示例六"><a href="#6-示例六" class="headerlink" title="6. 示例六"></a>6. 示例六</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> tbl_emp a <span class="keyword">left</span> <span class="keyword">join</span> tbl_dept b <span class="keyword">on</span> a.deptId <span class="operator">=</span> b.id </span><br><span class="line"><span class="keyword">union</span> </span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> tbl_emp a <span class="keyword">right</span> <span class="keyword">join</span> tbl_dept b <span class="keyword">on</span> a.deptId <span class="operator">=</span> b.id;</span><br></pre></td></tr></table></figure>
+<p>查询返回 两个表全部 的记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">+</span><span class="comment">------+------+--------+------+----------+--------+</span></span><br><span class="line"><span class="operator">|</span> id   <span class="operator">|</span> name <span class="operator">|</span> deptId <span class="operator">|</span> id   <span class="operator">|</span> deptName <span class="operator">|</span> locAdd <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+------+--------+------+----------+--------+</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">1</span> <span class="operator">|</span> z3   <span class="operator">|</span>      <span class="number">1</span> <span class="operator">|</span>    <span class="number">1</span> <span class="operator">|</span> RD       <span class="operator">|</span> <span class="number">11</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">2</span> <span class="operator">|</span> z4   <span class="operator">|</span>      <span class="number">1</span> <span class="operator">|</span>    <span class="number">1</span> <span class="operator">|</span> RD       <span class="operator">|</span> <span class="number">11</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">3</span> <span class="operator">|</span> z5   <span class="operator">|</span>      <span class="number">1</span> <span class="operator">|</span>    <span class="number">1</span> <span class="operator">|</span> RD       <span class="operator">|</span> <span class="number">11</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">4</span> <span class="operator">|</span> w5   <span class="operator">|</span>      <span class="number">2</span> <span class="operator">|</span>    <span class="number">2</span> <span class="operator">|</span> HR       <span class="operator">|</span> <span class="number">12</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">5</span> <span class="operator">|</span> w6   <span class="operator">|</span>      <span class="number">2</span> <span class="operator">|</span>    <span class="number">2</span> <span class="operator">|</span> HR       <span class="operator">|</span> <span class="number">12</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">6</span> <span class="operator">|</span> s7   <span class="operator">|</span>      <span class="number">3</span> <span class="operator">|</span>    <span class="number">3</span> <span class="operator">|</span> MK       <span class="operator">|</span> <span class="number">13</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">7</span> <span class="operator">|</span> s8   <span class="operator">|</span>      <span class="number">4</span> <span class="operator">|</span>    <span class="number">4</span> <span class="operator">|</span> MIS      <span class="operator">|</span> <span class="number">14</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">8</span> <span class="operator">|</span> s9   <span class="operator">|</span>      <span class="number">5</span> <span class="operator">|</span>    <span class="number">5</span> <span class="operator">|</span> FD       <span class="operator">|</span> <span class="number">15</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">9</span> <span class="operator">|</span> wgk  <span class="operator">|</span>    <span class="number">999</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span> <span class="keyword">NULL</span>   <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span>   <span class="keyword">NULL</span> <span class="operator">|</span>    <span class="number">6</span> <span class="operator">|</span> BSR      <span class="operator">|</span> <span class="number">250</span>    <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+------+--------+------+----------+--------+</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="7-示例七"><a href="#7-示例七" class="headerlink" title="7. 示例七"></a>7. 示例七</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> tbl_emp a <span class="keyword">left</span> <span class="keyword">join</span> tbl_dept b <span class="keyword">on</span> a.deptId <span class="operator">=</span> b.id <span class="keyword">WHERE</span>  b.id <span class="keyword">is</span> <span class="keyword">null</span> </span><br><span class="line"><span class="keyword">union</span> </span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> tbl_emp a <span class="keyword">right</span> <span class="keyword">join</span> tbl_dept b <span class="keyword">on</span> a.deptId <span class="operator">=</span> b.id <span class="keyword">WHERE</span> a.deptId <span class="keyword">is</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+<p>查询返回 两个表各自独有 的记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">+</span><span class="comment">------+------+--------+------+----------+--------+</span></span><br><span class="line"><span class="operator">|</span> id   <span class="operator">|</span> name <span class="operator">|</span> deptId <span class="operator">|</span> id   <span class="operator">|</span> deptName <span class="operator">|</span> locAdd <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+------+--------+------+----------+--------+</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">9</span> <span class="operator">|</span> wgk  <span class="operator">|</span>    <span class="number">999</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span> <span class="keyword">NULL</span>   <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span>   <span class="keyword">NULL</span> <span class="operator">|</span>    <span class="number">6</span> <span class="operator">|</span> BSR      <span class="operator">|</span> <span class="number">250</span>    <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+------+--------+------+----------+--------+</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="/image/sidebar/avatar.gif" alt="马某人的技术分享博客">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：马某人的技术分享博客
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2020/11/19/MySQL%E4%B8%83%E7%A7%8DJOIN%E7%90%86%E8%AE%BA/" target="_blank">MySQL七种JOIN理论</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：路漫漫其修远兮,吾将上下而求索.
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/categories/MySQL/">MySQL</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tags/MySQL/">MySQL</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+                <a href="/2020/11/21/MySQL%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/" class="prev-prefix">« </a> 上一篇：    <a href="/2020/11/21/MySQL%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/" title="发布于 2020-11-21 12:00">MySQL索引优化</a>
+                <br>
+            
+            
+                <a href="/2020/11/19/MySQL%E7%9A%84Explain%E4%BD%BF%E7%94%A8/" class="next-prefix">» </a> 下一篇：    <a href="/2020/11/19/MySQL%E7%9A%84Explain%E4%BD%BF%E7%94%A8/" title="发布于 2020-11-19 12:00">MySQL的 EXPLAIN 使用</a>
+            
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
+</div>
+
+    </div>
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar"></div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span></span></div>        
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul></ul> 
+            </div> 
+            <div class="menu-link"></div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+
+    
+    
+    <div class="wrap-right"></div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : 'PlumDong',
+        GitHubRepositories : 'PlumDong.github.io',
+
+        BlogUser      : '马某人的技术分享博客',
+        BlogAvatar    : '/image/sidebar/avatar.gif',
+        BlogStartDate : '2019-01-01',
+
+        WebsiteTitleBlur         : '(◍´꒳`◍) Hi',
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : '/image/sidebar/avatar.gif',
+
+        ProgressBar: {
+            id       : 'topProgressBar',
+            color    : '#77B6FF',
+            height   : '2px',
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound: {
+                tension  : 16,
+                friction : 5
+            },
+            spinner: {
+                id     : 'spinner',
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : '#F0F0F0',
+                    stroke     : '#272633',
+                    base       : '',
+                    child      : '#272633'
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : false,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : 'rgba(255, 255, 255, .2)',
+            clearOffset : 0.3
+        },
+
+        ArticleHeaderAnimationRendered : false,
+        ArticleHeaderAnimation         : {
+            triW                  : 14,
+            triH                  : 20,
+            neighbours            : [
+                
+                    'side',
+                
+                    'top',
+                
+                    'bottom',
+                
+            ],
+            speedTrailAppear      : 0.1,
+            speedTrailDisappear   : 0.1,
+            speedTriOpen          : 1,
+            trailMaxLength        : 30,
+            trailIntervalCreation : 100,
+            delayBeforeDisappear  : 2,
+            colors                : [
+                
+                    '#96EDA6',
+                
+                    '#5BC6A9',
+                
+                    '#38668C',
+                
+                    '#374D84',
+                
+                    '#BED5CB',
+                
+                    '#62ADC6',
+                
+                    '#8EE5DE',
+                
+                    '#304E7B',
+                
+            ]
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : '60%',
+            colorBrightness  : '50%',
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : 'random',
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                '/image/header/home3.jpg',
+            
+                '/image/header/home4.jpg',
+            
+                '/image/header/home5.jpg',
+            
+                '/image/header/home6.jpg',
+            
+                '/image/header/home7.jpg',
+            
+                '/image/header/home8.jpg',
+            
+        ],
+        HomeBannerText  : '',
+
+        ArticleHeaderImage : [
+            
+                '/image/header/WZBJ1.jpg',
+            
+                '/image/header/WZBJ2.jpg',
+            
+                '/image/header/WZBJ3.jpg',
+            
+                '/image/header/WZBJ4.jpg',
+            
+                '/image/header/WZBJ5.jpg',
+            
+        ],
+
+        OtherBannerText : '',
+
+        MenuList : [
+            
+                {
+                    name   : '首页',
+                    href   : '/',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '标签',
+                    href   : '/tag',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '分类',
+                    href   : '/category',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '归档',
+                    href   : '/archives',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '关于',
+                    href   : '/about',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '订阅',
+                    href   : '/atom.xml',    
+                    target : '_blank',
+                    class  : ''
+                },
+            
+                {
+                    name   : '搜索',
+                    href   : '',    
+                    target : '',
+                    class  : 'search'
+                },
+            
+                {
+                    name   : '留言板',
+                    href   : '/comment',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '友情链接',
+                    href   : '/friend',    
+                    target : '',
+                    class  : ''
+                },
+            
+        ],
+        MenuLink : [
+            
+                
+                    {
+                        icon : 'icon-weibo', 
+                        url  : ''
+                    },
+                
+                    {
+                        icon : 'icon-wechat', 
+                        url  : ''
+                    },
+                
+                    {
+                        icon : 'icon-qq', 
+                        url  : ''
+                    },
+                
+                    {
+                        icon : 'icon-github', 
+                        url  : 'https://github.com/PlumDong'
+                    },
+                
+            
+        ],
+
+        FooterStyle : 3,
+        BottomText  : {
+            icon    : 'like-fill',
+            left    : '埋骨何须桑梓地',
+            right   : '人生何处不青山'
+        },
+        ThemeInfo   : false,
+
+        ConsoleList : [
+            
+        ],
+
+        FontIconExtend : '',
+
+        Donate : {
+            paypal  : '',
+            bitcoin : '',
+            alipay  : '',
+            wechat  : ''
+        },
+
+        Code : {
+            style : 'normal'
+        },  
+
+        Search : {
+            applicationID : 'L9VHR7NJYP',
+            apiKey        : 'a14cfc1cbbcbe531922284e99981692f',
+            indexName     : 'myhexo',
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : '搜索',
+                empty       : '未发现与 「${query}」 相关的内容',
+                stats       : '${hits} 条相关条目，使用了 ${time} 毫秒',
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : '.comments-content',
+            appId          : 'vUym7Ev8ixBbcY0wfsBzRd7n-gzGzoHsz',
+            appKey         : 'ajiuTP3iLRO3wky6ikwuPTsV',
+            placeholder    : '你是我一生只会遇见一次的惊喜...',
+            avatar         : 'mm',
+            meta           : 'nick,mail,link',
+            requiredFields : 'nick',
+            pageSize       : 5,
+            lang           : 'zh-cn',
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : '.toc',
+            contentSelector       : '.article-body',
+            headingSelector       : 'h1, h2, h3, h4, h5',
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : '.toc',
+            positionFixedClass    : 'toc-fixed',
+            fixedSidebarOffset    : '',
+        },
+
+        Require : {
+            baseUrl     : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/',
+            waitSeconds : 100
+        },
+
+        Music : {
+            type : 'Meting2'
+        },
+        APlayer : {
+            container : 'aplayer',
+            fixed     : true,
+            autoplay  : false,
+            loop      : 'all',
+            order     : 'random',
+            preload   : 'auto',
+            volume    : 0.67,
+            mutex     : true,
+            lrcType   : 3,
+            audio     : [
+                
+                    {
+                        name   : 'aLIEz',
+                        artist : 'mizuki（瑞葵）',
+                        cover  : '/music/cover/aLIEz.jpg',
+                        url    : '/music/song/aLIEz.mp3',
+                        lrc    : '/music/lrc/aLIEz.lrc'
+                    },
+                
+                    {
+                        name   : 'Endless Tears',
+                        artist : 'CLIFF EDGE',
+                        cover  : '/music/cover/Endless Tears.jpg',
+                        url    : '/music/song/Endless Tears.mp3',
+                        lrc    : '/music/lrc/Endless Tears.lrc'
+                    },
+                
+                    {
+                        name   : 'Miracle',
+                        artist : 'Cascada',
+                        cover  : '/music/cover/Miracle.jpg',
+                        url    : '/music/song/Miracle.mp3',
+                        lrc    : '/music/lrc/Miracle.lrc'
+                    },
+                
+                    {
+                        name   : 'Roll The Dice',
+                        artist : '高珊',
+                        cover  : '/music/cover/Roll The Dice.jpg',
+                        url    : '/music/song/Roll The Dice.mp3',
+                        lrc    : '/music/lrc/Roll The Dice.lrc'
+                    },
+                
+                    {
+                        name   : 'See You Again',
+                        artist : 'Charlie Puth, Wiz Khalifa',
+                        cover  : '/music/cover/See You Again.jpg',
+                        url    : '/music/song/See You Again.mp3',
+                        lrc    : '/music/lrc/See You Again.lrc'
+                    },
+                
+                    {
+                        name   : 'Traveling Light',
+                        artist : 'Joel Hanson, Sara Groves',
+                        cover  : '/music/cover/Traveling Light.jpg',
+                        url    : '/music/song/Traveling Light.mp3',
+                        lrc    : '/music/lrc/Traveling Light.lrc'
+                    },
+                
+                    {
+                        name   : '痴心绝对',
+                        artist : '李圣杰',
+                        cover  : '/music/cover/痴心绝对.jpg',
+                        url    : '/music/song/痴心绝对.mp3',
+                        lrc    : '/music/lrc/痴心绝对.lrc'
+                    },
+                
+                    {
+                        name   : '好想大声说爱你',
+                        artist : 'BAAD（バード）',
+                        cover  : '/music/cover/好想大声说爱你.jpg',
+                        url    : '/music/song/好想大声说爱你.mp3',
+                        lrc    : '/music/lrc/好想大声说爱你.lrc'
+                    },
+                
+            ]
+        },
+        Meting : {
+            id       : '3778678', 
+            lrcshow  : false, 
+            server   : 'netease', 
+            type     : 'playlist', 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : 'all', 
+            order    : 'random', 
+            preload  : 'auto', 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        LazyLoad : {
+            default : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/website/lazyload.svg'
+        },
+  
+        Style : {
+            aplayer          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css',
+            archive          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.css',
+            donate           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.css',
+            fancybox         : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.css',
+            footer           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.css',
+            iconfont         : 'https://at.alicdn.com/t/font_1546312_l3yohatebw.css',
+            index            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.css',
+            menuBubble       : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.css',
+            page             : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.css',
+            post             : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css',
+            search           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css',
+            tocbot           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.css',
+            normal           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/normal.css',
+            night            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/night.css',
+            clipboard        : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.css'
+        },
+
+        Script: {
+            aplayer          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js',
+            config           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.js',
+            index            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js',
+            instantSearch    : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js',
+            jQuery           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js',
+            loading          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.js',
+            meting           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js',
+            iscroll          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js',
+            require          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.min.js'
+        },
+
+        Font: {
+            LongCang   : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css',
+            Monda      : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css',
+            NotoSansSC : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css',
+            Playball   : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css',
+            PTMono     : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css',
+            RobotoSlab : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css',
+            Rosario    : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css',
+            UbuntuMono : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css'
+        },
+
+        Suffix : {
+            about : '路漫漫其修远兮,吾将上下而求索.'
+        },
+            
+        Theme : {
+            url  : '',
+            name : ''
+        }  
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>Java中Object六大方法简介</title>
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css">
+    
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/normal.css">
+    
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="马某人博客" type="application/atom+xml">
+</head>
+<body>
+    <a id="cover"></a>
+    <div id="header">
+    <div class="header">
+        <div class="vertical">
+            <div class="inner">
+                <h1 class="header-subtitle">Java中Object六大方法简介</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2020-11-11
+                        </span>
+                        
+                            <span id="/2020/11/11/Object六大方法简介/" class="leancloud_visitors" data-flag-title="Java中Object六大方法简介">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2020/11/11/Object六大方法简介/"></span>
+                        </span>  
+                    </p>                 
+                </div>
+            </div>
+        </div>
+        <canvas id="articleHeaderCanvas"></canvas>
+    </div>
+</div>
+    <div id="container">
+    <div id="content">
+        <div id="article">
+    <div class="toc"></div>
+    <div class="article-body">
+        <p><strong>Object类是类层次结构的根。每个类都有 Object作为超类。所有对象，包括数组。</strong></p>
+<h1 id="一、方法摘要"><a href="#一、方法摘要" class="headerlink" title="一、方法摘要"></a>一、方法摘要</h1><table>
+<thead>
+<tr>
+<th>修饰符和类型</th>
+<th>方法和说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>final Class&lt;?&gt; getClass()</td>
+<td>返回该 Object运行时类</td>
+</tr>
+<tr>
+<td>String toString()</td>
+<td>返回对象的字符串表示形式。</td>
+</tr>
+<tr>
+<td>protected Object clone()</td>
+<td>创建并返回此对象的副本。</td>
+</tr>
+<tr>
+<td>boolean equals(Object obj)</td>
+<td>判断其他对象与该对象是否相同</td>
+</tr>
+<tr>
+<td>int hashCode()</td>
+<td>返回对象的哈希码值</td>
+</tr>
+<tr>
+<td>void notify()</td>
+<td>唤醒正在等待对象锁的单个线程。</td>
+</tr>
+<tr>
+<td>void notifyAll()</td>
+<td>唤醒正在等待对象锁的所有线程</td>
+</tr>
+<tr>
+<td>void wait()</td>
+<td>当前线程等待，直到另一个线程调用该对象的 notify()方法或 notifyAll()方法。</td>
+</tr>
+<tr>
+<td>void wait(long timeout)</td>
+<td>当前线程等待，直到另一个线程调用 notify()方法或该对象的 notifyAll()方法，或超时。</td>
+</tr>
+<tr>
+<td>void wait(long timeout, int nanos)</td>
+<td>当前线程等待，直到另一个线程调用该对象的 notify()方法或 notifyAll()方法，或者被其他线程中断，或超时。</td>
+</tr>
+</tbody></table>
+<span id="more"></span>
+
+<h1 id="二、方法详细信息"><a href="#二、方法详细信息" class="headerlink" title="二、方法详细信息"></a>二、方法详细信息</h1><h2 id="1-getClass"><a href="#1-getClass" class="headerlink" title="1. getClass"></a>1. getClass</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span>&lt;?&gt; <span class="title">getClass</span>()</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>返回此Object的运行时类。 返回的类对象是被表示类的static synchronized方法锁定的对象。 </p>
+</li>
+<li><p>实际结果的类型是Class&lt;? extends |X|&gt;其中|X|是静态类型上其表达的擦除getClass被调用。</p>
+</li>
+<li><p>结果表示 类对象的运行时类的Class对象。 </p>
+</li>
+</ul>
+<h2 id="2-hashCode"><a href="#2-hashCode" class="headerlink" title="2. hashCode"></a>2. hashCode</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p>返回对象的哈希码值。 支持这种方法是为了散列表，如HashMap提供的那样 。<br>hashCode的条约： </p>
+<ul>
+<li>一个Java程序多次在同一个对象上调用该方法该方法必须返回相同的整数，前提是对象中equals方法没有被修改。 </li>
+<li>如果equals(Object)方法两个对象相等，则两个对象的hashCode方法返回的整数也必须相同。 </li>
+<li>如果两个对象的 equals(java.lang.Object) 方法不相等，那么这两个对象调用 hashCode 方法可以返回相同的结果。 但是为不相等的对象生成不同的整数结果可能会提高哈希表的性能。 </li>
+</ul>
+<h2 id="3-equals"><a href="#3-equals" class="headerlink" title="3. equals"></a>3. equals</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span></span></span><br></pre></td></tr></table></figure>
+<p>指示一些其他对象是否等于该对象。 </p>
+<p>equals方法在非空对象引用上实现等价关系： </p>
+<ul>
+<li>自反性 ：对于任何非空的参考值x ， x.equals(x)应该返回true 。 </li>
+<li>对称的 ：对于任何非空引用值x和y ， 当x.equals(y)返回true时，y.equals(x)也应该返回true 。 </li>
+<li>传递性 ：对于任何非空引用值x ， y和z ，如果x.equals(y)返回true且y.equals(z)也返回true ，那么x.equals(z)也一定返回true 。 </li>
+<li>一致的 ：对于任何非空引用值x和y ，多次调用x.equals(y)始终返回true或始终返回false ，前提是对象的equals方法没有被修改。 </li>
+<li>对于任何非空的参考值x ， x.equals(null)应该返回false 。<br>该equals类方法Object实现对象上差别可能性最大的相等关系; 也就是说，对于任何非空的参考值x和y ，当且仅当x和y引用相同的对象（ x == y具有值true ）时，该方法返回true 。 </li>
+</ul>
+<p>无论何时覆盖该方法，通常需要覆盖 hashCode 方法，以便维护hashCode方法的通用合同，该方法规定相等的对象必须具有相等的哈希码。 </p>
+<h2 id="4-clone"><a href="#4-clone" class="headerlink" title="4. clone"></a>4. clone</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span></span><br></pre></td></tr></table></figure>
+<h3 id="创建并返回此对象的副本。"><a href="#创建并返回此对象的副本。" class="headerlink" title="- 创建并返回此对象的副本。"></a>- 创建并返回此对象的副本。</h3><p>该方法执行该对象的“浅拷贝”，而不是“深度拷贝”操作。<br>其中克隆对象满足：</p>
+<ul>
+<li>x.clone() != x </li>
+<li>x.clone().getClass() == x.getClass() </li>
+</ul>
+<h3 id="异常-CloneNotSupportedException"><a href="#异常-CloneNotSupportedException" class="headerlink" title="- 异常 CloneNotSupportedException -"></a>- 异常 CloneNotSupportedException -</h3><ul>
+<li><p>如果Object类不实现接口 Cloneable ，则抛出CloneNotSupportedException 。</p>
+</li>
+<li><p>Object类本身并不实现接口Cloneable ，因此在类别为Object的对象上调用clone方法将导致运行时抛出异常。 </p>
+</li>
+<li><p>如果对象的类不支持Cloneable接口。      子类也可以抛出该异常表示实例无法被克隆。 </p>
+</li>
+</ul>
+<h2 id="5-toString"><a href="#5-toString" class="headerlink" title="5. toString"></a>5. toString</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">toString</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p>返回对象的字符串表示形式。 一般来说， toString方法返回一个用于说明这个对象的字符串。 </p>
+<p>返回值应该是一个简明扼要的表达，容易让人阅读。 建议所有子类覆盖此方法。 </p>
+<h2 id="6-notify"><a href="#6-notify" class="headerlink" title="6. notify"></a>6. notify</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>唤醒正在等待该对象锁的单个线程。 如果有多个线程正在等待该对象的锁，则任意选其中一个唤醒。 线程通过调用wait方法等待对象的锁。 </p>
+</li>
+<li><p>唤醒的线程要等待当前线程结束该对象的锁定才可继续。 唤醒的线程将以通常的方式与其他线程竞争。 </p>
+</li>
+<li><p>该方法只能由作为该对象的锁的所有者的线程调用。如果当前线程不是锁的所有者。 则会抛出异常IllegalMonitorStateException</p>
+</li>
+<li><p>线程以三种方式之一成为对象锁的所有者： </p>
+<ul>
+<li>通过执行该对象的同步实例方法。 </li>
+<li>通过执行在对象上synchronized synchronized语句</li>
+<li>对于类型为Class的对象，通过执行该类的同步静态方法。 </li>
+</ul>
+</li>
+</ul>
+<h2 id="7-notifyAll"><a href="#7-notifyAll" class="headerlink" title="7. notifyAll"></a>7. notifyAll</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">notifyAll</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>唤醒正在等待对象锁的所有线程。 线程通过调用wait方法之一等待对象的锁。 </p>
+</li>
+<li><p>唤醒的线程要等待当前线程结束该对象的锁定才可继续。 唤醒的线程将以通常的方式与其他线程竞争。 </p>
+</li>
+<li><p>该方法只能由作为该对象的锁的所有者的线程调用。如果当前线程不是锁的所有者。 则会抛出异常IllegalMonitorStateException</p>
+</li>
+</ul>
+<h2 id="8-wait"><a href="#8-wait" class="headerlink" title="8. wait"></a>8. wait</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout)</span></span></span><br><span class="line"><span class="function">                <span class="keyword">throws</span> InterruptedException</span></span><br></pre></td></tr></table></figure>
+<p>导致当前线程等待，直到另一个线程调用此对象的notify()方法或notifyAll()方法，或超时。 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout,</span></span></span><br><span class="line"><span class="params"><span class="function">                       <span class="keyword">int</span> nanos)</span></span></span><br><span class="line"><span class="function">                <span class="keyword">throws</span> InterruptedException</span></span><br></pre></td></tr></table></figure>
+<p>它允许对放弃之前等待通知的时间进行更精细的控制。 以纳秒为单位的实时数量由下式给出：<br> 1000000*timeout+nanos在所有其他方面，该方法与一个参数的方法wait(long)相同。 特别是， wait(0, 0)意味着同样的事情wait(0) 。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">()</span></span></span><br><span class="line"><span class="function">                <span class="keyword">throws</span> InterruptedException</span></span><br></pre></td></tr></table></figure>
+<p>这个方法的就是直接简单的执行了 wait(0) 。 </p>
+<ul>
+<li>参数 <ul>
+<li>timeout - 以毫秒为单位等待的最长时间。 </li>
+<li>nanos - 额外的时间，以纳秒范围0-999999。 </li>
+</ul>
+</li>
+<li>异常 <ul>
+<li>IllegalArgumentException - 如果超时值为负值或值不在0-999999范围内。 </li>
+<li>IllegalMonitorStateException - 如果当前线程不是此对象的锁的所有者。 </li>
+<li>InterruptedException - 如果任何线程在当前线程等待通知之前或当前线程中断当前线程。 当抛出此异常时，当前线程的中断状态将被清除。 </li>
+</ul>
+</li>
+</ul>
+
+        <p class="suffix-end">__END__</p>
+        <div class="suffix-box">
+            <div class="suffix-box-left">
+                <img src="/image/sidebar/avatar.gif" alt="马某人的技术分享博客">
+            </div>
+            <div class="suffix-box-right">
+                <span class="suffix-box-title">文章作者</span>：马某人的技术分享博客
+                <br>
+                <span class="suffix-box-title">文章出处</span>：<a href="/2020/11/11/Object%E5%85%AD%E5%A4%A7%E6%96%B9%E6%B3%95%E7%AE%80%E4%BB%8B/" target="_blank">Java中Object六大方法简介</a>
+                <br>
+                <span class="suffix-box-title">作者签名</span>：路漫漫其修远兮,吾将上下而求索.
+                <br>
+                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+                <br>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div class="article-footer">
+        
+            <div class="category">
+                分类：
+                
+                    <a href="/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
+                
+            </div>
+        
+        
+            <div class="tag">
+                标签：
+                
+                    <a href="/tags/Java/">Java</a>
+                
+            </div>
+        
+        <div class="article-prev-next">
+            
+                <a href="/2020/11/16/CentOS7%E5%88%9D%E5%A7%8B%E5%8C%96%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="prev-prefix">« </a> 上一篇：    <a href="/2020/11/16/CentOS7%E5%88%9D%E5%A7%8B%E5%8C%96%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="发布于 2020-11-16 12:00">CentOS7初始化环境搭建</a>
+                <br>
+            
+            
+                <a href="/2020/11/10/Java%E4%B8%AD%E7%9A%84%E4%B8%89%E5%A4%A7%E9%9B%86%E5%90%88%E7%B1%BB/" class="next-prefix">» </a> 下一篇：    <a href="/2020/11/10/Java%E4%B8%AD%E7%9A%84%E4%B8%89%E5%A4%A7%E9%9B%86%E5%90%88%E7%B1%BB/" title="发布于 2020-11-10 03:23">Java中的三大集合类 List、Set、Map区别</a>
+            
+        </div>
+    </div>
+    
+    <div class="article-comments">
+        <div class="comments-title">
+            评论列表
+        </div>
+        <div class="comments-content">
+        </div>
+    </div>
+
+</div>
+
+    </div>
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar"></div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span></span></div>        
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul></ul> 
+            </div> 
+            <div class="menu-link"></div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+
+    
+    
+    <div class="wrap-right"></div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : 'PlumDong',
+        GitHubRepositories : 'PlumDong.github.io',
+
+        BlogUser      : '马某人的技术分享博客',
+        BlogAvatar    : '/image/sidebar/avatar.gif',
+        BlogStartDate : '2019-01-01',
+
+        WebsiteTitleBlur         : '(◍´꒳`◍) Hi',
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : '/image/sidebar/avatar.gif',
+
+        ProgressBar: {
+            id       : 'topProgressBar',
+            color    : '#77B6FF',
+            height   : '2px',
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound: {
+                tension  : 16,
+                friction : 5
+            },
+            spinner: {
+                id     : 'spinner',
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : '#F0F0F0',
+                    stroke     : '#272633',
+                    base       : '',
+                    child      : '#272633'
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : false,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : 'rgba(255, 255, 255, .2)',
+            clearOffset : 0.3
+        },
+
+        ArticleHeaderAnimationRendered : false,
+        ArticleHeaderAnimation         : {
+            triW                  : 14,
+            triH                  : 20,
+            neighbours            : [
+                
+                    'side',
+                
+                    'top',
+                
+                    'bottom',
+                
+            ],
+            speedTrailAppear      : 0.1,
+            speedTrailDisappear   : 0.1,
+            speedTriOpen          : 1,
+            trailMaxLength        : 30,
+            trailIntervalCreation : 100,
+            delayBeforeDisappear  : 2,
+            colors                : [
+                
+                    '#96EDA6',
+                
+                    '#5BC6A9',
+                
+                    '#38668C',
+                
+                    '#374D84',
+                
+                    '#BED5CB',
+                
+                    '#62ADC6',
+                
+                    '#8EE5DE',
+                
+                    '#304E7B',
+                
+            ]
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : '60%',
+            colorBrightness  : '50%',
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : 'random',
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                '/image/header/home3.jpg',
+            
+                '/image/header/home4.jpg',
+            
+                '/image/header/home5.jpg',
+            
+                '/image/header/home6.jpg',
+            
+                '/image/header/home7.jpg',
+            
+                '/image/header/home8.jpg',
+            
+        ],
+        HomeBannerText  : '',
+
+        ArticleHeaderImage : [
+            
+                '/image/header/WZBJ1.jpg',
+            
+                '/image/header/WZBJ2.jpg',
+            
+                '/image/header/WZBJ3.jpg',
+            
+                '/image/header/WZBJ4.jpg',
+            
+                '/image/header/WZBJ5.jpg',
+            
+        ],
+
+        OtherBannerText : '',
+
+        MenuList : [
+            
+                {
+                    name   : '首页',
+                    href   : '/',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '标签',
+                    href   : '/tag',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '分类',
+                    href   : '/category',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '归档',
+                    href   : '/archives',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '关于',
+                    href   : '/about',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '订阅',
+                    href   : '/atom.xml',    
+                    target : '_blank',
+                    class  : ''
+                },
+            
+                {
+                    name   : '搜索',
+                    href   : '',    
+                    target : '',
+                    class  : 'search'
+                },
+            
+                {
+                    name   : '留言板',
+                    href   : '/comment',    
+                    target : '',
+                    class  : ''
+                },
+            
+                {
+                    name   : '友情链接',
+                    href   : '/friend',    
+                    target : '',
+                    class  : ''
+                },
+            
+        ],
+        MenuLink : [
+            
+                
+                    {
+                        icon : 'icon-weibo', 
+                        url  : ''
+                    },
+                
+                    {
+                        icon : 'icon-wechat', 
+                        url  : ''
+                    },
+                
+                    {
+                        icon : 'icon-qq', 
+                        url  : ''
+                    },
+                
+                    {
+                        icon : 'icon-github', 
+                        url  : 'https://github.com/PlumDong'
+                    },
+                
+            
+        ],
+
+        FooterStyle : 3,
+        BottomText  : {
+            icon    : 'like-fill',
+            left    : '埋骨何须桑梓地',
+            right   : '人生何处不青山'
+        },
+        ThemeInfo   : false,
+
+        ConsoleList : [
+            
+        ],
+
+        FontIconExtend : '',
+
+        Donate : {
+            paypal  : '',
+            bitcoin : '',
+            alipay  : '',
+            wechat  : ''
+        },
+
+        Code : {
+            style : 'normal'
+        },  
+
+        Search : {
+            applicationID : 'L9VHR7NJYP',
+            apiKey        : 'a14cfc1cbbcbe531922284e99981692f',
+            indexName     : 'myhexo',
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : '搜索',
+                empty       : '未发现与 「${query}」 相关的内容',
+                stats       : '${hits} 条相关条目，使用了 ${time} 毫秒',
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : '.comments-content',
+            appId          : 'vUym7Ev8ixBbcY0wfsBzRd7n-gzGzoHsz',
+            appKey         : 'ajiuTP3iLRO3wky6ikwuPTsV',
+            placeholder    : '你是我一生只会遇见一次的惊喜...',
+            avatar         : 'mm',
+            meta           : 'nick,mail,link',
+            requiredFields : 'nick',
+            pageSize       : 5,
+            lang           : 'zh-cn',
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : '.toc',
+            contentSelector       : '.article-body',
+            headingSelector       : 'h1, h2, h3, h4, h5',
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : '.toc',
+            positionFixedClass    : 'toc-fixed',
+            fixedSidebarOffset    : '',
+        },
+
+        Require : {
+            baseUrl     : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/',
+            waitSeconds : 100
+        },
+
+        Music : {
+            type : 'Meting2'
+        },
+        APlayer : {
+            container : 'aplayer',
+            fixed     : true,
+            autoplay  : false,
+            loop      : 'all',
+            order     : 'random',
+            preload   : 'auto',
+            volume    : 0.67,
+            mutex     : true,
+            lrcType   : 3,
+            audio     : [
+                
+                    {
+                        name   : 'aLIEz',
+                        artist : 'mizuki（瑞葵）',
+                        cover  : '/music/cover/aLIEz.jpg',
+                        url    : '/music/song/aLIEz.mp3',
+                        lrc    : '/music/lrc/aLIEz.lrc'
+                    },
+                
+                    {
+                        name   : 'Endless Tears',
+                        artist : 'CLIFF EDGE',
+                        cover  : '/music/cover/Endless Tears.jpg',
+                        url    : '/music/song/Endless Tears.mp3',
+                        lrc    : '/music/lrc/Endless Tears.lrc'
+                    },
+                
+                    {
+                        name   : 'Miracle',
+                        artist : 'Cascada',
+                        cover  : '/music/cover/Miracle.jpg',
+                        url    : '/music/song/Miracle.mp3',
+                        lrc    : '/music/lrc/Miracle.lrc'
+                    },
+                
+                    {
+                        name   : 'Roll The Dice',
+                        artist : '高珊',
+                        cover  : '/music/cover/Roll The Dice.jpg',
+                        url    : '/music/song/Roll The Dice.mp3',
+                        lrc    : '/music/lrc/Roll The Dice.lrc'
+                    },
+                
+                    {
+                        name   : 'See You Again',
+                        artist : 'Charlie Puth, Wiz Khalifa',
+                        cover  : '/music/cover/See You Again.jpg',
+                        url    : '/music/song/See You Again.mp3',
+                        lrc    : '/music/lrc/See You Again.lrc'
+                    },
+                
+                    {
+                        name   : 'Traveling Light',
+                        artist : 'Joel Hanson, Sara Groves',
+                        cover  : '/music/cover/Traveling Light.jpg',
+                        url    : '/music/song/Traveling Light.mp3',
+                        lrc    : '/music/lrc/Traveling Light.lrc'
+                    },
+                
+                    {
+                        name   : '痴心绝对',
+                        artist : '李圣杰',
+                        cover  : '/music/cover/痴心绝对.jpg',
+                        url    : '/music/song/痴心绝对.mp3',
+                        lrc    : '/music/lrc/痴心绝对.lrc'
+                    },
+                
+                    {
+                        name   : '好想大声说爱你',
+                        artist : 'BAAD（バード）',
+                        cover  : '/music/cover/好想大声说爱你.jpg',
+                        url    : '/music/song/好想大声说爱你.mp3',
+                        lrc    : '/music/lrc/好想大声说爱你.lrc'
+                    },
+                
+            ]
+        },
+        Meting : {
+            id       : '3778678', 
+            lrcshow  : false, 
+            server   : 'netease', 
+            type     : 'playlist', 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : 'all', 
+            order    : 'random', 
+            preload  : 'auto', 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        LazyLoad : {
+            default : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/website/lazyload.svg'
+        },
+  
+        Style : {
+            aplayer          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css',
+            archive          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.css',
+            donate           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.css',
+            fancybox         : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.css',
+            footer           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.css',
+            iconfont         : 'https://at.alicdn.com/t/font_1546312_l3yohatebw.css',
+            index            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.css',
+            menuBubble       : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.css',
+            page             : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.css',
+            post             : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css',
+            search           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css',
+            tocbot           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.css',
+            normal           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/normal.css',
+            night            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/night.css',
+            clipboard        : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.css'
+        },
+
+        Script: {
+            aplayer          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js',
+            config           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.js',
+            index            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js',
+            instantSearch    : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js',
+            jQuery           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js',
+            loading          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.js',
+            meting           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js',
+            iscroll          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js',
+            require          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.min.js'
+        },
+
+        Font: {
+            LongCang   : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css',
+            Monda      : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css',
+            NotoSansSC : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css',
+            Playball   : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css',
+            PTMono     : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css',
+            RobotoSlab : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css',
+            Rosario    : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css',
+            UbuntuMono : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css'
+        },
+
+        Suffix : {
+            about : '路漫漫其修远兮,吾将上下而求索.'
+        },
+            
+        Theme : {
+            url  : '',
+            name : ''
+        }  
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js"></script>
+</body>
+</html>
