@@ -6,7 +6,7 @@
   <link href="https://plumdong.github.io/atom.xml" rel="self"/>
   
   <link href="https://plumdong.github.io/"/>
-  <updated>2021-12-27T08:27:24.647Z</updated>
+  <updated>2022-01-12T02:51:02.466Z</updated>
   <id>https://plumdong.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Redis ZSet 底层数据结构</title>
+    <link href="https://plumdong.github.io/2022/01/01/Redis%20ZSet%20%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    <id>https://plumdong.github.io/2022/01/01/Redis%20ZSet%20%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</id>
+    <published>2021-12-31T16:00:00.000Z</published>
+    <updated>2022-01-12T02:51:02.466Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="一、Redis-常用的5种数据类型"><a href="#一、Redis-常用的5种数据类型" class="headerlink" title="一、Redis 常用的5种数据类型"></a>一、Redis 常用的5种数据类型</h1><p>1.字符串（String）<br>2.列表（List）<br>3.哈希（Hash）<br>4.集合（Set）<br>5.有序结合（ZSet）</p><h1 id="二、Zset的底层数据结构"><a href="#二、Zset的底层数据结构" class="headerlink" title="二、Zset的底层数据结构"></a>二、Zset的底层数据结构</h1><ul><li>Zset的底层使用ziplist（压缩列表）或者skiplist（跳表）</li><li>同时满足条件（1）元素数量小于128个（zet-max-ziplist-entries 128）（2）所有member的长度小于64字节（zet-max-ziplist-value 64），则使用ziplist数据结构否则使用skiplist。</li></ul><h2 id="skiplist-结构"><a href="#skiplist-结构" class="headerlink" title="skiplist 结构"></a>skiplist 结构</h2><h3 id="1-skiplist-结构体源码"><a href="#1-skiplist-结构体源码" class="headerlink" title="1.skiplist 结构体源码"></a>1.skiplist 结构体源码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zset</span>&#123;</span></span><br><span class="line">  <span class="comment">//跳表</span></span><br><span class="line">  zskiplist *zsl;</span><br><span class="line">  <span class="comment">//字典</span></span><br><span class="line">  dict *dice;</span><br><span class="line">&#125;zset;</span><br></pre></td></tr></table></figure><h3 id="2-跳表查找原理"><a href="#2-跳表查找原理" class="headerlink" title="2.跳表查找原理"></a>2.跳表查找原理</h3><ul><li>跳表（skip List）基于链表，只不过它在链表的基础上增加了跳跃功能，实现简单插入删除查找的复杂度均为O(logN)的链表。</li><li><strong>每相邻两个节点增加一个指针，让指针指向下下个节点，所有新增加的指针连成了一个新的链表，但他包含的节点个数只有原来的一半。</strong></li><li>现在当我们想要查找数据的时候，可以先沿着这个新的链表进行查找。当碰到比待查数据大的节点时，再回到原先链表中的该节点进行查找，查找过程中，由于新增加的指针，我们不再需要与链表中每个节点进行逐个比较。需要比较的节点数约为原先的二分之一，</li><li>因此可以在新的链表上继续为每个相邻的节点增加一个指针，从而产生第三层链表，当链表足够长时，这种多层链表查找的的方式能让我们跳过很多下层节点，大大加快查找速度。</li></ul><p><img src="/myimages/2125960-20211230151034651-1061392070.png" alt="跳表"></p><h3 id="3-Zset为什么选择-skiplist"><a href="#3-Zset为什么选择-skiplist" class="headerlink" title="3. Zset为什么选择 skiplist"></a>3. Zset为什么选择 skiplist</h3><ul><li>有序和无序：skiplist和各种平衡树（AVL，红黑树）的元素是有序排列的，而hash表不是有序的，因此在hash表上只能做单个key的查找，不适合做范围查找。</li><li>范围查找：在做范围查找的时候，平衡树比skiplist操作复杂。在平衡树上找到指定范围的最小值后，还需要以中序遍历顺序继续寻找其他不超过最大值的节点，如果不对平衡树进行一定的改造，中序遍历并不容易实现。而skiplist上进行范围查找就非常简单，只需要找到最小值后对第一层链表进行若干步遍历就可以实现，</li><li>插入和删除：平衡树的插入和删除可能引起子树的调整，逻辑复杂，而skiplist的插入和删除只需要修改相邻节点的指针，操作简单迅速。</li><li>单个查找：查找单个key，skiplist和平衡树的时间复杂度都为O(logN)，大体相当：而hash表在保持较低的hash值冲突概率的前提下，查找时间复杂度接近O(1)，性能更高一些。所以我们平常使用的各种Map或者dictionary结构，大都是基于hash表实现的。</li></ul><p>总结 ：平衡树和skiplit的查找、插入、删除的速度相当，但是从算法实现难度比较skiplit比平衡树简单。因此选择 skiplist 作为Zset的底层数据结构。</p>]]></content>
+    
+    
+    <summary type="html">Zset的底层使用ziplist（压缩列表）或者skiplist（跳表） 同时满足条件（1）元素数量小于128个（zet-max-ziplist-entries 128）（2）所有member的长度小于64字节（zet-max-ziplist-value 64），则使用ziplist数据结构否则使用skiplist。</summary>
+    
+    
+    
+    <category term="Redis" scheme="https://plumdong.github.io/categories/Redis/"/>
+    
+    
+    <category term="Redis" scheme="https://plumdong.github.io/tags/Redis/"/>
+    
+  </entry>
   
   <entry>
     <title>浏览器输入URL后发生了什么</title>
@@ -42,16 +63,12 @@
     <link href="https://plumdong.github.io/2021/08/20/%E5%AD%90%E4%B8%B2%E5%8C%B9%E9%85%8D%E2%80%94KMP%E7%AE%97%E6%B3%95/"/>
     <id>https://plumdong.github.io/2021/08/20/%E5%AD%90%E4%B8%B2%E5%8C%B9%E9%85%8D%E2%80%94KMP%E7%AE%97%E6%B3%95/</id>
     <published>2021-08-19T16:00:00.000Z</published>
-    <updated>2021-12-27T00:39:08.958Z</updated>
+    <updated>2022-01-12T02:53:57.338Z</updated>
     
     <content type="html"><![CDATA[<h1 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h1><p>实现 strStr() 函数。</p><p>给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回  -1 。</p><p>当 <code>needle</code> 是空字符串时，应当返回0。</p><h1 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h1><p>KMP算法是用于求解字符串匹配的算法，其可以把时间复杂度降为O(m+n)，进而大大提升效率。</p><p>第一步是求解next数组，是子串needle自己对自己做匹配，其定义为： t[0]~t[x] 这一段字符串，使得<strong>K-前缀恰等于K-后缀</strong>的最大的K.</p><p>因此计算next[x]则需要先知道next[x-1]，记为k，然后判断t[x-1]与t[k]是否相等，如果相等表明最长前后相等的前后缀增大了一位即next[x]=k+1，</p><p>如果不相等应该减小k，然后再次判断t[x-1]与t[k]是否相等，为了使k尽可能的大，k应该等于next[k]。</p><p>第二步就是根据所求得的next数组，与s字符数组进行匹配，如果t与s相等则两者都向前移一位，如果相等则t串的指针移至此时的指针对应的next数组的值。</p><p>整个匹配过程s字符串的指针不会后退因此只需要遍历一边s字符串等到结果提升了匹配效率。</p><h1 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KMP</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        KMP kmp = <span class="keyword">new</span> KMP();</span><br><span class="line">        System.out.println(kmp.strStr(<span class="string">&quot;abcabaabaabcacb&quot;</span>, <span class="string">&quot;abaabcac&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">strStr</span><span class="params">(String haystack, String needle)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] s = haystack.toCharArray();</span><br><span class="line">        <span class="keyword">char</span>[] t = needle.toCharArray();</span><br><span class="line">        <span class="keyword">int</span>[] next = getNext(t);</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i&lt;s.length &amp;&amp; j&lt;t.length)&#123;</span><br><span class="line">            <span class="keyword">if</span> (j == -<span class="number">1</span> || s[i] == t[j])&#123;</span><br><span class="line">                i++;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                j = next[j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (j == t.length)</span><br><span class="line">            <span class="keyword">return</span> i-j;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] getNext(<span class="keyword">char</span>[] t)&#123;</span><br><span class="line">        <span class="keyword">int</span>[] next = <span class="keyword">new</span> <span class="keyword">int</span>[t.length];</span><br><span class="line">        next[<span class="number">0</span>] = -<span class="number">1</span>;</span><br><span class="line">        next[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; t.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> k = next[i-<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">while</span> (k != -<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (t[i-<span class="number">1</span>] == t[k])&#123;</span><br><span class="line">                    next[i] = k+<span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    k = next[k];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;h1 id=&quot;一、问题描述&quot;&gt;&lt;a href=&quot;#一、问题描述&quot; class=&quot;headerlink&quot; title=&quot;一、问题描述&quot;&gt;&lt;/a&gt;一、问题描述&lt;/h1&gt;&lt;p&gt;实现 strStr() 函数。&lt;/p&gt;
-&lt;p&gt;给你两个字符串 haystack 和 needle ，请你在 </summary>
-      
+    <summary type="html">实现 strStr() 函数。给你两个字符串 haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回  -1 。当 `needle` 是空字符串时，应当返回0。</summary>
     
     
     
@@ -490,31 +507,6 @@
 &lt;td&gt;当前线程等待，直到另一个线程调用该对象的 notify()方法或 notifyAll()方法，或者被其他线程中断，或超时。&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;&lt;/table&gt;</summary>
-    
-    
-    
-    <category term="Java基础" scheme="https://plumdong.github.io/categories/Java%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="Java" scheme="https://plumdong.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java中的三大集合类 List、Set、Map区别</title>
-    <link href="https://plumdong.github.io/2020/11/10/Java%E4%B8%AD%E7%9A%84%E4%B8%89%E5%A4%A7%E9%9B%86%E5%90%88%E7%B1%BB/"/>
-    <id>https://plumdong.github.io/2020/11/10/Java%E4%B8%AD%E7%9A%84%E4%B8%89%E5%A4%A7%E9%9B%86%E5%90%88%E7%B1%BB/</id>
-    <published>2020-11-10T07:23:56.000Z</published>
-    <updated>2021-12-27T00:39:08.942Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="一、List（列表）Set（集合）Map（映射）和实现关系"><a href="#一、List（列表）Set（集合）Map（映射）和实现关系" class="headerlink" title="一、List（列表）Set（集合）Map（映射）和实现关系"></a>一、List（列表）Set（集合）Map（映射）和实现关系</h1><ul><li> <strong>List</strong> 和 <strong>Set</strong> 接口都是继承 <strong>Collection</strong> 接口，<strong>Map</strong> 未继承任何接口，因此它与 <strong>Collection</strong> 接口平级。</li><li>List主要有两个实现类 <strong>ArrayList</strong>（数组列表） 和 <strong>LinkedList</strong> （双向链表）。</li><li>set 主要有两个实现类 <strong>HashSet</strong> 和 <strong>TreeSet</strong> </li><li>map 主要实现类有 <strong>Hashtable</strong> 、<strong>HashMap</strong> 、 <strong>TreeMap</strong>。<span id="more"></span></li></ul><p><img src="/myimages/202011101957.png" alt="list,set,map"></p><h1 id="二、-List-实现类"><a href="#二、-List-实现类" class="headerlink" title="二、 List 实现类"></a>二、 List 实现类</h1><ul><li>List 是以线性方式存储数据，可以存储相同数据</li><li>ArrayList 是一个可以动态修改的数组，没有固定大小的限制，可快速访问数据。</li><li>LinkedList 是一个由双向链表组成的列表，快速插入或删除数据。</li><li>ArrayList 和 LinkedList 都是线程不安全的。Vector类是线程安全的。</li></ul><h1 id="三、-Set-实现类"><a href="#三、-Set-实现类" class="headerlink" title="三、 Set 实现类"></a>三、 Set 实现类</h1><ul><li><p>Set 是 按照数据的 HashCode 存储对象，不可以存储相同对象，存取速度快。</p></li><li><p>HashSet 是基于HashMap实现的集合。允许有 null 值，不是线程安全的。</p></li><li><p>TreeSet 是基于TreeMap实现的有序的集合。实现了SortedSet 接口可以对集合中的对象进行排序底层结构是红黑树，依靠比较器去重。不是线程安全的。</p><h1 id="四、-Map-实现类"><a href="#四、-Map-实现类" class="headerlink" title="四、 Map 实现类"></a>四、 Map 实现类</h1></li><li><p>Map是一种把键和值映射的集合，每一元素都包含一个键和一个值。不可重复。</p></li><li><p>HashMap 是一个散列表、存储键值对(key-value)的映射。<br>根据键的 HashCode 值存储数据，具有很快的访问速度，最多允许一个的键为 null，无序且不是线程安全的。</p></li><li><p>TreeMap 是一个基于红黑树实现的映射，内部会按照键值有序存储。不是线程安全的。</p></li><li><p>Hashtable 键和值都是非空且，是线程安全的每次锁住整张表，如果需要线程安全且高并发应该使用  java.util.concurrent.ConcurrentHashMap&lt;K,V&gt;类</p></li><li><p>线程安全的map类有：1.HashTable 2. SynchronizedMap 3. ConcurrentHashMap（推荐）</p></li></ul><h1 id="五、主要区别"><a href="#五、主要区别" class="headerlink" title="五、主要区别"></a>五、主要区别</h1><table><thead><tr><th></th><th>List</th><th>Set</th><th>Map</th></tr></thead><tbody><tr><td>继承接口</td><td>Collection</td><td>Collection</td><td></td></tr><tr><td>常用实现类</td><td>ArrayList、LinkedList、Vector</td><td>HashSet、TreeSet</td><td>HashMap、HashTable、TreeMap</td></tr><tr><td>是否可重复</td><td>可重复</td><td>不可重复</td><td>不可重复</td></tr><tr><td>顺序</td><td>有序</td><td>无序</td><td>无序</td></tr><tr><td>线程安全</td><td>Vector 类线程安全</td><td></td><td>Hashtable 类线程安全</td></tr></tbody></table>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;一、List（列表）Set（集合）Map（映射）和实现关系&quot;&gt;&lt;a href=&quot;#一、List（列表）Set（集合）Map（映射）和实现关系&quot; class=&quot;headerlink&quot; title=&quot;一、List（列表）Set（集合）Map（映射）和实现关系&quot;&gt;&lt;/a&gt;一、List（列表）Set（集合）Map（映射）和实现关系&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt; &lt;strong&gt;List&lt;/strong&gt; 和 &lt;strong&gt;Set&lt;/strong&gt; 接口都是继承 &lt;strong&gt;Collection&lt;/strong&gt; 接口，&lt;strong&gt;Map&lt;/strong&gt; 未继承任何接口，因此它与 &lt;strong&gt;Collection&lt;/strong&gt; 接口平级。&lt;/li&gt;
-&lt;li&gt;List主要有两个实现类 &lt;strong&gt;ArrayList&lt;/strong&gt;（数组列表） 和 &lt;strong&gt;LinkedList&lt;/strong&gt; （双向链表）。&lt;/li&gt;
-&lt;li&gt;set 主要有两个实现类 &lt;strong&gt;HashSet&lt;/strong&gt; 和 &lt;strong&gt;TreeSet&lt;/strong&gt; &lt;/li&gt;
-&lt;li&gt;map 主要实现类有 &lt;strong&gt;Hashtable&lt;/strong&gt; 、&lt;strong&gt;HashMap&lt;/strong&gt; 、 &lt;strong&gt;TreeMap&lt;/strong&gt;。</summary>
     
     
     
