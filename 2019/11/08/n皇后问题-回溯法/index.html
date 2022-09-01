@@ -6,32 +6,37 @@
     <meta name="referrer" content="origin">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-    <title>n皇后问题--回溯法</title>
+    <title>
+        
+            n皇后问题--回溯法
+        
+    </title>
+    <link rel="shortcut icon" href="#"/>
 
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css">
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css">
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css">
-    
-        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/normal.css">
-    
+    <link type="text/css" rel="stylesheet" href="">
+    <link type="text/css" rel="stylesheet" href="">
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
-
 <meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="马某人博客" type="application/atom+xml">
 </head>
 <body>
     <a id="cover"></a>
-    <div id="header">
-    <div class="header">
-        <div class="vertical">
-            <div class="inner">
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
+<div id="header" class="header">
+    <div class="vertical">
+        <div class="inner">
+            
                 <h1 class="header-subtitle">n皇后问题--回溯法</h1>
                 <div class="header-subinfo">
                     <p class="article-info-text">
@@ -46,19 +51,32 @@
                         <span>
                             <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2019/11/08/n皇后问题-回溯法/"></span>
                         </span>  
-                    </p>                 
+                    </p>
+                    
+                        
+                            <span class="category-color">算法不能丢</span>
+                        
+                    
+                    
+                        
+                            <span class="tag-color">C++</span>
+                        
+                            <span class="tag-color">算法不能丢</span>
+                        
+                    
                 </div>
-            </div>
+            
         </div>
-        <canvas id="articleHeaderCanvas"></canvas>
     </div>
+    
 </div>
-    <div id="container">
-    <div id="content">
+<div id="container">
+    
+        <!-- 文章页面 -->
         <div id="article">
-    <div class="toc"></div>
-    <div class="article-body">
-        <h1 id="一、问题简介"><a href="#一、问题简介" class="headerlink" title="一、问题简介"></a>一、问题简介</h1><h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>在n×n 格的棋盘上放置彼此不受攻击的n 个皇后。按照国际象棋的规则，皇后可以攻击与之处在同一行或同一列或同一斜线上的棋子。n后问题等价于在n×n格的棋盘上放置n个皇后，任何2 个皇后不放在同一行或同一列或同一斜线上。 设计一个解n 后问题的队列式分支限界法，计算在n× n个方格上放置彼此不受攻击的n个皇后的一个放置方案。</p>
+            <div class="toc"></div>
+            <div class="article-body">
+                <h1 id="一、问题简介"><a href="#一、问题简介" class="headerlink" title="一、问题简介"></a>一、问题简介</h1><h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>在n×n 格的棋盘上放置彼此不受攻击的n 个皇后。按照国际象棋的规则，皇后可以攻击与之处在同一行或同一列或同一斜线上的棋子。n后问题等价于在n×n格的棋盘上放置n个皇后，任何2 个皇后不放在同一行或同一列或同一斜线上。 设计一个解n 后问题的队列式分支限界法，计算在n× n个方格上放置彼此不受攻击的n个皇后的一个放置方案。</p>
 <span id="more"></span>
 <h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>输入数据只占一行，有1 个正整数n，n≤20。</p>
 <h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>将计算出的彼此不受攻击的n个皇后的一个放置方案输出。第1行是n个皇后的放置方案。</p>
@@ -78,80 +96,126 @@
 
 
 
-        <p class="suffix-end">__END__</p>
-        <div class="suffix-box">
-            <div class="suffix-box-left">
-                <img src="/image/sidebar/avatar.gif" alt="马某人的技术分享博客">
+                
+                <p class="end">__END__</p>
             </div>
-            <div class="suffix-box-right">
-                <span class="suffix-box-title">文章作者</span>：马某人的技术分享博客
-                <br>
-                <span class="suffix-box-title">文章出处</span>：<a href="/2019/11/08/n%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95/" target="_blank">n皇后问题--回溯法</a>
-                <br>
-                <span class="suffix-box-title">作者签名</span>：路漫漫其修远兮,吾将上下而求索.
-                <br>
-                <span class="suffix-box-title">版权声明</span>：文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
-                <br>
-            </div>
-            <div style="clear: both;"></div>
-        </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/avatar.gif" alt="">
     </div>
-    <div class="article-footer">
-        
-            <div class="category">
-                分类：
-                
-                    <a href="/categories/%E7%AE%97%E6%B3%95%E4%B8%8D%E8%83%BD%E4%B8%A2/">算法不能丢</a>
-                
-            </div>
-        
-        
-            <div class="tag">
-                标签：
-                
-                    <a href="/tags/C/">C++</a>
-                
-                    <a href="/tags/%E7%AE%97%E6%B3%95%E4%B8%8D%E8%83%BD%E4%B8%A2/">算法不能丢</a>
-                
-            </div>
-        
-        <div class="article-prev-next">
-            
-                <a href="/2019/11/24/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%9E%E4%BE%8B/" class="prev-prefix">« </a> 上一篇：    <a href="/2019/11/24/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%9E%E4%BE%8B/" title="发布于 2019-11-24 03:05">Java多线程实例</a>
-                <br>
-            
-            
-                <a href="/2019/11/07/%E5%AD%90%E9%9B%86%E5%92%8C%E9%97%AE%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95/" class="next-prefix">» </a> 下一篇：    <a href="/2019/11/07/%E5%AD%90%E9%9B%86%E5%92%8C%E9%97%AE%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95/" title="发布于 2019-11-07 08:35">子集和问题--回溯法</a>
-            
-        </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/2019/11/08/n%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95/" target="_blank">n皇后问题--回溯法</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>路漫漫其修远兮,吾将上下而求索.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="" target="_blank"></a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
     </div>
-    
-    <div class="article-comments">
-        <div class="comments-title">
-            评论列表
-        </div>
-        <div class="comments-content">
-        </div>
-    </div>
-
+    <div style="clear: both;"></div>
 </div>
-
+                
+                    <div class="category">
+                        分类：
+                        
+                            <a href="/categories/%E7%AE%97%E6%B3%95%E4%B8%8D%E8%83%BD%E4%B8%A2/">算法不能丢</a>
+                        
+                    </div>
+                
+                
+                    <div class="tag">
+                        标签：
+                        
+                            <a href="/tags/C/">C++</a>
+                        
+                            <a href="/tags/%E7%AE%97%E6%B3%95%E4%B8%8D%E8%83%BD%E4%B8%A2/">算法不能丢</a>
+                        
+                    </div>
+                
+                <div class="article-prev-next">
+                    
+                        <a href="/2019/11/24/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%9E%E4%BE%8B/" class="prev-prefix">« </a> 上一篇：    <a href="/2019/11/24/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%9E%E4%BE%8B/" title="发布于 2019-11-24 03:05">Java多线程实例</a>
+                        <br>
+                    
+                    
+                        <a href="/2019/11/07/%E5%AD%90%E9%9B%86%E5%92%8C%E9%97%AE%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95/" class="next-prefix">» </a> 下一篇：    <a href="/2019/11/07/%E5%AD%90%E9%9B%86%E5%92%8C%E9%97%AE%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95/" title="发布于 2019-11-07 08:35">子集和问题--回溯法</a>
+                    
+                </div>
+            </div>
+            
+    <div class="article-comments">
+        
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
     </div>
+
+        </div>
+    
 </div>
     <div id="footer"></div>
     <div id="sidebar">
     <div class="menu-wrap" style="display:none;">
+        
+            <div class="menu-notice">
+                <span class="iconfont icon-notice"></span>
+                <div class="notice">
+                    <span>简单地活着，肆意而又精彩！</span>
+                </div>
+            </div>
+        
         <nav class="menu">
             <div class="menu-introduce"> 
-                <div class="introduce-avatar"></div> 
+                <div class="introduce-avatar">
+                    <img src="/image/sidebar/avatar.gif">
+                </div> 
                 <div class="introduce-info"> 
-                    <div class="introduce-user"><span></span></div>        
+                    <div class="introduce-user"><span></span></div>
                 </div> 
             </div> 
             <div class="menu-list">
-                <ul></ul> 
+                <ul>
+                    
+                        <li class=""><a href="/" class="" target=""><span class="iconfont "></span>首页</a></li>
+                    
+                        <li class=""><a href="/tag" class="" target=""><span class="iconfont "></span>标签</a></li>
+                    
+                        <li class=""><a href="/category" class="" target=""><span class="iconfont "></span>分类</a></li>
+                    
+                        <li class=""><a href="/archives" class="" target=""><span class="iconfont "></span>归档</a></li>
+                    
+                        <li class=""><a href="/about" class="" target=""><span class="iconfont "></span>关于</a></li>
+                    
+                        <li class=""><a href="/atom.xml" class="" target="_blank"><span class="iconfont "></span>订阅</a></li>
+                    
+                        <li class=""><a href="" class="search" target=""><span class="iconfont "></span>搜索</a></li>
+                    
+                        <li class=""><a href="/comment" class="" target=""><span class="iconfont "></span>留言板</a></li>
+                    
+                        <li class=""><a href="/friend" class="" target=""><span class="iconfont "></span>友情链接</a></li>
+                    
+                </ul> 
             </div> 
-            <div class="menu-link"></div> 
+            <div class="menu-link">
+                <div class="box">
+                    <div class="image-box"></div>
+                </div>
+                
+                    <a name="" href="" class="" target="" data=""><span class="iconfont icon-weibo"></span></a>
+                
+                    <a name="" href="" class="" target="" data=""><span class="iconfont icon-wechat"></span></a>
+                
+                    <a name="" href="" class="" target="" data=""><span class="iconfont icon-qq"></span></a>
+                
+                    <a name="GitHub" href="https://github.com/PlumDong" class="" target="_blank" data=""><span class="iconfont icon-github"></span></a>
+                
+            </div> 
         </nav>
         <button class="menu-button-close"></button>
         <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
@@ -190,47 +254,91 @@
     <div class="progressbar-top"></div>
 
     
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js"></script>
+        <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
     
-    <div class="wrap-right"></div>
+    
+    <div class="wrap-right">
+        <div class="setting">
+            <div class="iconbox favorites" switch="false">
+                <span class="iconfont icon-favorites"></span>
+                <span class="icontext">关注</span>
+            </div>
+            <div class="iconbox mode">
+                <div class="light">
+                    <span class="iconfont icon-daymode"></span>
+                    <span class="icontext">浅色模式</span>
+                </div>
+                <div class="dark">
+                    <span class="iconfont icon-nightmode-fill"></span>
+                    <span class="icontext">深色模式</span>
+                </div>
+            </div>
+            <a href="javascript:;" target="_self" class="search">
+                <div class="iconbox">
+                    <span class="iconfont icon-search-menu"></span>
+                    <span class="icontext">搜索</span>
+                </div>
+            </a>
+            <div class="iconbox bottom">
+                <div style="display: inline-block; transform: rotate(180deg);">
+                    <span class="iconfont icon-top"></span>
+                </div>
+                <span class="icontext">跳至底部</span>
+            </div>
+        </div>
+        <div class="iconbox set">
+            <div style="display: inline-block;">
+                <span class="iconfont icon-setting"></span>
+            </div>
+            <span class="icontext">设置</span>
+        </div>
+        <div class="iconbox top">
+            <span class="iconfont icon-top"></span>
+            <span class="icontext">返回顶部</span>
+        </div>
+    </div>
     <div class="loading"></div>
 </div>
     <script>
     window.config = {
-        GitHubUserName     : 'PlumDong',
-        GitHubRepositories : 'PlumDong.github.io',
+        GitHubUserName     : "PlumDong",
+        GitHubRepositories : "PlumDong.github.io",
 
-        BlogUser      : '马某人的技术分享博客',
-        BlogAvatar    : '/image/sidebar/avatar.gif',
-        BlogStartDate : '2019-01-01',
+        User             : "",
+        UserAvatar       : "/image/sidebar/avatar.gif",
+        WebsiteStartDate : "",
 
-        WebsiteTitleBlur         : '(◍´꒳`◍) Hi',
+        WebsiteTitleBlur         : "(◍´꒳`◍) Hi",
         WebsiteTitleBlurTimeOut  : 500,
-        WebsiteTitleFocus        : '(*´∇｀*) 欢迎回来!',
+        WebsiteTitleFocus        : "(*´∇｀*) 欢迎回来!",
         WebsiteTitleFocusTimeOut : 1000,
-        WebsiteFavicon           : '/image/sidebar/avatar.gif',
+        WebsiteFavicon           : "/image/sidebar/avatar.gif",
 
-        ProgressBar: {
-            id       : 'topProgressBar',
-            color    : '#77B6FF',
-            height   : '2px',
+        ProgressBar : {
+            id       : "topProgressBar",
+            color    : "#77B6FF",
+            height   : "2px",
             duration : 0.2
         },
 
         Loading: {
-            rebound: {
+            rebound : {
                 tension  : 16,
                 friction : 5
             },
-            spinner: {
-                id     : 'spinner',
+            spinner : {
+                id     : "spinner",
                 radius : 90,
                 sides  : 3,
                 depth  : 4,
                 colors : {
-                    background : '#F0F0F0',
-                    stroke     : '#272633',
-                    base       : '',
-                    child      : '#272633'
+                    background : "#F0F0F0",
+                    stroke     : "#272633",
+                    base       : "",
+                    child      : "#272633"
                 },
                 alwaysForward : true,
                 restAt        : 0.5,
@@ -242,58 +350,18 @@
         HomeHeaderAnimation         : {
             radius      : 15,
             density     : 0.2,
-            color       : 'rgba(255, 255, 255, .2)',
+            color       : "rgba(255, 255, 255, .2)",
             clearOffset : 0.3
-        },
-
-        ArticleHeaderAnimationRendered : false,
-        ArticleHeaderAnimation         : {
-            triW                  : 14,
-            triH                  : 20,
-            neighbours            : [
-                
-                    'side',
-                
-                    'top',
-                
-                    'bottom',
-                
-            ],
-            speedTrailAppear      : 0.1,
-            speedTrailDisappear   : 0.1,
-            speedTriOpen          : 1,
-            trailMaxLength        : 30,
-            trailIntervalCreation : 100,
-            delayBeforeDisappear  : 2,
-            colors                : [
-                
-                    '#96EDA6',
-                
-                    '#5BC6A9',
-                
-                    '#38668C',
-                
-                    '#374D84',
-                
-                    '#BED5CB',
-                
-                    '#62ADC6',
-                
-                    '#8EE5DE',
-                
-                    '#304E7B',
-                
-            ]
         },
 
         BackAnimationRendered          : true,
         IEBrowserBackAnimationRendered : false,
         BackAnimation                  : {
-            colorSaturation  : '60%',
-            colorBrightness  : '50%',
+            colorSaturation  : "60%",
+            colorBrightness  : "50%",
             colorAlpha       : 0.5,
             colorCycleSpeed  : 5,
-            verticalPosition : 'random',
+            verticalPosition : "random",
             horizontalSpeed  : 200,
             ribbonCount      : 3,
             strokeSize       : 0,
@@ -303,98 +371,143 @@
 
         HomeHeaderImage : [
             
-                '/image/header/home3.jpg',
+                "/image/header/home3.jpg",
             
-                '/image/header/home5.jpg',
+                "/image/header/home5.jpg",
             
-                '/image/header/home6.jpg',
+                "/image/header/home6.jpg",
             
-                '/image/header/home7.jpg',
+                "/image/header/home7.jpg",
             
-                '/image/header/home8.jpg',
+                "/image/header/home8.jpg",
             
         ],
-        HomeBannerText  : '',
+        HomeBannerText  : "",
 
         ArticleHeaderImage : [
             
-                '/image/header/WZBJ1.jpg',
+                "/image/header/WZBJ1.jpg",
             
-                '/image/header/WZBJ2.jpg',
+                "/image/header/WZBJ2.jpg",
             
-                '/image/header/WZBJ3.jpg',
+                "/image/header/WZBJ3.jpg",
             
-                '/image/header/WZBJ4.jpg',
+                "/image/header/WZBJ4.jpg",
             
-                '/image/header/WZBJ5.jpg',
+                "/image/header/WZBJ5.jpg",
             
         ],
 
-        OtherBannerText : '',
+        OtherBannerText : "",
 
+        Error : {
+            icon    : "icon-swimming",
+            title   : "PAGE NOT FOUND",
+            content : [
+                
+                    "很抱歉，您访问的页面不存在！",
+                
+                    "可能是输入地址有误或该地址已变更。",
+                
+            ],
+            buttons : [
+                
+                    {
+                        icon  : "icon-home",
+                        text  : "返回首页",
+                        href  : "/",
+                        class : ""
+                    },
+                
+            ]
+        },
+
+        MenuNotice : {
+            enable : true,
+            notice : "简单地活着，肆意而又精彩！",
+            speed  : 20
+        },
         MenuList : [
             
                 {
-                    name   : '首页',
-                    href   : '/',    
-                    target : '',
-                    class  : ''
+                    name   : "首页",
+                    icon   : "",
+                    href   : "/",
+                    type   : "",
+                    class  : "",
+                    target : ""
                 },
             
                 {
-                    name   : '标签',
-                    href   : '/tag',    
-                    target : '',
-                    class  : ''
+                    name   : "标签",
+                    icon   : "",
+                    href   : "/tag",
+                    type   : "",
+                    class  : "",
+                    target : ""
                 },
             
                 {
-                    name   : '分类',
-                    href   : '/category',    
-                    target : '',
-                    class  : ''
+                    name   : "分类",
+                    icon   : "",
+                    href   : "/category",
+                    type   : "",
+                    class  : "",
+                    target : ""
                 },
             
                 {
-                    name   : '归档',
-                    href   : '/archives',    
-                    target : '',
-                    class  : ''
+                    name   : "归档",
+                    icon   : "",
+                    href   : "/archives",
+                    type   : "",
+                    class  : "",
+                    target : ""
                 },
             
                 {
-                    name   : '关于',
-                    href   : '/about',    
-                    target : '',
-                    class  : ''
+                    name   : "关于",
+                    icon   : "",
+                    href   : "/about",
+                    type   : "",
+                    class  : "",
+                    target : ""
                 },
             
                 {
-                    name   : '订阅',
-                    href   : '/atom.xml',    
-                    target : '_blank',
-                    class  : ''
+                    name   : "订阅",
+                    icon   : "",
+                    href   : "/atom.xml",
+                    type   : "",
+                    class  : "",
+                    target : "_blank"
                 },
             
                 {
-                    name   : '搜索',
-                    href   : '',    
-                    target : '',
-                    class  : 'search'
+                    name   : "搜索",
+                    icon   : "",
+                    href   : "",
+                    type   : "",
+                    class  : "search",
+                    target : ""
                 },
             
                 {
-                    name   : '留言板',
-                    href   : '/comment',    
-                    target : '',
-                    class  : ''
+                    name   : "留言板",
+                    icon   : "",
+                    href   : "/comment",
+                    type   : "",
+                    class  : "",
+                    target : ""
                 },
             
                 {
-                    name   : '友情链接',
-                    href   : '/friend',    
-                    target : '',
-                    class  : ''
+                    name   : "友情链接",
+                    icon   : "",
+                    href   : "/friend",
+                    type   : "",
+                    class  : "",
+                    target : ""
                 },
             
         ],
@@ -402,207 +515,227 @@
             
                 
                     {
-                        icon : 'icon-weibo', 
-                        url  : ''
+                        name   : "",
+                        icon   : "icon-weibo",
+                        href   : "",
+                        class  : "",
+                        target : "",
+                        image  : ""
                     },
                 
                     {
-                        icon : 'icon-wechat', 
-                        url  : ''
+                        name   : "",
+                        icon   : "icon-wechat",
+                        href   : "",
+                        class  : "",
+                        target : "",
+                        image  : ""
                     },
                 
                     {
-                        icon : 'icon-qq', 
-                        url  : ''
+                        name   : "",
+                        icon   : "icon-qq",
+                        href   : "",
+                        class  : "",
+                        target : "",
+                        image  : ""
                     },
                 
                     {
-                        icon : 'icon-github', 
-                        url  : 'https://github.com/PlumDong'
+                        name   : "GitHub",
+                        icon   : "icon-github",
+                        href   : "https://github.com/PlumDong",
+                        class  : "",
+                        target : "_blank",
+                        image  : ""
                     },
                 
             
         ],
 
         FooterStyle : 3,
-        BottomText  : {
-            icon    : 'like-fill',
-            left    : '埋骨何须桑梓地',
-            right   : '人生何处不青山'
-        },
-        ThemeInfo   : false,
+        BottomText  : "[object Object]",
 
         ConsoleList : [
             
         ],
 
-        FontIconExtend : '',
+        FontIconExtend : "",
 
         Donate : {
-            paypal  : '',
-            bitcoin : '',
-            alipay  : '',
-            wechat  : ''
+            paypal  : "",
+            bitcoin : "",
+            alipay  : "/image/donate/alipay.png",
+            wechat  : "/image/donate/wechat.png"
         },
 
-        Code : {
-            style : 'normal'
-        },  
-
         Search : {
-            applicationID : 'L9VHR7NJYP',
-            apiKey        : 'a14cfc1cbbcbe531922284e99981692f',
-            indexName     : 'myhexo',
+            applicationID : "L9VHR7NJYP",
+            apiKey        : "a14cfc1cbbcbe531922284e99981692f",
+            indexName     : "myhexo",
             hits          : {
                 page : 10
             },
             labels        : {
-                placeholder : '搜索',
-                empty       : '未发现与 「${query}」 相关的内容',
-                stats       : '${hits} 条相关条目，使用了 ${time} 毫秒',
+                placeholder : "搜索",
+                empty       : "未发现与 「${query}」 相关的内容",
+                stats       : "${hits} 条相关条目，使用了 ${time} 毫秒",
             }
         }, 
 
         Valine : {
             switch         : true,
-            el             : '.comments-content',
-            appId          : 'vUym7Ev8ixBbcY0wfsBzRd7n-gzGzoHsz',
-            appKey         : 'ajiuTP3iLRO3wky6ikwuPTsV',
-            placeholder    : '你是我一生只会遇见一次的惊喜...',
-            avatar         : 'mm',
-            meta           : 'nick,mail,link',
-            requiredFields : 'nick',
+            el             : ".comments-content",
+            appId          : "vUym7Ev8ixBbcY0wfsBzRd7n-gzGzoHsz",
+            appKey         : "ajiuTP3iLRO3wky6ikwuPTsV",
+            serverURLs     : "",
+            placeholder    : "你是我一生只会遇见一次的惊喜...",
+            avatar         : "mm",
+            meta           : "nick,mail,link",
+            requiredFields : "nick",
             pageSize       : 5,
-            lang           : 'zh-cn',
+            lang           : "zh-cn",
             visitor        : true,
             enableQQ       : true
         },
 
         Tocbot : {
             switch                : true,
-            tocSelector           : '.toc',
-            contentSelector       : '.article-body',
-            headingSelector       : 'h1, h2, h3, h4, h5',
+            tocSelector           : ".toc",
+            contentSelector       : ".article-body",
+            headingSelector       : "h1, h2, h3, h4, h5",
             headingsOffset        : 0,
             scrollSmooth          : true,
             scrollSmoothOffset    : -5,
-            positionFixedSelector : '.toc',
-            positionFixedClass    : 'toc-fixed',
-            fixedSidebarOffset    : '',
+            positionFixedSelector : ".toc",
+            positionFixedClass    : "toc-fixed",
+            fixedSidebarOffset    : "",
         },
 
         Require : {
-            baseUrl     : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/',
+            baseUrl     : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/",
             waitSeconds : 100
         },
 
         Music : {
-            type : 'Meting2'
+            type : "Meting2"
         },
         APlayer : {
-            container : 'aplayer',
+            container : "aplayer",
             fixed     : true,
             autoplay  : false,
-            loop      : 'all',
-            order     : 'random',
-            preload   : 'auto',
+            loop      : "all",
+            order     : "random",
+            preload   : "auto",
             volume    : 0.67,
             mutex     : true,
             lrcType   : 3,
             audio     : [
                 
                     {
-                        name   : 'aLIEz',
-                        artist : 'mizuki（瑞葵）',
-                        cover  : '/music/cover/aLIEz.jpg',
-                        url    : '/music/song/aLIEz.mp3',
-                        lrc    : '/music/lrc/aLIEz.lrc'
+                        name   : "aLIEz",
+                        artist : "mizuki（瑞葵）",
+                        cover  : "/music/cover/aLIEz.jpg",
+                        url    : "/music/song/aLIEz.mp3",
+                        lrc    : "/music/lrc/aLIEz.lrc"
                     },
                 
                     {
-                        name   : 'Endless Tears',
-                        artist : 'CLIFF EDGE',
-                        cover  : '/music/cover/Endless Tears.jpg',
-                        url    : '/music/song/Endless Tears.mp3',
-                        lrc    : '/music/lrc/Endless Tears.lrc'
+                        name   : "Endless Tears",
+                        artist : "CLIFF EDGE",
+                        cover  : "/music/cover/Endless Tears.jpg",
+                        url    : "/music/song/Endless Tears.mp3",
+                        lrc    : "/music/lrc/Endless Tears.lrc"
                     },
                 
                     {
-                        name   : 'Miracle',
-                        artist : 'Cascada',
-                        cover  : '/music/cover/Miracle.jpg',
-                        url    : '/music/song/Miracle.mp3',
-                        lrc    : '/music/lrc/Miracle.lrc'
+                        name   : "Miracle",
+                        artist : "Cascada",
+                        cover  : "/music/cover/Miracle.jpg",
+                        url    : "/music/song/Miracle.mp3",
+                        lrc    : "/music/lrc/Miracle.lrc"
                     },
                 
             ]
         },
         Meting : {
-            id       : '3778678', 
+            id       : "3778678", 
             lrcshow  : false, 
-            server   : 'netease', 
-            type     : 'playlist', 
+            server   : "netease", 
+            type     : "playlist", 
             fixed    : true, 
             autoplay : false, 
-            loop     : 'all', 
-            order    : 'random', 
-            preload  : 'auto', 
+            loop     : "all", 
+            order    : "random", 
+            preload  : "auto", 
             volume   : 0.67, 
             mutex    : true
         },
 
+        Mouse : {
+            enable  : true,
+            options : {
+                size  : 6,
+                sizeF : 24
+            }
+        },
+
         LazyLoad : {
-            default : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/website/lazyload.svg'
+            default : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/website/lazyload.svg"
         },
   
         Style : {
-            aplayer          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css',
-            archive          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.css',
-            donate           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.css',
-            fancybox         : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.css',
-            footer           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.css',
-            iconfont         : 'https://at.alicdn.com/t/font_1546312_l3yohatebw.css',
-            index            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.css',
-            menuBubble       : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.css',
-            page             : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.css',
-            post             : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css',
-            search           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css',
-            tocbot           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.css',
-            normal           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/normal.css',
-            night            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/night.css',
-            clipboard        : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.css'
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.css",
+            base             : "",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.css",
+            code             : "",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.css",
+            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.css",
+            mouse            : "",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.css",
+            valine           : ""
         },
 
         Script: {
-            aplayer          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js',
-            config           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.js',
-            index            : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js',
-            instantSearch    : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js',
-            jQuery           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js',
-            loading          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.js',
-            meting           : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js',
-            iscroll          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js',
-            require          : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.min.js'
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js",
+            instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js",
+            jQuery           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.js",
+            meting           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js",
+            require          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.min.js"
         },
 
         Font: {
-            LongCang   : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css',
-            Monda      : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css',
-            NotoSansSC : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css',
-            Playball   : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css',
-            PTMono     : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css',
-            RobotoSlab : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css',
-            Rosario    : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css',
-            UbuntuMono : 'https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css'
+            LongCang    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css",
+            Monda       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css",
+            NotoSansSC  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css",
+            NotoSerifSC : "",
+            Playball    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css",
+            PTMono      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css",
+            Roboto      : "",
+            RobotoSlab  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css",
+            Rosario     : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css",
+            UbuntuMono  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css"
         },
 
         Suffix : {
-            about : '路漫漫其修远兮,吾将上下而求索.'
+            about : "路漫漫其修远兮,吾将上下而求索."
         },
             
         Theme : {
-            url  : '',
-            name : ''
+            url  : "",
+            name : ""
         }  
     };
 </script>
