@@ -13,19 +13,19 @@
     </title>
     <link rel="shortcut icon" href="#"/>
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css">
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css">
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSerifSC.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Roboto.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.min.css">
 
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/base.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/code.min.css">
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
 <meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="马某人博客" type="application/atom+xml">
@@ -68,13 +68,13 @@
     </div>
     
 </div>
-<div id="container">
+<div id="container" style="margin-top: 10vh;">
     
         <!-- 文章页面 -->
         <div id="article">
             <div class="toc"></div>
-            <div class="article-body">
-                <h1 id="一、安装docker"><a href="#一、安装docker" class="headerlink" title="一、安装docker"></a>一、安装docker</h1><p>系统采用的时<code>centos8</code>，阿里云的服务器.</p>
+                <div class="article-body">
+                    <h1 id="一、安装docker"><a href="#一、安装docker" class="headerlink" title="一、安装docker"></a>一、安装docker</h1><p>系统采用的时<code>centos8</code>，阿里云的服务器.</p>
 <p>将下列代码保存为 <code>dockerinstall.sh</code> 并运行    <code>sh dockerinstall.sh</code></p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment"># remove old version</span></span><br><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-selinux \</span><br><span class="line">                  docker-engine-selinux \</span><br><span class="line">                  docker-engine</span><br><span class="line"></span><br><span class="line"><span class="comment"># remove all docker data </span></span><br><span class="line">sudo rm -rf /var/lib/docker</span><br><span class="line"></span><br><span class="line"><span class="comment">#  preinstall utils </span></span><br><span class="line">sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br><span class="line"></span><br><span class="line"><span class="comment"># add repository</span></span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"></span><br><span class="line"><span class="comment"># make cache</span></span><br><span class="line">sudo yum makecache fast</span><br><span class="line"></span><br><span class="line"><span class="comment"># install the latest stable version of docker</span></span><br><span class="line">sudo yum install -y docker-ce</span><br><span class="line"></span><br><span class="line"><span class="comment"># start deamon and enable auto start when power on</span></span><br><span class="line">sudo systemctl start docker</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># add current user </span></span><br><span class="line">sudo groupadd docker</span><br><span class="line">sudo gpasswd -a <span class="variable">$&#123;USER&#125;</span> docker</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
 
@@ -82,11 +82,11 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">nginx命令大全</span><br><span class="line"> 508 次浏览  发表于 2021-03-30 11:04 版权</span><br><span class="line">nginx -s reopen #重启Nginx</span><br><span class="line"></span><br><span class="line">nginx -s reload #重新加载Nginx配置文件，然后以优雅的方式重启Nginx</span><br><span class="line"></span><br><span class="line">nginx -s stop #强制停止Nginx服务</span><br><span class="line"></span><br><span class="line">killall nginx #杀死所有nginx进程  </span><br><span class="line"></span><br><span class="line">nginx -s quit #优雅地停止Nginx服务（即处理完所有请求后再停止服务）</span><br><span class="line"></span><br><span class="line">nginx -t #检测配置文件是否有语法错误，然后退出</span><br><span class="line"></span><br><span class="line">nginx -v #显示版本信息并退出</span><br><span class="line"></span><br><span class="line">nginx -V #显示版本和配置选项信息，然后退出</span><br><span class="line"></span><br><span class="line">nginx -t #检测配置文件是否有语法错误，然后退出</span><br><span class="line"></span><br><span class="line">nginx -T #检测配置文件是否有语法错误，转储并退出</span><br><span class="line"></span><br><span class="line">nginx -q #在检测配置文件期间屏蔽非错误信息</span><br><span class="line"></span><br><span class="line">nginx -?,-h #打开帮助信息  </span><br><span class="line"></span><br><span class="line">nginx -p prefix #设置前缀路径(默认是:/usr/share/nginx/)</span><br><span class="line"></span><br><span class="line">nginx -c filename #设置配置文件(默认是:/etc/nginx/nginx.conf)</span><br><span class="line"></span><br><span class="line">nginx -g directives #设置配置文件外的全局指令</span><br></pre></td></tr></table></figure>
 
 
-                
-                <p class="end">__END__</p>
-            </div>
-            <div class="article-footer">
-                <div class="suffix-box">
+                        
+                                    <p class="end">__END__</p>
+                </div>
+                <div class="article-footer">
+                    <div class="suffix-box">
     <div class="suffix-box-left">
         <img src="/image/sidebar/avatar.gif" alt="">
     </div>
@@ -104,33 +104,47 @@
     </div>
     <div style="clear: both;"></div>
 </div>
-                
-                    <div class="category">
-                        分类：
                         
-                            <a href="/categories/linux/">linux</a>
-                        
-                    </div>
-                
-                
-                    <div class="tag">
-                        标签：
-                        
-                            <a href="/tags/linux/">linux</a>
-                        
-                    </div>
-                
-                <div class="article-prev-next">
-                    
-                        <a href="/2021/06/25/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2-dp/" class="prev-prefix">« </a> 上一篇：    <a href="/2021/06/25/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2-dp/" title="发布于 2021-06-25 12:00">最长回文子串-dp</a>
-                        <br>
-                    
-                    
-                        <a href="/2021/04/14/python%20%E6%A1%A5%E6%8E%A5%E6%89%8B%E6%9F%84%E5%92%8C%E4%B8%B2%E5%8F%A3%E5%AE%9E%E7%8E%B0%E9%80%9A%E4%BF%A1/" class="next-prefix">» </a> 下一篇：    <a href="/2021/04/14/python%20%E6%A1%A5%E6%8E%A5%E6%89%8B%E6%9F%84%E5%92%8C%E4%B8%B2%E5%8F%A3%E5%AE%9E%E7%8E%B0%E9%80%9A%E4%BF%A1/" title="发布于 2021-04-14 12:00">Python3 桥接手柄和串口实现通信</a>
-                    
+                            <div class="category">
+                                分类：
+                                    
+                                        <a href="/categories/linux/">
+                                            linux
+                                        </a>
+                                        
+                            </div>
+                            
+                                
+                                    <div class="tag">
+                                        标签：
+                                            
+                                                <a href="/tags/linux/">
+                                                    linux
+                                                </a>
+                                                
+                                    </div>
+                                    
+                                        <div class="article-prev-next">
+                                            
+                                                <a href="/2021/06/25/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2-dp/" class="prev-prefix">« </a>
+                                                上一篇： <a href="/2021/06/25/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2-dp/"
+                                                        title="发布于 2021-06-25 12:00">
+                                                        最长回文子串-dp
+                                                    </a>
+                                                    <br>
+                                                    
+                                                        
+                                                            <a href="/2021/04/14/python%20%E6%A1%A5%E6%8E%A5%E6%89%8B%E6%9F%84%E5%92%8C%E4%B8%B2%E5%8F%A3%E5%AE%9E%E7%8E%B0%E9%80%9A%E4%BF%A1/"
+                                                                class="next-prefix">» </a>
+                                                            下一篇： <a
+                                                                    href="/2021/04/14/python%20%E6%A1%A5%E6%8E%A5%E6%89%8B%E6%9F%84%E5%92%8C%E4%B8%B2%E5%8F%A3%E5%AE%9E%E7%8E%B0%E9%80%9A%E4%BF%A1/"
+                                                                    title="发布于 2021-04-14 12:00">
+                                                                    Python3 桥接手柄和串口实现通信
+                                                                </a>
+                                                                
+                                        </div>
                 </div>
-            </div>
-            
+                
     <div class="article-comments">
         
             <div class="comments-title">
@@ -141,7 +155,7 @@
     </div>
 
         </div>
-    
+        
 </div>
     <div id="footer"></div>
     <div id="sidebar">
@@ -211,8 +225,8 @@
     <button class="menu-button-open">MENU</button>
     <div class="menu-cover"></div>
 </div>
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js"></script>
 <div class="search-window">
     <div class="search-content">
@@ -238,7 +252,7 @@
     <div class="progressbar-top"></div>
 
     
-        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css">
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.min.css">
         <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js"></script>
         <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
@@ -665,52 +679,52 @@
         },
 
         LazyLoad : {
-            default : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/website/lazyload.svg"
+            default : "/image/website/lazyload.svg"
         },
   
         Style : {
-            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css",
-            archive          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.css",
-            base             : "",
-            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.css",
-            code             : "",
-            donate           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.css",
-            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.css",
-            footer           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.css",
-            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
-            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.css",
-            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.css",
-            mouse            : "",
-            page             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.css",
-            post             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css",
-            search           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css",
-            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.css",
-            valine           : ""
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.min.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.min.css",
+            base             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/base.min.css",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.min.css",
+            code             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/code.min.css",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.min.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.min.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.min.css",
+            iconfont         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/iconfont/iconfont.min.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.min.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.min.css",
+            mouse            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/mouse.min.css",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.min.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.min.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.min.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.min.css",
+            valine           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/valine.min.css"
         },
 
         Script: {
             aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js",
-            config           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.js",
-            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.min.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.min.js",
             instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js",
-            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.min.js",
             jQuery           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js",
-            loading          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.min.js",
             meting           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js",
             require          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.min.js"
         },
 
         Font: {
-            LongCang    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css",
-            Monda       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css",
-            NotoSansSC  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css",
-            NotoSerifSC : "",
-            Playball    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css",
-            PTMono      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css",
-            Roboto      : "",
-            RobotoSlab  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css",
-            Rosario     : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css",
-            UbuntuMono  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css"
+            LongCang    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.min.css",
+            Monda       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.min.css",
+            NotoSansSC  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.min.css",
+            NotoSerifSC : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSerifSC.min.css",
+            Playball    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.min.css",
+            PTMono      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.min.css",
+            Roboto      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Roboto.min.css",
+            RobotoSlab  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.min.css",
+            Rosario     : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.min.css",
+            UbuntuMono  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.min.css"
         },
 
         Suffix : {
@@ -723,6 +737,6 @@
         }  
     };
 </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.min.js"></script>
 </body>
 </html>

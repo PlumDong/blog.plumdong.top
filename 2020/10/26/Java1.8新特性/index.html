@@ -13,19 +13,19 @@
     </title>
     <link rel="shortcut icon" href="#"/>
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css">
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css">
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSerifSC.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Roboto.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.min.css">
 
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/base.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/code.min.css">
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
 <meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="马某人博客" type="application/atom+xml">
@@ -68,13 +68,13 @@
     </div>
     
 </div>
-<div id="container">
+<div id="container" style="margin-top: 10vh;">
     
         <!-- 文章页面 -->
         <div id="article">
             <div class="toc"></div>
-            <div class="article-body">
-                <h1 id="一、Lambda表达式和函数式接口"><a href="#一、Lambda表达式和函数式接口" class="headerlink" title="一、Lambda表达式和函数式接口"></a>一、Lambda表达式和函数式接口</h1><h2 id="1-Lambda-表达式举例"><a href="#1-Lambda-表达式举例" class="headerlink" title="1.Lambda 表达式举例"></a>1.Lambda 表达式举例</h2><p>Lambda 表达式，也可称为闭包，它是推动 Java 8 发布的最重要新特性。</p>
+                <div class="article-body">
+                    <h1 id="一、Lambda表达式和函数式接口"><a href="#一、Lambda表达式和函数式接口" class="headerlink" title="一、Lambda表达式和函数式接口"></a>一、Lambda表达式和函数式接口</h1><h2 id="1-Lambda-表达式举例"><a href="#1-Lambda-表达式举例" class="headerlink" title="1.Lambda 表达式举例"></a>1.Lambda 表达式举例</h2><p>Lambda 表达式，也可称为闭包，它是推动 Java 8 发布的最重要新特性。</p>
 <p>Lambda 允许把函数作为一个方法的参数（函数作为参数传递进方法中）。</p>
 <span id="more"></span>
 <p>使用 Lambda 表达式可以使代码变的更加简洁紧凑。</p>
@@ -103,11 +103,11 @@
 <h2 id="静态默认方法"><a href="#静态默认方法" class="headerlink" title="静态默认方法"></a>静态默认方法</h2><p>Java 8 的另一个特性是接口可以声明（并且可以提供实现）静态方法。例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;我是一辆车!&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">    <span class="comment">// 静态方法</span></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">blowHorn</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;按喇叭!!!&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-                
-                <p class="end">__END__</p>
-            </div>
-            <div class="article-footer">
-                <div class="suffix-box">
+                        
+                                    <p class="end">__END__</p>
+                </div>
+                <div class="article-footer">
+                    <div class="suffix-box">
     <div class="suffix-box-left">
         <img src="/image/sidebar/avatar.gif" alt="">
     </div>
@@ -125,33 +125,47 @@
     </div>
     <div style="clear: both;"></div>
 </div>
-                
-                    <div class="category">
-                        分类：
                         
-                            <a href="/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
-                        
-                    </div>
-                
-                
-                    <div class="tag">
-                        标签：
-                        
-                            <a href="/tags/Java/">Java</a>
-                        
-                    </div>
-                
-                <div class="article-prev-next">
-                    
-                        <a href="/2020/10/26/W10%E5%90%91linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%A0%E6%96%87%E4%BB%B6/" class="prev-prefix">« </a> 上一篇：    <a href="/2020/10/26/W10%E5%90%91linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%A0%E6%96%87%E4%BB%B6/" title="发布于 2020-10-26 09:29">W10向linux服务器传文件</a>
-                        <br>
-                    
-                    
-                        <a href="/2020/10/26/Java%E7%B1%BB%E4%B8%AD%E4%BF%AE%E9%A5%B0%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/" class="next-prefix">» </a> 下一篇：    <a href="/2020/10/26/Java%E7%B1%BB%E4%B8%AD%E4%BF%AE%E9%A5%B0%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/" title="发布于 2020-10-26 12:00">Java类中修饰符的区别</a>
-                    
+                            <div class="category">
+                                分类：
+                                    
+                                        <a href="/categories/Java%E5%9F%BA%E7%A1%80/">
+                                            Java基础
+                                        </a>
+                                        
+                            </div>
+                            
+                                
+                                    <div class="tag">
+                                        标签：
+                                            
+                                                <a href="/tags/Java/">
+                                                    Java
+                                                </a>
+                                                
+                                    </div>
+                                    
+                                        <div class="article-prev-next">
+                                            
+                                                <a href="/2020/10/26/W10%E5%90%91linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%A0%E6%96%87%E4%BB%B6/" class="prev-prefix">« </a>
+                                                上一篇： <a href="/2020/10/26/W10%E5%90%91linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BC%A0%E6%96%87%E4%BB%B6/"
+                                                        title="发布于 2020-10-26 09:29">
+                                                        W10向linux服务器传文件
+                                                    </a>
+                                                    <br>
+                                                    
+                                                        
+                                                            <a href="/2020/10/26/Java%E7%B1%BB%E4%B8%AD%E4%BF%AE%E9%A5%B0%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/"
+                                                                class="next-prefix">» </a>
+                                                            下一篇： <a
+                                                                    href="/2020/10/26/Java%E7%B1%BB%E4%B8%AD%E4%BF%AE%E9%A5%B0%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB/"
+                                                                    title="发布于 2020-10-26 12:00">
+                                                                    Java类中修饰符的区别
+                                                                </a>
+                                                                
+                                        </div>
                 </div>
-            </div>
-            
+                
     <div class="article-comments">
         
             <div class="comments-title">
@@ -162,7 +176,7 @@
     </div>
 
         </div>
-    
+        
 </div>
     <div id="footer"></div>
     <div id="sidebar">
@@ -232,8 +246,8 @@
     <button class="menu-button-open">MENU</button>
     <div class="menu-cover"></div>
 </div>
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js"></script>
 <div class="search-window">
     <div class="search-content">
@@ -259,7 +273,7 @@
     <div class="progressbar-top"></div>
 
     
-        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css">
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.min.css">
         <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js"></script>
         <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
@@ -686,52 +700,52 @@
         },
 
         LazyLoad : {
-            default : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/website/lazyload.svg"
+            default : "/image/website/lazyload.svg"
         },
   
         Style : {
-            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css",
-            archive          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.css",
-            base             : "",
-            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.css",
-            code             : "",
-            donate           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.css",
-            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.css",
-            footer           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.css",
-            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
-            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.css",
-            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.css",
-            mouse            : "",
-            page             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.css",
-            post             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css",
-            search           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css",
-            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.css",
-            valine           : ""
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.min.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.min.css",
+            base             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/base.min.css",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.min.css",
+            code             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/code.min.css",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.min.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.min.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.min.css",
+            iconfont         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/iconfont/iconfont.min.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.min.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.min.css",
+            mouse            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/mouse.min.css",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.min.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.min.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.min.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.min.css",
+            valine           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/valine.min.css"
         },
 
         Script: {
             aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js",
-            config           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.js",
-            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.min.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.min.js",
             instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js",
-            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.min.js",
             jQuery           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js",
-            loading          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.min.js",
             meting           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js",
             require          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.min.js"
         },
 
         Font: {
-            LongCang    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css",
-            Monda       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css",
-            NotoSansSC  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css",
-            NotoSerifSC : "",
-            Playball    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css",
-            PTMono      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css",
-            Roboto      : "",
-            RobotoSlab  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css",
-            Rosario     : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css",
-            UbuntuMono  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css"
+            LongCang    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.min.css",
+            Monda       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.min.css",
+            NotoSansSC  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.min.css",
+            NotoSerifSC : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSerifSC.min.css",
+            Playball    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.min.css",
+            PTMono      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.min.css",
+            Roboto      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Roboto.min.css",
+            RobotoSlab  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.min.css",
+            Rosario     : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.min.css",
+            UbuntuMono  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.min.css"
         },
 
         Suffix : {
@@ -744,6 +758,6 @@
         }  
     };
 </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.min.js"></script>
 </body>
 </html>

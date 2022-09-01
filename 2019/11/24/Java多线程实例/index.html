@@ -13,19 +13,19 @@
     </title>
     <link rel="shortcut icon" href="#"/>
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css">
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css">
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSerifSC.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Roboto.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.min.css">
 
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/base.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/code.min.css">
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
 <meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="马某人博客" type="application/atom+xml">
@@ -70,24 +70,24 @@
     </div>
     
 </div>
-<div id="container">
+<div id="container" style="margin-top: 10vh;">
     
         <!-- 文章页面 -->
         <div id="article">
             <div class="toc"></div>
-            <div class="article-body">
-                <h2 id="1-Thread-类的方法"><a href="#1-Thread-类的方法" class="headerlink" title="1 Thread 类的方法"></a>1 Thread 类的方法</h2><p>序号    方法描述<br>1    <strong>public void start()</strong> 使该线程开始执行；Java 虚拟机调用该线程的 run 方法。</p>
+                <div class="article-body">
+                    <h2 id="1-Thread-类的方法"><a href="#1-Thread-类的方法" class="headerlink" title="1 Thread 类的方法"></a>1 Thread 类的方法</h2><p>序号    方法描述<br>1    <strong>public void start()</strong> 使该线程开始执行；Java 虚拟机调用该线程的 run 方法。</p>
 <p>2    <strong>public void run()</strong> 如果该线程是使用独立的 Runnable 运行对象构造的，则调用该 Runnable 对象的 run 方法；否则，该方法不执行任何操作并返回。<br>3    <strong>public final void setName(String name)</strong> 改变线程名称，使之与参数 name 相同。<br>4    <strong>public final void setPriority(int priority)</strong>  更改线程的优先级。<br>5    <strong>public final void setDaemon(boolean on)</strong> 将该线程标记为守护线程或用户线程。<br>6    <strong>public final void join(long millisec)</strong> 等待该线程终止的时间最长为 millis 毫秒。<br>7    <strong>public void interrupt()</strong> 中断线程。<br>8    <strong>public final boolean isAlive()</strong> 测试线程是否处于活动状态。</p>
 <span id="more"></span>
 <p><strong>用户线程：无论主线线程是否结束，用户线程都会跑完。非用户线程在主线程跑完后会自动终止</strong></p>
 <h2 id="2-通过实现-Runnable-接口方式，实现多线程"><a href="#2-通过实现-Runnable-接口方式，实现多线程" class="headerlink" title="2 通过实现 Runnable 接口方式，实现多线程"></a>2 通过实现 Runnable 接口方式，实现多线程</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过实现接口方式，实现多线程</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Administrator</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadConuer</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Thread t = <span class="keyword">new</span> Thread(<span class="keyword">new</span> PrintString(<span class="string">&quot;hello&quot;</span>,<span class="number">1000</span>));</span><br><span class="line">	    t.setDaemon(<span class="keyword">true</span>);	<span class="comment">//用户线程</span></span><br><span class="line">	    t.setName(<span class="string">&quot;hello&quot;</span>);	<span class="comment">//修改线程名字</span></span><br><span class="line">		t.start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 打印字符串n次</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Administrator</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PrintString</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">	String str = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">PrintString</span> <span class="params">(String s,<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">		str = s;</span><br><span class="line">		<span class="keyword">this</span>.n = n;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">          System.out.println(str);</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <h2 id="3-通过继承-Thread-类，实现多线程"><a href="#3-通过继承-Thread-类，实现多线程" class="headerlink" title="3 通过继承 Thread 类，实现多线程"></a>3 通过继承 Thread 类，实现多线程</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  通过继承方法。实现多线程</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Administrator</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadInherit</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Thread t = <span class="keyword">new</span> PrintString2(<span class="string">&quot;Hello&quot;</span>,<span class="number">1000</span>);</span><br><span class="line">	    t.setDaemon(<span class="keyword">true</span>);	<span class="comment">//用户线程</span></span><br><span class="line">	    t.setName(<span class="string">&quot;hello&quot;</span>);	<span class="comment">//修改线程名字</span></span><br><span class="line">		t.start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 打印字符串n次</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Administrator</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PrintString2</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">	String str = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">PrintString2</span> <span class="params">(String s,<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">		str = s;</span><br><span class="line">		<span class="keyword">this</span>.n = n;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">          System.out.println(str);</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <h2 id="4-使用-Runnable-和-Thread-共同创建进程。"><a href="#4-使用-Runnable-和-Thread-共同创建进程。" class="headerlink" title="4 使用 Runnable 和 Thread 共同创建进程。"></a>4 使用 Runnable 和 Thread 共同创建进程。</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CSA01</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">		Runnable increment = () -&gt; &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">1000</span>;i++) &#123;</span><br><span class="line">				<span class="keyword">synchronized</span> (CSA01.class) &#123;</span><br><span class="line">					i ++;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">		List&lt;Thread&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++) &#123;</span><br><span class="line">			Thread t = <span class="keyword">new</span> Thread(increment);</span><br><span class="line">			t.start();</span><br><span class="line">			list.add(t);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(Thread t: list) &#123;</span><br><span class="line">			t.join();</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">&quot;i = &quot;</span> + i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-                
-                <p class="end">__END__</p>
-            </div>
-            <div class="article-footer">
-                <div class="suffix-box">
+                        
+                                    <p class="end">__END__</p>
+                </div>
+                <div class="article-footer">
+                    <div class="suffix-box">
     <div class="suffix-box-left">
         <img src="/image/sidebar/avatar.gif" alt="">
     </div>
@@ -105,35 +105,51 @@
     </div>
     <div style="clear: both;"></div>
 </div>
-                
-                    <div class="category">
-                        分类：
                         
-                            <a href="/categories/Java%E5%9F%BA%E7%A1%80/">Java基础</a>
-                        
-                    </div>
-                
-                
-                    <div class="tag">
-                        标签：
-                        
-                            <a href="/tags/Java/">Java</a>
-                        
-                            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
-                        
-                    </div>
-                
-                <div class="article-prev-next">
-                    
-                        <a href="/2019/11/30/%E9%AA%A8%E7%89%8C%E9%93%BA%E6%96%B9%E6%A0%BC-%E9%80%92%E5%BD%92/" class="prev-prefix">« </a> 上一篇：    <a href="/2019/11/30/%E9%AA%A8%E7%89%8C%E9%93%BA%E6%96%B9%E6%A0%BC-%E9%80%92%E5%BD%92/" title="发布于 2019-11-30 06:05">骨牌铺方格-递归</a>
-                        <br>
-                    
-                    
-                        <a href="/2019/11/08/n%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95/" class="next-prefix">» </a> 下一篇：    <a href="/2019/11/08/n%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95/" title="发布于 2019-11-08 08:35">n皇后问题--回溯法</a>
-                    
+                            <div class="category">
+                                分类：
+                                    
+                                        <a href="/categories/Java%E5%9F%BA%E7%A1%80/">
+                                            Java基础
+                                        </a>
+                                        
+                            </div>
+                            
+                                
+                                    <div class="tag">
+                                        标签：
+                                            
+                                                <a href="/tags/Java/">
+                                                    Java
+                                                </a>
+                                                
+                                                <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                                                    多线程
+                                                </a>
+                                                
+                                    </div>
+                                    
+                                        <div class="article-prev-next">
+                                            
+                                                <a href="/2019/11/30/%E9%AA%A8%E7%89%8C%E9%93%BA%E6%96%B9%E6%A0%BC-%E9%80%92%E5%BD%92/" class="prev-prefix">« </a>
+                                                上一篇： <a href="/2019/11/30/%E9%AA%A8%E7%89%8C%E9%93%BA%E6%96%B9%E6%A0%BC-%E9%80%92%E5%BD%92/"
+                                                        title="发布于 2019-11-30 06:05">
+                                                        骨牌铺方格-递归
+                                                    </a>
+                                                    <br>
+                                                    
+                                                        
+                                                            <a href="/2019/11/08/n%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95/"
+                                                                class="next-prefix">» </a>
+                                                            下一篇： <a
+                                                                    href="/2019/11/08/n%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95/"
+                                                                    title="发布于 2019-11-08 08:35">
+                                                                    n皇后问题--回溯法
+                                                                </a>
+                                                                
+                                        </div>
                 </div>
-            </div>
-            
+                
     <div class="article-comments">
         
             <div class="comments-title">
@@ -144,7 +160,7 @@
     </div>
 
         </div>
-    
+        
 </div>
     <div id="footer"></div>
     <div id="sidebar">
@@ -214,8 +230,8 @@
     <button class="menu-button-open">MENU</button>
     <div class="menu-cover"></div>
 </div>
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js"></script>
 <div class="search-window">
     <div class="search-content">
@@ -241,7 +257,7 @@
     <div class="progressbar-top"></div>
 
     
-        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css">
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.min.css">
         <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js"></script>
         <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
@@ -668,52 +684,52 @@
         },
 
         LazyLoad : {
-            default : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/website/lazyload.svg"
+            default : "/image/website/lazyload.svg"
         },
   
         Style : {
-            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css",
-            archive          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.css",
-            base             : "",
-            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.css",
-            code             : "",
-            donate           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.css",
-            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.css",
-            footer           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.css",
-            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
-            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.css",
-            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.css",
-            mouse            : "",
-            page             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.css",
-            post             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css",
-            search           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css",
-            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.css",
-            valine           : ""
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.min.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.min.css",
+            base             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/base.min.css",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.min.css",
+            code             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/code.min.css",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.min.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.min.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.min.css",
+            iconfont         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/iconfont/iconfont.min.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.min.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.min.css",
+            mouse            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/mouse.min.css",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.min.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.min.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.min.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.min.css",
+            valine           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/valine.min.css"
         },
 
         Script: {
             aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js",
-            config           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.js",
-            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.min.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.min.js",
             instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js",
-            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.min.js",
             jQuery           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js",
-            loading          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.min.js",
             meting           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js",
             require          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.min.js"
         },
 
         Font: {
-            LongCang    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css",
-            Monda       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css",
-            NotoSansSC  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css",
-            NotoSerifSC : "",
-            Playball    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css",
-            PTMono      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css",
-            Roboto      : "",
-            RobotoSlab  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css",
-            Rosario     : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css",
-            UbuntuMono  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css"
+            LongCang    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.min.css",
+            Monda       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.min.css",
+            NotoSansSC  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.min.css",
+            NotoSerifSC : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSerifSC.min.css",
+            Playball    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.min.css",
+            PTMono      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.min.css",
+            Roboto      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Roboto.min.css",
+            RobotoSlab  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.min.css",
+            Rosario     : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.min.css",
+            UbuntuMono  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.min.css"
         },
 
         Suffix : {
@@ -726,6 +742,6 @@
         }  
     };
 </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.min.js"></script>
 </body>
 </html>

@@ -13,19 +13,19 @@
     </title>
     <link rel="shortcut icon" href="#"/>
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css">
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css">
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSerifSC.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Roboto.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.min.css">
 
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/base.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/code.min.css">
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
 <meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="马某人博客" type="application/atom+xml">
@@ -70,13 +70,13 @@
     </div>
     
 </div>
-<div id="container">
+<div id="container" style="margin-top: 10vh;">
     
         <!-- 文章页面 -->
         <div id="article">
             <div class="toc"></div>
-            <div class="article-body">
-                <h1 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h1><h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><p>试设计一个用回溯法搜索子集空间树的函数。该函数的参数包括结点可行性判定函数和上界函数等必要的函数，并将此函数用于解0-1背包问题。 0-1 背包问题描述如下：给定n 种物品和一个背包。物品i 的重量是wi ，其价值为vi ，背包的容量为C。应如何选择装入背包的物品，使得装入背包中物品的总价值最大? 在选择装入背包的物品时，对每种物品i只有2 种选择，即装入背包或不装入背包。不能将物品i 装入背包多次，也不能只装入部分的物品i。</p>
+                <div class="article-body">
+                    <h1 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h1><h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><p>试设计一个用回溯法搜索子集空间树的函数。该函数的参数包括结点可行性判定函数和上界函数等必要的函数，并将此函数用于解0-1背包问题。 0-1 背包问题描述如下：给定n 种物品和一个背包。物品i 的重量是wi ，其价值为vi ，背包的容量为C。应如何选择装入背包的物品，使得装入背包中物品的总价值最大? 在选择装入背包的物品时，对每种物品i只有2 种选择，即装入背包或不装入背包。不能将物品i 装入背包多次，也不能只装入部分的物品i。</p>
 <span id="more"></span>
 
 <h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>第一行有2个正整数n和c。n是物品数，c是背包的容量。接下来的1 行中有n个正整数，表示物品的价值。第3 行中有n个正整数，表示物品的重量。</p>
@@ -98,11 +98,11 @@
 
 
 
-                
-                <p class="end">__END__</p>
-            </div>
-            <div class="article-footer">
-                <div class="suffix-box">
+                        
+                                    <p class="end">__END__</p>
+                </div>
+                <div class="article-footer">
+                    <div class="suffix-box">
     <div class="suffix-box-left">
         <img src="/image/sidebar/avatar.gif" alt="">
     </div>
@@ -120,35 +120,51 @@
     </div>
     <div style="clear: both;"></div>
 </div>
-                
-                    <div class="category">
-                        分类：
                         
-                            <a href="/categories/%E7%AE%97%E6%B3%95%E4%B8%8D%E8%83%BD%E4%B8%A2/">算法不能丢</a>
-                        
-                    </div>
-                
-                
-                    <div class="tag">
-                        标签：
-                        
-                            <a href="/tags/C/">C++</a>
-                        
-                            <a href="/tags/%E7%AE%97%E6%B3%95%E4%B8%8D%E8%83%BD%E4%B8%A2/">算法不能丢</a>
-                        
-                    </div>
-                
-                <div class="article-prev-next">
-                    
-                        <a href="/2019/11/30/Java%E5%8A%A8%E6%80%81%E7%94%B3%E8%AF%B7%E6%95%B0%E7%BB%84/" class="prev-prefix">« </a> 上一篇：    <a href="/2019/11/30/Java%E5%8A%A8%E6%80%81%E7%94%B3%E8%AF%B7%E6%95%B0%E7%BB%84/" title="发布于 2019-11-30 08:02">Java动态申请数组</a>
-                        <br>
-                    
-                    
-                        <a href="/2019/11/30/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%AE%B5%E5%92%8C%E2%80%94%E5%88%86%E6%B2%BB/" class="next-prefix">» </a> 下一篇：    <a href="/2019/11/30/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%AE%B5%E5%92%8C%E2%80%94%E5%88%86%E6%B2%BB/" title="发布于 2019-11-30 06:05">最大子段和问题—分治</a>
-                    
+                            <div class="category">
+                                分类：
+                                    
+                                        <a href="/categories/%E7%AE%97%E6%B3%95%E4%B8%8D%E8%83%BD%E4%B8%A2/">
+                                            算法不能丢
+                                        </a>
+                                        
+                            </div>
+                            
+                                
+                                    <div class="tag">
+                                        标签：
+                                            
+                                                <a href="/tags/C/">
+                                                    C++
+                                                </a>
+                                                
+                                                <a href="/tags/%E7%AE%97%E6%B3%95%E4%B8%8D%E8%83%BD%E4%B8%A2/">
+                                                    算法不能丢
+                                                </a>
+                                                
+                                    </div>
+                                    
+                                        <div class="article-prev-next">
+                                            
+                                                <a href="/2019/11/30/Java%E5%8A%A8%E6%80%81%E7%94%B3%E8%AF%B7%E6%95%B0%E7%BB%84/" class="prev-prefix">« </a>
+                                                上一篇： <a href="/2019/11/30/Java%E5%8A%A8%E6%80%81%E7%94%B3%E8%AF%B7%E6%95%B0%E7%BB%84/"
+                                                        title="发布于 2019-11-30 08:02">
+                                                        Java动态申请数组
+                                                    </a>
+                                                    <br>
+                                                    
+                                                        
+                                                            <a href="/2019/11/30/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%AE%B5%E5%92%8C%E2%80%94%E5%88%86%E6%B2%BB/"
+                                                                class="next-prefix">» </a>
+                                                            下一篇： <a
+                                                                    href="/2019/11/30/%E6%9C%80%E5%A4%A7%E5%AD%90%E6%AE%B5%E5%92%8C%E2%80%94%E5%88%86%E6%B2%BB/"
+                                                                    title="发布于 2019-11-30 06:05">
+                                                                    最大子段和问题—分治
+                                                                </a>
+                                                                
+                                        </div>
                 </div>
-            </div>
-            
+                
     <div class="article-comments">
         
             <div class="comments-title">
@@ -159,7 +175,7 @@
     </div>
 
         </div>
-    
+        
 </div>
     <div id="footer"></div>
     <div id="sidebar">
@@ -229,8 +245,8 @@
     <button class="menu-button-open">MENU</button>
     <div class="menu-cover"></div>
 </div>
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js"></script>
 <div class="search-window">
     <div class="search-content">
@@ -256,7 +272,7 @@
     <div class="progressbar-top"></div>
 
     
-        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css">
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.min.css">
         <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js"></script>
         <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
@@ -683,52 +699,52 @@
         },
 
         LazyLoad : {
-            default : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/website/lazyload.svg"
+            default : "/image/website/lazyload.svg"
         },
   
         Style : {
-            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css",
-            archive          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.css",
-            base             : "",
-            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.css",
-            code             : "",
-            donate           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.css",
-            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.css",
-            footer           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.css",
-            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
-            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.css",
-            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.css",
-            mouse            : "",
-            page             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.css",
-            post             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css",
-            search           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css",
-            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.css",
-            valine           : ""
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.min.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.min.css",
+            base             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/base.min.css",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.min.css",
+            code             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/code.min.css",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.min.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.min.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.min.css",
+            iconfont         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/iconfont/iconfont.min.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.min.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.min.css",
+            mouse            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/mouse.min.css",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.min.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.min.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.min.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.min.css",
+            valine           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/valine.min.css"
         },
 
         Script: {
             aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js",
-            config           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.js",
-            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.min.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.min.js",
             instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js",
-            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.min.js",
             jQuery           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js",
-            loading          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.min.js",
             meting           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js",
             require          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.min.js"
         },
 
         Font: {
-            LongCang    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css",
-            Monda       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css",
-            NotoSansSC  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css",
-            NotoSerifSC : "",
-            Playball    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css",
-            PTMono      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css",
-            Roboto      : "",
-            RobotoSlab  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css",
-            Rosario     : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css",
-            UbuntuMono  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css"
+            LongCang    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.min.css",
+            Monda       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.min.css",
+            NotoSansSC  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.min.css",
+            NotoSerifSC : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSerifSC.min.css",
+            Playball    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.min.css",
+            PTMono      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.min.css",
+            Roboto      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Roboto.min.css",
+            RobotoSlab  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.min.css",
+            Rosario     : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.min.css",
+            UbuntuMono  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.min.css"
         },
 
         Suffix : {
@@ -741,6 +757,6 @@
         }  
     };
 </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.min.js"></script>
 </body>
 </html>

@@ -13,19 +13,19 @@
     </title>
     <link rel="shortcut icon" href="#"/>
 
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css">
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css">
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSerifSC.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Roboto.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.min.css">
 
-    <link type="text/css" rel="stylesheet" href="">
-    <link type="text/css" rel="stylesheet" href="">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/base.min.css">
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/code.min.css">
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js"></script>
 <meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="马某人博客" type="application/atom+xml">
@@ -68,13 +68,13 @@
     </div>
     
 </div>
-<div id="container">
+<div id="container" style="margin-top: 10vh;">
     
         <!-- 文章页面 -->
         <div id="article">
             <div class="toc"></div>
-            <div class="article-body">
-                <h1 id="一、需求分析"><a href="#一、需求分析" class="headerlink" title="一、需求分析"></a>一、需求分析</h1><p>需要使用游戏手柄来控制平衡小车，由于游戏手柄和平衡小车不能连接，所以使用电脑作为中介实现两者通信。</p>
+                <div class="article-body">
+                    <h1 id="一、需求分析"><a href="#一、需求分析" class="headerlink" title="一、需求分析"></a>一、需求分析</h1><p>需要使用游戏手柄来控制平衡小车，由于游戏手柄和平衡小车不能连接，所以使用电脑作为中介实现两者通信。</p>
 <p>需要实现以下功能</p>
 <ol>
 <li>接收手柄或键盘的键值</li>
@@ -100,11 +100,11 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pygame</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> serial</span><br><span class="line"><span class="keyword">import</span> serial.tools.list_ports</span><br><span class="line"></span><br><span class="line"><span class="comment"># 串口通信端口号</span></span><br><span class="line">portx = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># 串口通信 波特率</span></span><br><span class="line">Baud = <span class="number">115200</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 程序状态</span></span><br><span class="line">state = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 消息</span></span><br><span class="line">message = <span class="built_in">dict</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 串口对象</span></span><br><span class="line">ser = serial.Serial()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查并选择端口</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_port</span>():</span></span><br><span class="line">    <span class="keyword">global</span> portx</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;正在检查可用端口。。&quot;</span>)</span><br><span class="line">    port_list = <span class="built_in">list</span>(serial.tools.list_ports.comports())</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(port_list) == <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;无可用串口！&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;序号\t名称&#x27;</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(port_list)):</span><br><span class="line">            <span class="built_in">print</span>(i + <span class="number">1</span>, <span class="string">&#x27;\t&#x27;</span>, port_list[i])</span><br><span class="line"></span><br><span class="line">        n = <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(port_list) != <span class="number">1</span>:</span><br><span class="line">            n = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;输入端口序号：&#x27;</span>))</span><br><span class="line"></span><br><span class="line">        portx = <span class="built_in">str</span>(port_list[n - <span class="number">1</span>].device)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;已选择端口:&#x27;</span>, portx)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">open_port</span>():</span></span><br><span class="line">    <span class="keyword">global</span> portx</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        ser.baudrate = Baud</span><br><span class="line">        ser.port = portx</span><br><span class="line">        ser.<span class="built_in">open</span>()  <span class="comment"># 打开串口</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        ser.close()  <span class="comment"># 关闭端口</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;端口打开失败,尝试更换端口：&#x27;</span>, e)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_joystick</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;连接成功！&#x27;</span>)</span><br><span class="line">    <span class="keyword">global</span> state</span><br><span class="line">    pygame.init()</span><br><span class="line">    pygame.joystick.init()</span><br><span class="line">    <span class="keyword">while</span> state:</span><br><span class="line"></span><br><span class="line">        time.sleep(<span class="number">0.2</span>)</span><br><span class="line">        message.clear()</span><br><span class="line">        <span class="keyword">for</span> event <span class="keyword">in</span> pygame.event.get():</span><br><span class="line">            <span class="keyword">if</span> event.<span class="built_in">type</span> == pygame.QUIT:</span><br><span class="line">                done = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">if</span> event.<span class="built_in">type</span> == pygame.JOYBUTTONDOWN:</span><br><span class="line">                message[<span class="string">&#x27;JOYBUTTONDOWN&#x27;</span>] = event.button</span><br><span class="line">            <span class="keyword">if</span> event.<span class="built_in">type</span> == pygame.JOYBUTTONUP:</span><br><span class="line">                message[<span class="string">&#x27;JOYBUTTONUP&#x27;</span>] = event.button</span><br><span class="line"></span><br><span class="line">        joystick_count = pygame.joystick.get_count()</span><br><span class="line">        <span class="keyword">for</span> nums <span class="keyword">in</span> <span class="built_in">range</span>(joystick_count):</span><br><span class="line"></span><br><span class="line">            joystick = pygame.joystick.Joystick(nums)</span><br><span class="line">            joystick.init()</span><br><span class="line"></span><br><span class="line">            axes = joystick.get_numaxes()</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(axes):</span><br><span class="line">                axis = joystick.get_axis(i)</span><br><span class="line">                message[<span class="string">&#x27;axes&#x27;</span> + <span class="built_in">str</span>(i)] = <span class="built_in">int</span>(axis * <span class="number">10</span>)</span><br><span class="line">        <span class="comment"># print(message)	#打印获取的信息</span></span><br><span class="line">        <span class="keyword">if</span> message == &#123;&#125;:  <span class="comment"># 未连接</span></span><br><span class="line">            state = <span class="literal">False</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;没有找到手柄&#x27;</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> message.get(<span class="string">&#x27;JOYBUTTONDOWN&#x27;</span>) == <span class="number">0</span>:  <span class="comment"># 直行</span></span><br><span class="line">            ser.write(<span class="string">b&#x27;z&#x27;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;直行&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> message.get(<span class="string">&#x27;JOYBUTTONDOWN&#x27;</span>) == <span class="number">1</span>:  <span class="comment"># 停车</span></span><br><span class="line">            ser.write(<span class="string">b&#x27;q&#x27;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;停车&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> message.get(<span class="string">&#x27;axes5&#x27;</span>) &gt;= <span class="number">0</span>:  <span class="comment"># 加速</span></span><br><span class="line">            ser.write(<span class="string">b&#x27;s&#x27;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;加速&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> message.get(<span class="string">&#x27;axes2&#x27;</span>) &gt;= <span class="number">0</span>:  <span class="comment"># 减速</span></span><br><span class="line">            ser.write(<span class="string">b&#x27;e&#x27;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;减速&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> message.get(<span class="string">&#x27;axes0&#x27;</span>) &lt;= -<span class="number">5</span>:  <span class="comment"># 左转</span></span><br><span class="line">            ser.write(<span class="string">b&#x27;l&#x27;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;左转&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> message.get(<span class="string">&#x27;axes0&#x27;</span>) &gt;= <span class="number">5</span>:  <span class="comment"># 右转</span></span><br><span class="line">            ser.write(<span class="string">b&#x27;r&#x27;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;右转&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> message.get(<span class="string">&#x27;JOYBUTTONDOWN&#x27;</span>) == <span class="number">7</span>:  <span class="comment"># 退出</span></span><br><span class="line">            state = <span class="literal">False</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;退出&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> ser.in_waiting:</span><br><span class="line">            <span class="built_in">print</span>(ser.read(ser.in_waiting).decode(<span class="string">&quot;gbk&quot;</span>), end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> set_port() == <span class="number">1</span>:</span><br><span class="line">    <span class="keyword">if</span> open_port() == <span class="number">1</span>:</span><br><span class="line">        send_joystick()</span><br><span class="line"></span><br><span class="line">    ser.close()  <span class="comment"># 关闭端口</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">input</span>(<span class="string">&quot;按任意键退出！&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
-                
-                <p class="end">__END__</p>
-            </div>
-            <div class="article-footer">
-                <div class="suffix-box">
+                        
+                                    <p class="end">__END__</p>
+                </div>
+                <div class="article-footer">
+                    <div class="suffix-box">
     <div class="suffix-box-left">
         <img src="/image/sidebar/avatar.gif" alt="">
     </div>
@@ -122,33 +122,47 @@
     </div>
     <div style="clear: both;"></div>
 </div>
-                
-                    <div class="category">
-                        分类：
                         
-                            <a href="/categories/python3%E5%9F%BA%E7%A1%80/">python3基础</a>
-                        
-                    </div>
-                
-                
-                    <div class="tag">
-                        标签：
-                        
-                            <a href="/tags/python3/">python3</a>
-                        
-                    </div>
-                
-                <div class="article-prev-next">
-                    
-                        <a href="/2021/04/14/docker%E4%B8%8B%E5%AE%89%E8%A3%85code-server/" class="prev-prefix">« </a> 上一篇：    <a href="/2021/04/14/docker%E4%B8%8B%E5%AE%89%E8%A3%85code-server/" title="发布于 2021-04-14 12:00">docker中安装code-server</a>
-                        <br>
-                    
-                    
-                        <a href="/2021/03/01/SpringCloud%E5%AD%A6%E4%B9%A0/" class="next-prefix">» </a> 下一篇：    <a href="/2021/03/01/SpringCloud%E5%AD%A6%E4%B9%A0/" title="发布于 2021-03-01 12:00">SpringCloud学习</a>
-                    
+                            <div class="category">
+                                分类：
+                                    
+                                        <a href="/categories/python3%E5%9F%BA%E7%A1%80/">
+                                            python3基础
+                                        </a>
+                                        
+                            </div>
+                            
+                                
+                                    <div class="tag">
+                                        标签：
+                                            
+                                                <a href="/tags/python3/">
+                                                    python3
+                                                </a>
+                                                
+                                    </div>
+                                    
+                                        <div class="article-prev-next">
+                                            
+                                                <a href="/2021/04/14/docker%E4%B8%8B%E5%AE%89%E8%A3%85code-server/" class="prev-prefix">« </a>
+                                                上一篇： <a href="/2021/04/14/docker%E4%B8%8B%E5%AE%89%E8%A3%85code-server/"
+                                                        title="发布于 2021-04-14 12:00">
+                                                        docker中安装code-server
+                                                    </a>
+                                                    <br>
+                                                    
+                                                        
+                                                            <a href="/2021/03/01/SpringCloud%E5%AD%A6%E4%B9%A0/"
+                                                                class="next-prefix">» </a>
+                                                            下一篇： <a
+                                                                    href="/2021/03/01/SpringCloud%E5%AD%A6%E4%B9%A0/"
+                                                                    title="发布于 2021-03-01 12:00">
+                                                                    SpringCloud学习
+                                                                </a>
+                                                                
+                                        </div>
                 </div>
-            </div>
-            
+                
     <div class="article-comments">
         
             <div class="comments-title">
@@ -159,7 +173,7 @@
     </div>
 
         </div>
-    
+        
 </div>
     <div id="footer"></div>
     <div id="sidebar">
@@ -229,8 +243,8 @@
     <button class="menu-button-open">MENU</button>
     <div class="menu-cover"></div>
 </div>
-    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js"></script>
 <div class="search-window">
     <div class="search-content">
@@ -256,7 +270,7 @@
     <div class="progressbar-top"></div>
 
     
-        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css">
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.min.css">
         <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js"></script>
         <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
@@ -683,52 +697,52 @@
         },
 
         LazyLoad : {
-            default : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/image/website/lazyload.svg"
+            default : "/image/website/lazyload.svg"
         },
   
         Style : {
-            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.css",
-            archive          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.css",
-            base             : "",
-            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.css",
-            code             : "",
-            donate           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.css",
-            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.css",
-            footer           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.css",
-            iconfont         : "https://at.alicdn.com/t/font_1546312_l3yohatebw.css",
-            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.css",
-            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.css",
-            mouse            : "",
-            page             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.css",
-            post             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.css",
-            search           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.css",
-            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.css",
-            valine           : ""
+            aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/APlayer.min.css",
+            archive          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/archive.min.css",
+            base             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/base.min.css",
+            clipboard        : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/clipboard.min.css",
+            code             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/code.min.css",
+            donate           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/donate.min.css",
+            fancybox         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/jquery.fancybox.min.css",
+            footer           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/footer.min.css",
+            iconfont         : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/iconfont/iconfont.min.css",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/index.min.css",
+            menuBubble       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/menu-bubble.min.css",
+            mouse            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/mouse.min.css",
+            page             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/page.min.css",
+            post             : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/post.min.css",
+            search           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/search.min.css",
+            tocbot           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/tocbot.min.css",
+            valine           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/css/valine.min.css"
         },
 
         Script: {
             aplayer          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/APlayer.min.js",
-            config           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.js",
-            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js",
+            config           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.config.min.js",
+            index            : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.min.js",
             instantSearch    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/instantsearch.min.js",
-            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.js",
+            iscroll          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/iscroll.min.js",
             jQuery           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/jquery-3.4.1.min.js",
-            loading          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.js",
+            loading          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/loading.min.js",
             meting           : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/Meting.min.js",
             require          : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/require.min.js"
         },
 
         Font: {
-            LongCang    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.css",
-            Monda       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.css",
-            NotoSansSC  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.css",
-            NotoSerifSC : "",
-            Playball    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.css",
-            PTMono      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.css",
-            Roboto      : "",
-            RobotoSlab  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.css",
-            Rosario     : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.css",
-            UbuntuMono  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.css"
+            LongCang    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/LongCang.min.css",
+            Monda       : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Monda.min.css",
+            NotoSansSC  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSansSC.min.css",
+            NotoSerifSC : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/NotoSerifSC.min.css",
+            Playball    : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Playball.min.css",
+            PTMono      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/PTMono.min.css",
+            Roboto      : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Roboto.min.css",
+            RobotoSlab  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/RobotoSlab.min.css",
+            Rosario     : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/Rosario.min.css",
+            UbuntuMono  : "https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/font/UbuntuMono.min.css"
         },
 
         Suffix : {
@@ -741,6 +755,6 @@
         }  
     };
 </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/first19326/cdn@master/static/js/index.min.js"></script>
 </body>
 </html>
