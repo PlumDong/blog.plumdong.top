@@ -1,0 +1,687 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.gif">
+  <link rel="icon" href="/img/avatar.gif">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="马振东">
+  <meta name="keywords" content="Java,计算机,数据结构">
+  
+    <meta name="description" content="直立车模的调试分为三个部分：1.直立环    2.速度环  3.转向环">
+<meta property="og:type" content="article">
+<meta property="og:title" content="14届恩智浦杯智能汽车大赛——直立车模实现原理">
+<meta property="og:url" content="https://bolg.plumdong.top/2019/11/04/14%E5%B1%8A%E6%81%A9%E6%99%BA%E6%B5%A6%E6%9D%AF%E6%99%BA%E8%83%BD%E6%B1%BD%E8%BD%A6%E5%A4%A7%E8%B5%9B%E7%9B%B4%E7%AB%8B%E8%BD%A6%E6%A8%A1%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="PlumDong Bolg">
+<meta property="og:description" content="直立车模的调试分为三个部分：1.直立环    2.速度环  3.转向环">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bolg.plumdong.top/myimages/202104070932.png">
+<meta property="article:published_time" content="2019-11-04T12:05:50.000Z">
+<meta property="article:modified_time" content="2023-03-18T11:59:11.456Z">
+<meta property="article:author" content="马振东">
+<meta property="article:tag" content="技术">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bolg.plumdong.top/myimages/202104070932.png">
+  
+  
+  
+  <title>14届恩智浦杯智能汽车大赛——直立车模实现原理 - PlumDong Bolg</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"bolg.plumdong.top","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="PlumDong Bolg" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>PlumDong Bolg</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="14届恩智浦杯智能汽车大赛——直立车模实现原理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2019-11-04 20:05" pubdate>
+          2019年11月4日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          52 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">14届恩智浦杯智能汽车大赛——直立车模实现原理</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p>直立车模的调试分为三个部分：1.直立环    2.速度环  3.转向环</p>
+</blockquote>
+<span id="more"></span>
+<blockquote>
+<p>直立和转向采用PD调节，速度 采用PI调节</p>
+</blockquote>
+<h2 id="1-卡尔曼滤波"><a href="#1-卡尔曼滤波" class="headerlink" title="1.卡尔曼滤波"></a>1.卡尔曼滤波</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">float</span> angle=<span class="hljs-number">0</span>;           <span class="hljs-comment">//融合后得到的角度</span><br><span class="hljs-type">float</span> angle_dot=<span class="hljs-number">0</span>;		<span class="hljs-comment">//融合后的角速度</span><br><br><span class="hljs-type">float</span> Q_angle=<span class="hljs-number">0.6</span>;<span class="hljs-comment">// 过程噪声的协方差--0.001</span><br><span class="hljs-type">float</span> Q_gyro=<span class="hljs-number">0.3</span>;<span class="hljs-comment">//0.003 过程噪声的协方差 过程噪声的协方差为一个一行两列矩阵————尽量大一些，波动范围变大，波动速度增大---0.003</span><br><span class="hljs-type">float</span> R_angle=<span class="hljs-number">0.5</span>;<span class="hljs-comment">// 测量噪声的协方差 既测量偏差</span><br><br><span class="hljs-type">char</span>  C_0 = <span class="hljs-number">1.0</span>;<br><br><span class="hljs-type">float</span> dt=<span class="hljs-number">0.002</span>;         <span class="hljs-comment">//每次滤波的时间，单位秒               </span><br><span class="hljs-type">float</span> Q_bias=<span class="hljs-number">0</span>, Angle_err=<span class="hljs-number">0</span>;<br><span class="hljs-type">float</span> PCt_0=<span class="hljs-number">0.0</span>, PCt_1=<span class="hljs-number">0.0</span>, E=<span class="hljs-number">0.0</span>;<br><span class="hljs-type">float</span> K_0=<span class="hljs-number">0.0</span>, K_1=<span class="hljs-number">0.0</span>, t_0=<span class="hljs-number">0.0</span>, t_1=<span class="hljs-number">0.0</span>;<br><span class="hljs-type">float</span> Pdot[<span class="hljs-number">4</span>] =&#123;<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>&#125;;<br><span class="hljs-type">float</span> PP[<span class="hljs-number">2</span>][<span class="hljs-number">2</span>] = &#123; &#123; <span class="hljs-number">1.0</span>, <span class="hljs-number">0</span> &#125;,&#123; <span class="hljs-number">0</span>, <span class="hljs-number">1.0</span> &#125; &#125;;<br><br><br><span class="hljs-comment">/**************************************************************************</span><br><span class="hljs-comment">函数功能：简易卡尔曼滤波</span><br><span class="hljs-comment">入口参数：加速度、角速度</span><br><span class="hljs-comment">返回  值：无</span><br><span class="hljs-comment">**************************************************************************/</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Kalman_Filter</span><span class="hljs-params">(<span class="hljs-type">float</span> Accel,<span class="hljs-type">float</span> Gyro)</span>		</span><br><span class="hljs-function"></span>&#123;<br>	angle+=(Gyro - Q_bias) * dt; <span class="hljs-comment">//先验估计</span><br>	Pdot[<span class="hljs-number">0</span>]=Q_angle - PP[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] - PP[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]; <span class="hljs-comment">// Pk-先验估计误差协方差的微分</span><br><br>	Pdot[<span class="hljs-number">1</span>]=-PP[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>];<br>	Pdot[<span class="hljs-number">2</span>]=-PP[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>];<br>	Pdot[<span class="hljs-number">3</span>]=Q_gyro;<br>	PP[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] += Pdot[<span class="hljs-number">0</span>] * dt;   <span class="hljs-comment">// Pk-先验估计误差协方差微分的积分</span><br>	PP[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] += Pdot[<span class="hljs-number">1</span>] * dt;   <span class="hljs-comment">// =先验估计误差协方差</span><br>	PP[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] += Pdot[<span class="hljs-number">2</span>] * dt;<br>	PP[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] += Pdot[<span class="hljs-number">3</span>] * dt;<br>		<br>	Angle_err = Accel - angle;	<span class="hljs-comment">//zk-先验估计</span><br>	<br>	PCt_0 = C_0 * PP[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>];<br>	PCt_1 = C_0 * PP[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>];<br>	<br>	E = R_angle + C_0 * PCt_0;<br>	<br>	K_0 = PCt_0 / E;<br>	K_1 = PCt_1 / E;<br>	<br>	t_0 = PCt_0;<br>	t_1 = C_0 * PP[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>];<br><br>	PP[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] -= K_0 * t_0;		 <span class="hljs-comment">//后验估计误差协方差</span><br>	PP[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] -= K_0 * t_1;<br>	PP[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] -= K_1 * t_0;<br>	PP[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] -= K_1 * t_1;<br>		<br>	angle	+= K_0 * Angle_err;	 <span class="hljs-comment">//后验估计</span><br>	Q_bias	+= K_1 * Angle_err;	 <span class="hljs-comment">//后验估计</span><br>	angle_dot   = Gyro - Q_bias;	 <span class="hljs-comment">//输出值(后验估计)的微分=角速度</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>卡尔曼滤波最终效果图如下：其中蓝线是实际测得的角度，红线是融合后的角度。</p>
+<p><img src="/myimages/202104070932.png" srcset="/img/loading.gif" lazyload alt="卡尔曼滤波"></p>
+<h2 id="2-直立环"><a href="#2-直立环" class="headerlink" title="2.直立环"></a>2.直立环</h2><p><strong>直立环代码，输入为角度和角速度，通过PD控制直立，变量kp、kd的数值和车模的模型、质量关联，由实际天室的</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/**************************************************************************</span><br><span class="hljs-comment">函数功能：小车平衡电机占空比控制，直立PD控制</span><br><span class="hljs-comment">入口参数：倾角角度、角速度</span><br><span class="hljs-comment">返回  值：平衡控制用PWM</span><br><span class="hljs-comment">**************************************************************************/</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">Balance_Ctrl_Pwm</span><span class="hljs-params">(<span class="hljs-type">float</span> Ang,<span class="hljs-type">float</span> Gyro)</span><br>&#123;<br>    <span class="hljs-type">float</span> Bias=Ang-QingJiaoZhongZhi;        <span class="hljs-comment">//中值，求出平衡的角度中值 和机械相关</span><br>    <span class="hljs-type">int</span> balance;<br>    <span class="hljs-type">float</span> kp = <span class="hljs-number">42</span>, kd = - <span class="hljs-number">26</span>; <br>    balance= -(<span class="hljs-type">int</span>)(kp*Bias+Gyro*kd);   <span class="hljs-comment">//计算平衡控制的电机PWM  PD控制   kp是P系数 kd是D系数 </span><br>    <br>    <span class="hljs-keyword">return</span> balance;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>先说一下变量的意思<br>  QingJiaoZhongZhi       //  小车平衡时候的数值，关闭电机，用手使得小车正好平衡时候的<br>  float Ang,float Gyro    //这两个是mpu6050卡尔曼滤波后的倾角角度、角速度。</p>
+</blockquote>
+<blockquote>
+<p>  然后再来说一下P,D两个参数的调试。<br>先调试kp，需要把kd置为0。首先需要确定正负，我们先随便给一个正值例如kp=10吧。然后我们相对于车模的平衡角度倾斜车模，如果车轮的转向和你倾斜车模的方向一致则可以确定kp应取正值，否则kp取负值。然后再来确定大小 逐渐增大Kp直至车身出现<strong>大幅低频摇摆</strong>的直立在地上，然后把这个数值乘以0.6基本就是一个比较稳定kp值。调试kd时同样需要把kp置为0。首先需要确定正负：例如先给他个kd=2；当你转动车模时车轮的转向与你车模转向一直则kd是正值，否则就是负值，注意pd与车模的平衡角度无关。大小的话同样也是逐渐增大直至出现<strong>低幅高频抖动</strong>时停止，也是把这个数值乘以0.6即可。</p>
+</blockquote>
+<p><strong>注意：这里涉及到一个负反馈调节因为直立环是要保证正常站立。因为当实际角度脱离平衡角度时，轮子只有给车身一个更大的同方向的力才会使车身保持平衡。</strong></p>
+<p><strong>如果还是不理解可以拿支笔放在手指上试试，手指怎样移动才会使笔立在手指上？</strong></p>
+<h2 id="3-速度环"><a href="#3-速度环" class="headerlink" title="3.速度环"></a>3.速度环</h2><p>速度环也是一个标准的负反馈例子。例如：我们想让车模加速，速度环就会降低车轮的速度使车身前倾，就会导致直立环起作用让车轮加速保持直立。这就完成了一个加速过程。需要注意的是速度环会干扰直立环，如果速度环的强度过大，车身就会非常不稳定。我在调用该函数时每一百次直立环才会调用一次速度环，这样就降低了速度环对直立环的干扰。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/**************************************************************************</span><br><span class="hljs-comment">函数功能：速度PI控制 修改前进后退速度，请修Target_Velocity，比如，改成60就比较慢了</span><br><span class="hljs-comment">入口参数：左轮编码器、右轮编码器</span><br><span class="hljs-comment">返回  值：速度控制PWM</span><br><span class="hljs-comment">**************************************************************************/</span><br><span class="hljs-type">float</span> Target_Velocity = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">extern</span> <span class="hljs-type">float</span> kp_steep;<br><span class="hljs-type">int</span> <span class="hljs-title function_">Velocity_Ctrl_Pwm</span><span class="hljs-params">(<span class="hljs-type">int</span> encoder_left,<span class="hljs-type">int</span> encoder_right)</span><br>&#123;<br>    <span class="hljs-type">static</span> <span class="hljs-type">float</span> Velocity,Encoder_Least,Encoder;<br>    <span class="hljs-type">static</span> <span class="hljs-type">float</span> Encoder_Integral;<br>    <span class="hljs-type">float</span> sudumax = <span class="hljs-number">2700</span>;<br>    <span class="hljs-type">float</span> kp=kp_steep,ki = kp/<span class="hljs-number">200</span>;<br>      <span class="hljs-comment">//速度PI控制</span><br>    Encoder_Least =(encoder_left+encoder_right)-Target_Velocity;                    <span class="hljs-comment">//获取最新速度偏差==测量速度（左右编码器之和）-目标速度（此处为零） </span><br>    <br>    Encoder *= <span class="hljs-number">0.7</span>;		                                      <span class="hljs-comment">//一阶低通滤波器       </span><br>    Encoder += Encoder_Least*<span class="hljs-number">0.3</span>;	                              <span class="hljs-comment">//一阶低通滤波器    </span><br>    Encoder_Integral +=Encoder;                                       <span class="hljs-comment">//积分出位移 积分时间：？ms</span><br>    <span class="hljs-keyword">if</span>(Encoder_Integral&gt;<span class="hljs-number">2000</span>)   Encoder_Integral=<span class="hljs-number">2000</span>;              <span class="hljs-comment">//积分限幅</span><br>    <span class="hljs-keyword">if</span>(Encoder_Integral&lt;<span class="hljs-number">-2000</span>)   Encoder_Integral=<span class="hljs-number">-2000</span>;              <span class="hljs-comment">//积分限幅</span><br><br>    Velocity=Encoder*kp+Encoder_Integral*ki;                          <span class="hljs-comment">//速度控制	</span><br>    <br>    <span class="hljs-keyword">if</span>(flag_zhongdian!=<span class="hljs-number">0</span>)<br>    Encoder_Integral=<span class="hljs-number">0</span>;      <span class="hljs-comment">//电机关闭后清除积分 </span><br>    <br>    <span class="hljs-comment">//输出限幅</span><br>    <span class="hljs-keyword">if</span>(Velocity &gt; sudumax) Velocity = sudumax;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(Velocity &lt; -sudumax) Velocity = -sudumax;<br>    <br>    <span class="hljs-keyword">return</span> (<span class="hljs-type">int</span>)Velocity;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="4-转向环"><a href="#4-转向环" class="headerlink" title="4.转向环"></a>4.转向环</h2><p>转向环其实有很多方法。我是用的比较简单的一种办法：动态的pid算法，P的系数是电磁传过来的偏差，D的系数是MPU6050的Z轴加速度（因为车模静止时我所在的地区Z轴加速度为2，所以在<strong>代码最后gyro+ 2进行了一次加速度补偿</strong>）。速度越快P越大,D越小。当电磁传过来的偏差小于5时，判为直道，采用很小的P。可有效地减少直道上的晃动。我一开始这样做发现过弯时会有特别严重的抖动，经常飞出赛道，因此在最后加了个判断</p>
+<blockquote>
+<p>if((My_Abs(Turn_Target) - My_Abs(Turn_Target_last)) &gt;= 37) //入弯防抖<br>else if((My_Abs(Turn_Target_last) - My_Abs(Turn_Target)) &gt;= -40)  //出弯防抖</p>
+</blockquote>
+<p>入弯防抖同时增大3倍P,2倍D是车模更快更准的转弯，避免速度快时过弯不及时（毕竟我这一届只有不到30cm的前瞻）。出弯防抖与前者配合减少转弯过度带来的晃动。</p>
+<blockquote>
+<p>变量        <code>RoadPianCha</code>        是左右横电感和斜电感的差除以左右电感的和。也就是说这个变量的范围是   0-100。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/**************************************************************************</span><br><span class="hljs-comment">函数功能：转向控制  修改转向速度，请修改Turn_MaxPwm即可</span><br><span class="hljs-comment">入口参数：左轮编码器、右轮编码器、Z轴陀螺仪</span><br><span class="hljs-comment">返回  值：转向控制PWM</span><br><span class="hljs-comment">作    者：</span><br><span class="hljs-comment">**************************************************************************/</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">Turn_Ctrl_Pwm2</span><span class="hljs-params">(<span class="hljs-type">int</span> encoder_left,<span class="hljs-type">int</span> encoder_right,<span class="hljs-type">float</span> gyro)</span><span class="hljs-comment">//转向控制</span><br>&#123;<br>    <span class="hljs-type">static</span> <span class="hljs-type">float</span> Turn_Target,Turn,Turn_Target_last;<br>    <span class="hljs-type">float</span> Turn_MaxPwm,Kp,Kd;  <br> <span class="hljs-comment">//   if(My_Abs(RoadPianCha) &lt;= 2)</span><br>   <span class="hljs-comment">//   RoadPianCha = 0;</span><br>    <br>      Turn_Target_last = Turn_Target;<br>      Turn_Target=RoadPianCha - (encoder_left-encoder_right)/<span class="hljs-number">5</span>;   <br>      <br>      <span class="hljs-keyword">if</span>(My_Abs(RoadPianCha) &gt;= <span class="hljs-number">5</span>) &#123;<br>         Kp = <span class="hljs-number">41.0</span> * (<span class="hljs-number">200</span>+encoder_left + encoder_right)/<span class="hljs-number">200.0</span>;<br>        Kd = <span class="hljs-number">-4.2</span>/ ((<span class="hljs-number">200</span>+encoder_left + encoder_right)/<span class="hljs-number">200.0</span>);<br>        Turn_MaxPwm = <span class="hljs-number">2000</span>;<br>      &#125;<br>      <span class="hljs-keyword">else</span> &#123;<br>      Kp =<span class="hljs-number">3</span>;<br>      Kd = <span class="hljs-number">-5</span>;<br>      Turn_MaxPwm =<span class="hljs-number">200</span>;<br>      &#125; <br>      <span class="hljs-keyword">if</span>((My_Abs(Turn_Target) - My_Abs(Turn_Target_last)) &gt;= <span class="hljs-number">37</span>) <span class="hljs-comment">//入弯防抖</span><br>      &#123;<br>       <span class="hljs-comment">// Target_Velocity = 100;</span><br>        Kp = Kp * <span class="hljs-number">3.2</span>;<br>        Kd = Kd * <span class="hljs-number">2.3</span>;<br>      &#125;<br>      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>((My_Abs(Turn_Target_last) - My_Abs(Turn_Target)) &gt;= <span class="hljs-number">-40</span>)  <span class="hljs-comment">//出弯防抖</span><br>      &#123;<br>       <span class="hljs-comment">// Target_Velocity = 1000;</span><br>        Kp = Kp * <span class="hljs-number">1.7</span>;<br>        Kd = Kd * <span class="hljs-number">3.4</span>;<br>      &#125;<br><br>      <span class="hljs-keyword">if</span>(Turn_Target&gt;Turn_MaxPwm)  Turn_Target=Turn_MaxPwm;           <span class="hljs-comment">//转向速度限幅</span><br>      <span class="hljs-keyword">if</span>(Turn_Target&lt;-Turn_MaxPwm) Turn_Target=-Turn_MaxPwm;<br>    <br>    <br>      <span class="hljs-comment">//=转向PD控制器==//</span><br>      Turn=  -Turn_Target*Kp + (gyro+ <span class="hljs-number">2</span>)*Kd;       <span class="hljs-comment">//结合Z轴陀螺仪进行PD控制</span><br>      <span class="hljs-keyword">return</span> (<span class="hljs-type">int</span>)Turn;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="5-汇总"><a href="#5-汇总" class="headerlink" title="5.汇总"></a>5.汇总</h2><p>最后关于这几个环串起来：<br>在主函数中开一个定时器（时间大概为1-2毫米，时间尽量短）把这几个函数轮番调用<br>下面的是我定时器触发函数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">////====数据处理====平衡控制==速度环控制==转向环控制</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">PIT1_isr</span> <span class="hljs-params">(<span class="hljs-type">void</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>    flag1ms++;<br>    <span class="hljs-keyword">if</span>(flag1ms%<span class="hljs-number">2</span> == <span class="hljs-number">1</span>)<br>    &#123;<br>            <span class="hljs-built_in">Get_Dip_Angle</span>();            <span class="hljs-comment">//角度获取</span><br>            Balance_Pwm = <span class="hljs-built_in">Balance_Ctrl_Pwm</span>(Angle_Balance,Gyro_Balance);         <span class="hljs-comment">//===平衡PD控制</span><br>            <span class="hljs-keyword">if</span>(flag1ms &gt;= <span class="hljs-number">100</span>)<br>            &#123;<br>            flag_100ms++;<br>            flag1ms = <span class="hljs-number">0</span>;<br>            Velocity_Pwm = <span class="hljs-built_in">Velocity_Ctrl_Pwm</span>( Encoder_Left, Encoder_Right);        <span class="hljs-comment">//===速度环PI控制	 记住，速度反馈是正反馈，就是小车快的时候要慢下来就需要再跑快一点</span><br>            &#125;<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>      Encoder_Right =   <span class="hljs-built_in">FTM_AB_Get</span>(FTM1);          <span class="hljs-comment">//脉冲为前进+，后退为-</span><br>      Encoder_Left  =   -<span class="hljs-built_in">FTM_AB_Get</span>(FTM2);<br><br>    <span class="hljs-built_in">Get_AD_data</span>();      <span class="hljs-comment">//获取电感，测距的AD值</span><br>    <span class="hljs-built_in">AD_chuli</span>();         <span class="hljs-comment">//处理AD值，得出最终偏差</span><br>    Turn_Pwm = <span class="hljs-built_in">Turn_Ctrl_Pwm2</span>(Encoder_Left, Encoder_Right,Gyro_Turn);  <span class="hljs-comment">//===转向环PID控制</span><br>    &#125;<br>    <span class="hljs-comment">//输出电机PWM,————负脉冲向前</span><br>    Moto_Left=Balance_Pwm+Velocity_Pwm+Turn_Pwm;                   <span class="hljs-comment">//===计算左轮电机最终PWM</span><br>    Moto_Right=Balance_Pwm+Velocity_Pwm-Turn_Pwm;                  <span class="hljs-comment">//===计算右轮电机最终PWM</span><br>    <span class="hljs-comment">//end</span><br>    <span class="hljs-built_in">PIT_TFLG</span>(<span class="hljs-number">1</span>) |= PIT_TFLG_TIF_MASK;    <span class="hljs-comment">//清中断标志位</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%AF%94%E8%B5%9B/" class="category-chain-item">比赛</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%8A%80%E6%9C%AF/">#技术</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>14届恩智浦杯智能汽车大赛——直立车模实现原理</div>
+      <div>https://bolg.plumdong.top/2019/11/04/14届恩智浦杯智能汽车大赛直立车模实现原理/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>马振东</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2019年11月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/11/05/%E7%94%B5%E8%B7%AF%E6%9D%BF%E6%8E%92%E7%89%88%E9%97%AE%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95/" title="电路板排版问题--回溯法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">电路板排版问题--回溯法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/11/04/14%E5%B1%8A%E6%81%A9%E6%99%BA%E6%B5%A6%E6%9D%AF%E6%99%BA%E8%83%BD%E6%B1%BD%E8%BD%A6%E5%A4%A7%E8%B5%9B-%E6%91%84%E5%83%8F%E5%A4%B4%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/" title="14届恩智浦杯智能汽车大赛_摄像头处理方法">
+                        <span class="hidden-mobile">14届恩智浦杯智能汽车大赛_摄像头处理方法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

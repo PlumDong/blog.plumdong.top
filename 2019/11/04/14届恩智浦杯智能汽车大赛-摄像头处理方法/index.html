@@ -1,0 +1,655 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.gif">
+  <link rel="icon" href="/img/avatar.gif">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="马振东">
+  <meta name="keywords" content="Java,计算机,数据结构">
+  
+    <meta name="description" content="C车模采用摄像头曲线拟合处理方案。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="14届恩智浦杯智能汽车大赛_摄像头处理方法">
+<meta property="og:url" content="https://bolg.plumdong.top/2019/11/04/14%E5%B1%8A%E6%81%A9%E6%99%BA%E6%B5%A6%E6%9D%AF%E6%99%BA%E8%83%BD%E6%B1%BD%E8%BD%A6%E5%A4%A7%E8%B5%9B-%E6%91%84%E5%83%8F%E5%A4%B4%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="PlumDong Bolg">
+<meta property="og:description" content="C车模采用摄像头曲线拟合处理方案。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-04T10:07:37.000Z">
+<meta property="article:modified_time" content="2023-03-18T11:59:11.456Z">
+<meta property="article:author" content="马振东">
+<meta property="article:tag" content="技术">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>14届恩智浦杯智能汽车大赛_摄像头处理方法 - PlumDong Bolg</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"bolg.plumdong.top","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="PlumDong Bolg" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>PlumDong Bolg</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="14届恩智浦杯智能汽车大赛_摄像头处理方法"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2019-11-04 18:07" pubdate>
+          2019年11月4日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          14k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          117 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">14届恩智浦杯智能汽车大赛_摄像头处理方法</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>这套摄像头处理算法是可以直接使用的。只需要重写一下<strong>void servo()//舵机控制函数</strong>。<br>输入的参数是<strong>extern uint8 image_dec[60][80];<strong>数组中保存的摄像头传过来二值化后的数据。<br>输出是距离赛道的偏差 保存在整形变量：</strong>duojijiaodu</strong> 中。把这个变量传入舵机打脚的pid算法中即可。</p>
+<span id="more"></span>
+<p> 讲道理这样基本就可以用了。如果想跑的更顺畅，更快的话需要调整最下面代码中的</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">my_piancha=(<span class="hljs-type">int</span>)(mzd2*currentzhongjian_lk - mzd1*B);<span class="hljs-comment">//0.95,0.32//偏差合成，控制转弯，1.1倍的点+0,9倍的斜率构成总的偏差</span><br></code></pre></td></tr></table></figure>
+<p>通过修改两个参数控制曲率和偏差的融合来实现。<br><strong>注意：摄像头循迹不会走赛道中线，尤其在拐弯时。比如再拐一个左弯时，在入弯时车模会贴赛道右侧，出弯时会贴赛道左侧。这样可以保证高速过弯且不会冲出赛道。</strong><br>这些代码是我之前上传文件的一部分。<a target="_blank" rel="noopener" href="https://download.csdn.net/download/weixin_42803127/11950709">摄像头四轮</a></p>
+<p>使用时，需要依次调用函数：<br>**摄像头转向控制<br>lkcongzhongjiansaomiao();<br>pianchachuli();<br>servo();<br>**</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">/*</span><br><span class="hljs-comment">摄像头循迹程序</span><br><span class="hljs-comment">我们这一届摄像头20CM高度，没法发挥出摄像头的优势，内切一直压线，</span><br><span class="hljs-comment">这个程序在30CM高度的摄像头中可以跑的3M/s</span><br><span class="hljs-comment"></span><br><span class="hljs-comment"></span><br><span class="hljs-comment">数组   static int half_width_group【】中保存的是赛道宽的一半，可以在实际中测量然后修改这个数组中的数据。</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">最终偏差是由中线的差值和曲率融合。pianchachuli（）函数中my_piancha=(int)(mzd2*currentzhongjian_lk - mzd1*B);</span><br><span class="hljs-comment">这个表达式完成融合，可以通过调整两个参数的大小让小车转弯更顺滑，不压线</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">servo函数中是控制舵机打脚，其中16.5/70是打角的系数，再乘以上面的my_piancha变量就是实际舵机需要打的角度</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;saomiao.h&quot;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;headfile.h&quot;</span> <span class="hljs-comment">//白1 黑0</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;math.h&quot;</span></span><br><span class="hljs-type">int</span> qianzhan=<span class="hljs-number">29</span>;<br><span class="hljs-type">int</span> my_piancha,my_lastzhongjian=<span class="hljs-number">40</span>;<br><span class="hljs-type">int</span> jiao, x,y,linshi_x,linshi_right_heixian,linshi_y,ruyuanhuan_flag=<span class="hljs-number">0</span>;<br><span class="hljs-keyword">extern</span> uint8 image_dec[<span class="hljs-number">60</span>][<span class="hljs-number">80</span>];<br> <span class="hljs-type">int</span> [<span class="hljs-number">60</span>],right_heixian[<span class="hljs-number">60</span>],left_heixian[<span class="hljs-number">60</span>],zhidao_flag;<br><span class="hljs-type">int</span> lastpiancha_1,lastpiancha_2,lastpiancha_3,lastpiancha_4,duojijiaodu,flag_l=<span class="hljs-number">0</span>,flag_r=<span class="hljs-number">0</span>,linshi_left_heixian,B,shaobudaozuo_flag[<span class="hljs-number">60</span>],shaobudaoyou_flag[<span class="hljs-number">60</span>];<br><span class="hljs-type">int</span> shizidiyidian,shangshizidiyidian,S_Z;<br><span class="hljs-type">int</span> shizishu,chazhi,yy1,yy2,rushizi;<br><span class="hljs-type">int</span> duandian,duandianshu,duandianshu1,currentzhongjian_lk;<br><span class="hljs-type">int</span> xielv_flag;<br><span class="hljs-type">int</span> qulv_point=<span class="hljs-number">0</span>,zhangai_right=<span class="hljs-number">0</span>,zhangai_left=<span class="hljs-number">0</span>;<br><span class="hljs-type">int</span> dian1,youshi_kuan_flag=<span class="hljs-number">0</span>;<br><span class="hljs-type">char</span> s_wan_flag,shizi_flag,yuanhuan_flag=<span class="hljs-number">0</span>,guai_flag=<span class="hljs-number">0</span>;<br><span class="hljs-type">int</span> qvlv_quanju,qulv_jinduan,qulv_yuandaun;<br><span class="hljs-type">int</span> qulv_jinduan_right=<span class="hljs-number">0</span>,qulv_jinduan_left=<span class="hljs-number">0</span>,qulv_yuandaun_right=<span class="hljs-number">0</span>,qulv_yuandaun_left=<span class="hljs-number">0</span>,qvlv_quanju_right=<span class="hljs-number">0</span>,qvlv_quanju_left=<span class="hljs-number">0</span>;<br><span class="hljs-type">int</span> half_zhi[<span class="hljs-number">60</span>];<br><span class="hljs-type">int</span> yy1_pinjun,yy2_pinjun;<br><br><span class="hljs-type">static</span> <span class="hljs-type">int</span> half_width_group[<span class="hljs-number">60</span>]=<br>&#123;<br><span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">8</span>,<br><span class="hljs-number">9</span>,<span class="hljs-number">10</span>,<span class="hljs-number">11</span>,<span class="hljs-number">12</span>,<span class="hljs-number">12</span>,<span class="hljs-number">13</span>,<span class="hljs-number">15</span>,<span class="hljs-number">16</span>,<span class="hljs-number">17</span>,<span class="hljs-number">18</span>,<br><span class="hljs-number">19</span>,<span class="hljs-number">20</span>,<span class="hljs-number">21</span>,<span class="hljs-number">22</span>,<span class="hljs-number">23</span>,<span class="hljs-number">24</span>,<span class="hljs-number">25</span>,<span class="hljs-number">25</span>,<span class="hljs-number">26</span>,<span class="hljs-number">28</span>,<br><span class="hljs-number">29</span>,<span class="hljs-number">30</span>,<span class="hljs-number">30</span>,<span class="hljs-number">31</span>,<span class="hljs-number">32</span>,<span class="hljs-number">33</span>,<span class="hljs-number">34</span>,<span class="hljs-number">35</span>,<span class="hljs-number">35</span>,<span class="hljs-number">36</span>,<br><span class="hljs-number">37</span>,<span class="hljs-number">38</span>,<span class="hljs-number">38</span>,<span class="hljs-number">39</span>,<span class="hljs-number">39</span>,<span class="hljs-number">40</span>,<span class="hljs-number">40</span>,<span class="hljs-number">40</span>,<span class="hljs-number">40</span>,<span class="hljs-number">40</span>,<br><span class="hljs-number">40</span>,<span class="hljs-number">40</span>,<span class="hljs-number">40</span>,<span class="hljs-number">40</span>,<span class="hljs-number">40</span>,<span class="hljs-number">40</span>,<span class="hljs-number">40</span>,<span class="hljs-number">40</span>,<span class="hljs-number">40</span>,<span class="hljs-number">40</span>      <br>&#125;;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">regression</span><span class="hljs-params">(<span class="hljs-type">int</span> startline,<span class="hljs-type">int</span> endline)</span>   <span class="hljs-comment">//线性回归方程计算斜率      </span></span><br><span class="hljs-function"></span>&#123;<br>  <span class="hljs-keyword">if</span>(endline&gt;<span class="hljs-number">56</span>)<br>    endline=<span class="hljs-number">56</span>;<br>  <span class="hljs-type">int</span> i;<br>  <span class="hljs-type">int</span> sumX=<span class="hljs-number">0</span>,sumY=<span class="hljs-number">0</span>,avrX=<span class="hljs-number">0</span>,avrY=<span class="hljs-number">0</span> ;<br>   <span class="hljs-type">int</span> num=<span class="hljs-number">0</span>,B_up1=<span class="hljs-number">0</span>,B_up2=<span class="hljs-number">0</span>,B_up,B_down;<br>   <span class="hljs-keyword">for</span>(i=startline;i&lt;=endline;i++)<br>   &#123;<br>            num++;<br>            sumX+=i;<br>            sumY+=currentzhongjian[i];<br>   &#125;<br>         avrX=sumX/num;<br>         avrY=sumY/num;<br>         B_up=<span class="hljs-number">0</span>;<br>         B_down=<span class="hljs-number">0</span>;<br>         <span class="hljs-keyword">for</span>(i=startline;i&lt;=endline;i++)<br>        &#123;<br>         <br>            B_up1=(<span class="hljs-type">int</span>)(currentzhongjian[i]-avrY);<br>            B_up2=i-avrX;<br>            B_up+=(<span class="hljs-type">int</span>)(<span class="hljs-number">10</span>*(B_up1*B_up2));<br>            B_up=B_up/<span class="hljs-number">100</span>*<span class="hljs-number">100</span>;<br>            B_down+=(<span class="hljs-type">int</span>)(<span class="hljs-number">10</span>*((i-avrX)*(i-avrX)));<br>         &#125;<br>   <span class="hljs-keyword">if</span>(B_down==<span class="hljs-number">0</span>) <br>   B=<span class="hljs-number">0</span>;<br>   <span class="hljs-keyword">else</span> <br>   B=B_up*<span class="hljs-number">16</span>/B_down;<span class="hljs-comment">//16</span><br>   <span class="hljs-keyword">return</span> B;<br>&#125;<br><br><span class="hljs-type">int</span> hy;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">huaxian</span><span class="hljs-params">(<span class="hljs-type">int</span> x1,<span class="hljs-type">int</span> y1,<span class="hljs-type">int</span> x2,<span class="hljs-type">int</span> y2)</span><span class="hljs-comment">//将两个点之间连成一条线段</span></span><br><span class="hljs-function"></span>&#123;<br>  <span class="hljs-type">int</span> i,max,a1,a2;<br>  a1=x1;<br>  a2=x2;<br>  <span class="hljs-keyword">if</span>(a1&gt;a2)<br>  &#123;max=a1;<br>  a1=a2;<br>  a2=max;&#125;<br><span class="hljs-keyword">for</span>(i=x1;i&gt;<span class="hljs-number">0</span>;i--)<br>&#123;<br>  <span class="hljs-keyword">if</span>((x2-x1)!=<span class="hljs-number">0</span>)<br>  &#123;<br>    hy=(i-x1)*(y2-y1)/(x2-x1)+y1;<br>   currentzhongjian[i]=hy;<br>   <span class="hljs-keyword">if</span>(hy&lt;=<span class="hljs-number">1</span>||hy&gt;=<span class="hljs-number">79</span>)<br>     <span class="hljs-keyword">break</span>;<br>  &#125;<br>&#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">huaxian2</span><span class="hljs-params">(<span class="hljs-type">int</span> xxx1,<span class="hljs-type">int</span> yyy1,<span class="hljs-type">int</span> xxx2,<span class="hljs-type">int</span> yyy2)</span><span class="hljs-comment">//两点之间的线段</span></span><br><span class="hljs-function"></span>&#123;<br>  <span class="hljs-type">int</span> i2,max2,a12,a22;<br>  a12=xxx1;<br>  a22=xxx2;<br>  <span class="hljs-keyword">if</span>(a12&gt;a22)<br>  &#123;<br>    max2=a12;<br>  a12=a22;<br>  a22=max2;&#125;<br><span class="hljs-keyword">for</span>(i2=xxx1;i2&lt;<span class="hljs-number">59</span>;i2++)<br>&#123;<br>  <span class="hljs-keyword">if</span>((xxx2-xxx1)!=<span class="hljs-number">0</span>)<br>  &#123;<br>    hy=(i2-xxx1)*(yyy2-yyy1)/(xxx2-xxx1)+yyy1;<br>   currentzhongjian[i2]=hy;<br>  &#125;<br>&#125;<br>&#125;<br><br><span class="hljs-comment">//*****************************************************舵机控制函数**********************************************************//</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">servo</span><span class="hljs-params">()</span><span class="hljs-comment">//舵机控制函数</span></span><br><span class="hljs-function"></span>&#123;<br>jiao= Servo_Center-(<span class="hljs-type">int</span>)((duojijiaodu*<span class="hljs-number">16.5</span>/<span class="hljs-number">70</span>));<span class="hljs-comment">//舵机的pid算法公式，没有小数，所以要除以70来实现小数</span><br><span class="hljs-keyword">if</span>(jiao&gt;=Servo_Left)<br>jiao=Servo_Left;<br><span class="hljs-keyword">if</span>(jiao&lt;=Servo_Right)<br>jiao=Servo_Right;<br><span class="hljs-built_in">servo_PWM</span>(jiao);<br>&#125;<br><span class="hljs-comment">//***************************************************扫描函数***************************************************************//</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">lkcongzhongjiansaomiao</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>  <span class="hljs-type">int</span> kuan_flag=<span class="hljs-number">0</span>,lo=<span class="hljs-number">0</span>,s_point=<span class="hljs-number">0</span>,S_COUNT=<span class="hljs-number">0</span>,fuduandian=<span class="hljs-number">0</span>,qulv_yuanhuan=<span class="hljs-number">0</span>,chushizi_flag=<span class="hljs-number">0</span>;<br>  <span class="hljs-built_in">memset</span>(shaobudaozuo_flag,<span class="hljs-number">0</span>,<span class="hljs-built_in">sizeof</span>(shaobudaozuo_flag));<span class="hljs-comment">//清零函数</span><br>  <span class="hljs-built_in">memset</span>(shaobudaoyou_flag,<span class="hljs-number">0</span>,<span class="hljs-built_in">sizeof</span>(shaobudaoyou_flag));<br>  <span class="hljs-type">int</span> zhangai_flag=<span class="hljs-number">0</span>,qulv_s_y=<span class="hljs-number">0</span>,qulv_s_l=<span class="hljs-number">0</span>;<br>  shangshizidiyidian=<span class="hljs-number">0</span>;<br>  left_heixian[<span class="hljs-number">59</span>]=<span class="hljs-number">0</span>;<br>  right_heixian[<span class="hljs-number">59</span>]=<span class="hljs-number">79</span>; <br>  shizishu=<span class="hljs-number">0</span>;<br>  rushizi=<span class="hljs-number">0</span>;<br>  xielv_flag=<span class="hljs-number">0</span>;<br>  shizi_flag=<span class="hljs-number">0</span>;<br>  my_lastzhongjian=<span class="hljs-number">39</span>;<br>  <span class="hljs-keyword">if</span>(currentzhongjian[<span class="hljs-number">58</span>])<br>   currentzhongjian[<span class="hljs-number">59</span>]=my_lastzhongjian=currentzhongjian[<span class="hljs-number">58</span>];<br> <span class="hljs-keyword">else</span><br>   currentzhongjian[<span class="hljs-number">59</span>]=<span class="hljs-number">39</span>;<br>   <span class="hljs-keyword">for</span>(y=<span class="hljs-number">58</span>;y&gt;=<span class="hljs-number">0</span>;y--)<span class="hljs-comment">//扫描完58，整副图像处理完毕</span><br>   &#123;<br>     <span class="hljs-keyword">for</span>(x=my_lastzhongjian;x&lt;=<span class="hljs-number">79</span>;x++)<span class="hljs-comment">//从中间向右扫描</span><br>     &#123;<br>       <span class="hljs-keyword">if</span>(image_dec[y][x]==<span class="hljs-number">0</span>)<br>         &#123;<br>           <br>         right_heixian[y]=x;<br>         shaobudaoyou_flag[y]=<span class="hljs-number">1</span>; <br>         <span class="hljs-keyword">break</span>;<br>         &#125;<br>     &#125;<br>     <span class="hljs-keyword">for</span>(x=my_lastzhongjian;x&gt;=<span class="hljs-number">0</span>;x--)<span class="hljs-comment">//向左扫描</span><br>     &#123; <br>       <span class="hljs-keyword">if</span>(image_dec[y][x]==<span class="hljs-number">0</span>)<br>       &#123;<br>         left_heixian[y]=x;<br>         shaobudaozuo_flag[y]=<span class="hljs-number">1</span>;<br>         <span class="hljs-keyword">break</span>;<br>       &#125;  <br>     &#125;<br>    <span class="hljs-keyword">if</span>(fuduandian==<span class="hljs-number">0</span>)<br>    &#123;<br>    <span class="hljs-keyword">if</span>(y&gt;<span class="hljs-number">48</span>)<span class="hljs-comment">//丢边补线，加整个赛道补线</span><br>      &#123;<br>        <span class="hljs-keyword">if</span>(shaobudaoyou_flag[y]==<span class="hljs-number">0</span>&amp;&amp;shaobudaozuo_flag[y]==<span class="hljs-number">1</span>)<span class="hljs-comment">//扫不到右</span><br>         &#123; <br>          right_heixian[y]=left_heixian[y]+<span class="hljs-number">2</span>*half_width_group[y];<span class="hljs-comment">//y为数组中的x值</span><br>         &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(shaobudaoyou_flag[y]==<span class="hljs-number">1</span>&amp;&amp;shaobudaozuo_flag[y]==<span class="hljs-number">0</span>)<span class="hljs-comment">//扫不到左</span><br>         &#123;<br>           left_heixian[y]=right_heixian[y]<span class="hljs-number">-2</span>*half_width_group[y];<br>         &#125;<br>       <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(shaobudaoyou_flag[y]==<span class="hljs-number">0</span>&amp;&amp;shaobudaozuo_flag[y]==<span class="hljs-number">0</span>)<span class="hljs-comment">//都扫不到</span><br>         &#123;<br>          left_heixian[y]=<span class="hljs-number">0</span>;<span class="hljs-comment">//如果两边都扫不到，直接从中间提取中线</span><br>          right_heixian[y]=<span class="hljs-number">79</span>;<br>         &#125;<br>     &#125;<br>     <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(y&lt;=<span class="hljs-number">48</span>)<span class="hljs-comment">//更远的补线，</span><br>     &#123;<br>       <span class="hljs-keyword">if</span>(shaobudaoyou_flag[y]==<span class="hljs-number">0</span>&amp;&amp;shaobudaozuo_flag[y]==<span class="hljs-number">1</span>)<span class="hljs-comment">//扫不到右</span><br>         &#123; <br>     <br>          right_heixian[y]=right_heixian[y+<span class="hljs-number">1</span>]+(abs)(left_heixian[y]-left_heixian[y+<span class="hljs-number">1</span>])<span class="hljs-number">-1</span>;<span class="hljs-comment">//根据左边这一点与上一点，</span><br>                                                                                        <span class="hljs-comment">//（y+1）为数组中上一次的x坐标，</span><br>                                                           <span class="hljs-comment">//left_heixian[y]-left_heixian[y+1]算左边偏移量，减一为后期补偿</span><br>         &#125;<br>       <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(shaobudaoyou_flag[y]==<span class="hljs-number">1</span>&amp;&amp;shaobudaozuo_flag[y]==<span class="hljs-number">0</span>)<span class="hljs-comment">//扫不到左</span><br>         &#123;<br>       <br>           left_heixian[y]=left_heixian[y+<span class="hljs-number">1</span>]-(abs)(right_heixian[y+<span class="hljs-number">1</span>]-right_heixian[y])+<span class="hljs-number">1</span>;<br>         &#125;<br>         <br>       <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(shaobudaoyou_flag[y]==<span class="hljs-number">0</span>&amp;&amp;shaobudaozuo_flag[y]==<span class="hljs-number">0</span>)<span class="hljs-comment">//都扫不到</span><br>         &#123;<br>          left_heixian[y]=<span class="hljs-number">0</span>;<br>          right_heixian[y]=<span class="hljs-number">79</span>;<br>         &#125;<br>     &#125;<br>     <span class="hljs-comment">//*************************************中线处理*********************************************************//</span><br>   <br>    currentzhongjian[y]=(<span class="hljs-type">int</span>)((right_heixian[y]+left_heixian[y])/<span class="hljs-number">2</span>);  <span class="hljs-comment">//提取中间线（左边加右边比2）</span><br>  <br>    half_zhi[y]=(<span class="hljs-type">int</span>)((right_heixian[y]-left_heixian[y])/<span class="hljs-number">2</span>);  <span class="hljs-comment">//一半赛道值（没用，不改）</span><br>    <br>      <span class="hljs-comment">//*******************************************************中线滤波防止中线出现毛刺**************************************************/</span><br>  <br><span class="hljs-keyword">if</span>(currentzhongjian[y]-currentzhongjian[y+<span class="hljs-number">1</span>]&gt;<span class="hljs-number">4</span>&amp;&amp;y&lt;<span class="hljs-number">42</span>&amp;&amp;B&lt;<span class="hljs-number">0</span>)<br>currentzhongjian[y]=currentzhongjian[y+<span class="hljs-number">1</span>]+<span class="hljs-number">1</span>;<br><span class="hljs-keyword">if</span>(currentzhongjian[y]-currentzhongjian[y+<span class="hljs-number">1</span>]&lt;<span class="hljs-number">-4</span>&amp;&amp;y&lt;<span class="hljs-number">42</span>&amp;&amp;B&gt;<span class="hljs-number">0</span>)<br>currentzhongjian[y]=currentzhongjian[y+<span class="hljs-number">1</span>]<span class="hljs-number">-1</span>;  <br><br><br><span class="hljs-comment">/******************************************************************曲率计算**************************************************************/</span><br><span class="hljs-keyword">if</span>(y&gt;<span class="hljs-number">30</span>)<span class="hljs-comment">//曲率近端判断</span><br>&#123;<br>  <span class="hljs-keyword">if</span>((currentzhongjian[y]-currentzhongjian[y+<span class="hljs-number">1</span>])&gt;<span class="hljs-number">0</span>)<br>qulv_jinduan_right++;<br><span class="hljs-keyword">else</span><br><span class="hljs-keyword">if</span>((currentzhongjian[y]-currentzhongjian[y+<span class="hljs-number">1</span>])&lt;<span class="hljs-number">0</span>)<br>qulv_jinduan_left++;<br>&#125;<br><span class="hljs-keyword">if</span>(y&lt;<span class="hljs-number">25</span>&amp;&amp;y&gt;=<span class="hljs-number">7</span>)<span class="hljs-comment">//曲率远端判断，远处的一点就不要了</span><br>&#123;<br>  <span class="hljs-keyword">if</span>((currentzhongjian[y]-currentzhongjian[y+<span class="hljs-number">1</span>])&gt;<span class="hljs-number">0</span>)<br>qulv_yuandaun_right++;<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>((currentzhongjian[y]-currentzhongjian[y+<span class="hljs-number">1</span>])&lt;<span class="hljs-number">0</span>)<br>qulv_yuandaun_left++;<br>&#125;<br><span class="hljs-keyword">if</span>(y&lt;=<span class="hljs-number">55</span>&amp;&amp;y&gt;<span class="hljs-number">15</span>)<span class="hljs-comment">//曲率全局判断</span><br>&#123;<br>  <span class="hljs-keyword">if</span>((currentzhongjian[y]-currentzhongjian[y+<span class="hljs-number">1</span>])&gt;<span class="hljs-number">0</span>)<br>qvlv_quanju_right++;<br><span class="hljs-keyword">else</span><br><span class="hljs-keyword">if</span>((currentzhongjian[y]-currentzhongjian[y+<span class="hljs-number">1</span>])&lt;<span class="hljs-number">0</span>)<br>qvlv_quanju_left++;<br><br>&#125;<br><br><span class="hljs-keyword">if</span>(currentzhongjian[y]&gt;<span class="hljs-number">79</span>)<span class="hljs-comment">//中线的限制幅度</span><br>currentzhongjian[y]=<span class="hljs-number">79</span>;<br><br><span class="hljs-keyword">if</span>(currentzhongjian[y]&lt;<span class="hljs-number">0</span>)<br>currentzhongjian[y]=<span class="hljs-number">0</span>;<br><br>my_lastzhongjian=currentzhongjian[y];<span class="hljs-comment">//保存中间点坐标</span><br><span class="hljs-keyword">if</span>(y&lt;<span class="hljs-number">56</span>)<span class="hljs-comment">//小s位置判断，小s弯道作直线冲刺</span><br>&#123;<br><span class="hljs-keyword">if</span>((currentzhongjian[y]-currentzhongjian[y+<span class="hljs-number">2</span>])&gt;<span class="hljs-number">0</span>)<br>qulv_s_y++;<br><span class="hljs-keyword">else</span><br><span class="hljs-keyword">if</span>((currentzhongjian[y]-currentzhongjian[y+<span class="hljs-number">2</span>])&lt;<span class="hljs-number">0</span>)<br>qulv_s_l++;<br><span class="hljs-keyword">if</span>(y&gt;<span class="hljs-number">36</span>&amp;&amp;<span class="hljs-built_in">abs</span>(currentzhongjian[y]-currentzhongjian[y+<span class="hljs-number">2</span>])&gt;<span class="hljs-number">0</span>)<br>qulv_yuanhuan++;<br><span class="hljs-comment">//printf(&quot;y:%d\n&quot;,qulv_s_y);</span><br><span class="hljs-comment">//printf(&quot;l:%d\n&quot;,qulv_s_l);</span><br>&#125;<br><span class="hljs-keyword">if</span>(y&lt;<span class="hljs-number">58</span>&amp;&amp;y&gt;=<span class="hljs-number">10</span>)<br>S_COUNT+=currentzhongjian[y];<br><span class="hljs-comment">// *******************************************小S断点搜索*********************************************//</span><br> <span class="hljs-keyword">if</span>(y&gt;<span class="hljs-number">8</span>&amp;&amp;(abs)(right_heixian[y]-currentzhongjian[y])&lt;<span class="hljs-number">5</span>||(abs)(left_heixian[y]-currentzhongjian[y])&lt;<span class="hljs-number">5</span>)<span class="hljs-comment">//小S断点判定</span><br>  s_point=y;<span class="hljs-comment">//</span><br><span class="hljs-keyword">else</span><br>s_point=<span class="hljs-number">0</span>;<br><br>  <span class="hljs-comment">// *******************************************防止扫到跑道外*********************************************//</span><br>  <span class="hljs-keyword">if</span>(y&lt;<span class="hljs-number">36</span>&amp;&amp;((abs)(right_heixian[y]-currentzhongjian[y])&lt;<span class="hljs-number">1</span>||(abs)(left_heixian[y]-currentzhongjian[y])&lt;<span class="hljs-number">1</span>))<span class="hljs-comment">//防止扫到跑道外面</span><br>&#123;<br>  duandian=y;<br>  fuduandian=y;<br>  <span class="hljs-keyword">if</span>(y&gt;<span class="hljs-number">15</span>)<br>  &#123;<br>   duandianshu=y<span class="hljs-number">-15</span>;<br>   <span class="hljs-keyword">if</span>(duandianshu&gt;<span class="hljs-number">35</span>)<br>     duandianshu=<span class="hljs-number">35</span>;<br>  &#125;<br><br> <span class="hljs-keyword">if</span>(y&gt;qianzhan)<br>  &#123;<br>     duandianshu1=y-qianzhan;<br>     <span class="hljs-keyword">if</span>(duandianshu1&gt;<span class="hljs-number">25</span>)<br>       duandianshu1=<span class="hljs-number">25</span>;<br>  &#125;<br>&#125;<br><span class="hljs-keyword">else</span> <br>&#123;<br>  duandian=<span class="hljs-number">0</span>;<br>  duandianshu=<span class="hljs-number">0</span>;<br>  duandianshu1=<span class="hljs-number">0</span>; <br>&#125;<br>    &#125;<br>     &#125;<br> <span class="hljs-keyword">if</span>(right_heixian[y]-left_heixian[y]&lt;half_width_group[y]&amp;&amp;right_heixian[y+<span class="hljs-number">1</span>]-left_heixian[y+<span class="hljs-number">1</span>]&lt;half_width_group[y+<span class="hljs-number">1</span>])<span class="hljs-comment">//防止扫到跑道外面</span><br>       <span class="hljs-keyword">break</span>;<br><span class="hljs-comment">//&#125;</span><br><span class="hljs-comment">//********************************************************y行结束标志*******************************************************</span><br><br>S_Z=S_COUNT/(<span class="hljs-number">48</span>);<br><br><span class="hljs-comment">//********************************************************************曲率计算*******************************************************************</span><br>   qvlv_quanju=<span class="hljs-built_in">abs</span>(qvlv_quanju_right-qvlv_quanju_left);<span class="hljs-comment">//曲率全局</span><br>   qulv_jinduan=<span class="hljs-built_in">abs</span>(qulv_jinduan_right-qulv_jinduan_left);<span class="hljs-comment">//曲率近端</span><br>   qulv_yuandaun=<span class="hljs-built_in">abs</span>(qulv_yuandaun_right-qulv_yuandaun_left);<span class="hljs-comment">//曲率远端</span><br>   qvlv_quanju_right=qvlv_quanju_left=qulv_jinduan_right=qulv_jinduan_left=qulv_yuandaun_right=qulv_yuandaun_left=<span class="hljs-number">0</span>;<br><br><br><span class="hljs-comment">// *******************************************************十字处理*********************************************************//</span><br><br>  <span class="hljs-keyword">if</span>(duandian&lt;<span class="hljs-number">16</span>) <span class="hljs-comment">// *****************************十字</span><br>  &#123;<br>   <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">58</span>;i&gt;<span class="hljs-number">7</span>;i--)<br>   &#123; <br>     <span class="hljs-keyword">if</span>(i&gt;<span class="hljs-number">45</span>&amp;&amp;(shaobudaozuo_flag[i]==<span class="hljs-number">1</span>||shaobudaoyou_flag[i]==<span class="hljs-number">1</span>))<br>     rushizi++;<br>     <span class="hljs-keyword">if</span>((i&gt;<span class="hljs-number">9</span>&amp;&amp;i&lt;=<span class="hljs-number">40</span>)&amp;&amp;shaobudaozuo_flag[i]==<span class="hljs-number">0</span>&amp;&amp;shaobudaoyou_flag[i]==<span class="hljs-number">0</span>)<br>       shizishu++;<br>     <span class="hljs-keyword">if</span>(i&lt;<span class="hljs-number">45</span>&amp;&amp;(shaobudaozuo_flag[i]==<span class="hljs-number">1</span>||shaobudaoyou_flag[i]==<span class="hljs-number">1</span>)&amp;&amp;shangshizidiyidian==<span class="hljs-number">0</span>)<br>       shangshizidiyidian=i;<br>   &#125;<br>   <span class="hljs-keyword">if</span>(shizishu&gt;<span class="hljs-number">2</span>&amp;&amp;rushizi&gt;<span class="hljs-number">10</span>)<span class="hljs-comment">//刚入十字</span><br>   &#123;<br>     shizi_flag=<span class="hljs-number">1</span>;<br>     <span class="hljs-comment">//gpio_set(PTE1,1);</span><br>     xielv_flag=<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">49</span>;i&gt;<span class="hljs-number">0</span>;i--)<br>    &#123;      <br>     <span class="hljs-keyword">if</span>(shaobudaozuo_flag[i]==<span class="hljs-number">0</span>&amp;&amp;shaobudaoyou_flag[i]==<span class="hljs-number">0</span>)<br>      &#123;<br>        shizidiyidian=i;<br>        <span class="hljs-keyword">break</span>;<br>      &#125;     <br>     &#125;<br>     <span class="hljs-keyword">if</span>(shizidiyidian&lt;<span class="hljs-number">34</span>)<br>       &#123;<br>      yy1=shizidiyidian+<span class="hljs-number">19</span>;<br>      yy2=shizidiyidian+<span class="hljs-number">24</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span> <br>    <span class="hljs-keyword">if</span>(shizidiyidian&lt;<span class="hljs-number">40</span>)<br>       &#123;<br>      yy1=shizidiyidian+<span class="hljs-number">13</span>;<br>      yy2=shizidiyidian+<span class="hljs-number">18</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(shizidiyidian&lt;<span class="hljs-number">45</span>)<br>    &#123;<br>      yy1=shizidiyidian+<span class="hljs-number">9</span>;<br>      yy2=shizidiyidian+<span class="hljs-number">13</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(shizidiyidian&lt;<span class="hljs-number">49</span>)<br>    &#123;<br>    yy1=shizidiyidian+<span class="hljs-number">6</span>;<br>    yy2=shizidiyidian+<span class="hljs-number">10</span>;<br>    &#125;<span class="hljs-keyword">else</span><br>      <span class="hljs-keyword">if</span>(shizidiyidian&lt;<span class="hljs-number">55</span>)<br>    &#123;<br>    yy1=shizidiyidian+<span class="hljs-number">2</span>;<br>    yy2=shizidiyidian+<span class="hljs-number">4</span>;<br>    &#125;<br>    yy1_pinjun=(currentzhongjian[yy1]+currentzhongjian[yy1+<span class="hljs-number">1</span>]+currentzhongjian[yy1<span class="hljs-number">-1</span>])/<span class="hljs-number">3</span>;<br>    yy2_pinjun=(currentzhongjian[yy2]+currentzhongjian[yy2+<span class="hljs-number">1</span>]+currentzhongjian[yy2<span class="hljs-number">-1</span>])/<span class="hljs-number">3</span>;<br>    <span class="hljs-comment">//if(!ruyuanhuan_flag)</span><br>    <span class="hljs-built_in">huaxian</span>(yy1,yy1_pinjun,yy2,yy2_pinjun); <br>      <br>    <span class="hljs-comment">//huaxian(yy1,currentzhongjian[yy1],yy2,currentzhongjian[yy2]); </span><br>    &#125;<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(shizishu&gt;<span class="hljs-number">4</span>&amp;&amp;rushizi&lt;=<span class="hljs-number">10</span>&amp;&amp;shangshizidiyidian&gt;=<span class="hljs-number">20</span>)<span class="hljs-comment">//出十字</span><br>  &#123;<br>    chushizi_flag=<span class="hljs-number">1</span>;<br>  <span class="hljs-comment">// gpio_set(PTE1,1);</span><br>    xielv_flag=<span class="hljs-number">1</span>;<br>    shizi_flag=<span class="hljs-number">1</span>;<br> <span class="hljs-comment">//if(!ruyuanhuan_flag)</span><br>   <span class="hljs-built_in">huaxian2</span>(shangshizidiyidian<span class="hljs-number">-6</span>,currentzhongjian[shangshizidiyidian<span class="hljs-number">-6</span>],<span class="hljs-number">58</span>,currentzhongjian[<span class="hljs-number">58</span>]);<br><br>  &#125;<br>       <span class="hljs-comment">//  gpio_set(PTE1,0);</span><br><br>  &#125;<br>  <span class="hljs-comment">//********************************************************圆环检测*******************************************************</span><br><span class="hljs-keyword">if</span>(shizi_flag&amp;&amp;qulv_yuanhuan&lt;=<span class="hljs-number">10</span>&amp;&amp;qulv_jinduan&lt;<span class="hljs-number">7</span>&amp;&amp;!chushizi_flag)<br>&#123;<br>  <br> <span class="hljs-type">signed</span> <span class="hljs-type">char</span> kkk=<span class="hljs-number">0</span>,black_num=<span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">for</span>( kkk=(<span class="hljs-type">int</span>)(currentzhongjian[<span class="hljs-number">58</span>]+currentzhongjian[<span class="hljs-number">57</span>]+currentzhongjian[<span class="hljs-number">56</span>])/<span class="hljs-number">3</span>;kkk&lt;=<span class="hljs-number">79</span>;kkk++)<span class="hljs-comment">//向右扫描黑块点数</span><br>  &#123;<br>    <span class="hljs-keyword">if</span>(!image_dec[<span class="hljs-number">8</span>][kkk]||!image_dec[<span class="hljs-number">10</span>][kkk])<br>    &#123;<br>    black_num++;<br>   <br>    &#125;<br>    <span class="hljs-keyword">else</span><br>      <span class="hljs-keyword">break</span>;<br>    <br>  &#125;<br>   <span class="hljs-keyword">for</span>( kkk=(<span class="hljs-type">int</span>)(currentzhongjian[<span class="hljs-number">58</span>]+currentzhongjian[<span class="hljs-number">57</span>]+currentzhongjian[<span class="hljs-number">56</span>])/<span class="hljs-number">3</span>;kkk&gt;=<span class="hljs-number">0</span>;kkk--)<span class="hljs-comment">//向左扫描黑块点数</span><br>   &#123;<br>      <span class="hljs-keyword">if</span>(!image_dec[<span class="hljs-number">8</span>][kkk]||!image_dec[<span class="hljs-number">10</span>][kkk])<br>    &#123;<br>    black_num++;<br>   <br>    &#125;<br>    <span class="hljs-keyword">else</span><br>      <span class="hljs-keyword">break</span>;<br>   &#125;<br>  <br>  <span class="hljs-keyword">if</span>(black_num&gt;<span class="hljs-number">36</span>)<span class="hljs-comment">//检测到圆环</span><br>  &#123;<br>    yuanhuan_flag++;<br>    <span class="hljs-comment">//gpio_set(PTC18,0);//点亮led提示</span><br>  &#125;<br>  <span class="hljs-keyword">else</span><br>  &#123;<br>    yuanhuan_flag=<span class="hljs-number">0</span>;<br>    <span class="hljs-comment">//gpio_set(PTC18,1);////关闭led提示</span><br>  &#125;<br> <br>&#125;<br><span class="hljs-keyword">else</span><br>&#123;<br>yuanhuan_flag=<span class="hljs-number">0</span>;<br> <span class="hljs-comment">//gpio_set(PTC18,1);//关闭led提示</span><br>&#125;<br>  <br><span class="hljs-keyword">if</span>(yuanhuan_flag&gt;<span class="hljs-number">3</span>)<span class="hljs-comment">//连续检测到圆环三次以上</span><br>&#123;<br>guai_flag=<span class="hljs-number">1</span>;<br><span class="hljs-comment">//gpio_set(PTA14,1);</span><br>&#125;<br><br><span class="hljs-comment">// ***********************************************************小S弯判定*小S弯判定*****************************************************//</span><br><span class="hljs-keyword">if</span>(s_point==<span class="hljs-number">0</span>&amp;&amp;qulv_s_y&gt;<span class="hljs-number">6</span>&amp;&amp;qulv_s_l&gt;<span class="hljs-number">6</span>&amp;&amp;zhidao_flag&lt;<span class="hljs-number">20</span>&amp;&amp;!shizi_flag)<br>&#123;<br>  s_wan_flag=<span class="hljs-number">1</span>;<br>  <span class="hljs-comment">//led(LED0, LED_ON);</span><br>&#125;<br><span class="hljs-keyword">else</span><br>&#123;<br>s_wan_flag=<span class="hljs-number">0</span>;<br><span class="hljs-comment">//led(LED0, LED_OFF);</span><br>&#125;<br> &#125;<br><span class="hljs-comment">//************************************************图像处理结束,下面是偏差处理************************************************/</span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">pianchachuli</span><span class="hljs-params">()</span><span class="hljs-comment">//偏差处理</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span>(xielv_flag==<span class="hljs-number">0</span>)<br>    <span class="hljs-built_in">regression</span>(<span class="hljs-number">15</span>+duandianshu,<span class="hljs-number">43</span>+duandianshu);<span class="hljs-comment">///斜率计算</span><br>  dian1=<span class="hljs-built_in">abs</span>((currentzhongjian[<span class="hljs-number">52</span>]+currentzhongjian[<span class="hljs-number">53</span>]+currentzhongjian[<span class="hljs-number">54</span>])/<span class="hljs-number">3</span><span class="hljs-number">-39</span>);<br><span class="hljs-comment">//lins=currentzhongjian[30];</span><br>currentzhongjian_lk=(currentzhongjian[qianzhan+duandianshu1]<span class="hljs-number">-39</span>);<span class="hljs-comment">//点</span><br><br><span class="hljs-keyword">if</span>(B&gt;<span class="hljs-number">19</span>)<br>B=<span class="hljs-number">19</span>;<br><span class="hljs-keyword">if</span>(B&lt;<span class="hljs-number">-19</span>)<br>B=<span class="hljs-number">-19</span>;<br><br><span class="hljs-type">float</span> mzd1=<span class="hljs-number">0.11</span>;  <span class="hljs-comment">//曲率与中线合成的权值</span><br><span class="hljs-type">float</span> mzd2=<span class="hljs-number">0.75</span>;<br>my_piancha=(<span class="hljs-type">int</span>)(mzd2*currentzhongjian_lk - mzd1*B);<span class="hljs-comment">//0.95,0.32//偏差合成，控制转弯，1.1倍的点+0,9倍的斜率构成总的偏差</span><br><br><span class="hljs-keyword">if</span>(!ruyuanhuan_flag&amp;&amp;ruyuanhuan_flag&lt;<span class="hljs-number">10</span>)<span class="hljs-comment">//拐50ms</span><br>&#123;<br>  ruyuanhuan_flag++;<br><span class="hljs-keyword">if</span>(my_piancha&lt;<span class="hljs-number">-4</span>&amp;&amp;shizi_flag)<span class="hljs-comment">//右边进的圆环</span><br>my_piancha+=<span class="hljs-number">13</span>;<br><span class="hljs-keyword">else</span><br><span class="hljs-keyword">if</span>(my_piancha&gt;<span class="hljs-number">4</span>&amp;&amp;shizi_flag)<span class="hljs-comment">//左边进的圆环</span><br>my_piancha-=<span class="hljs-number">13</span>;<br>&#125;<br><span class="hljs-keyword">else</span><br>ruyuanhuan_flag=<span class="hljs-number">0</span>;<br><br><br>lastpiancha_4=lastpiancha_3;<br>lastpiancha_3=lastpiancha_2;<br>lastpiancha_2=lastpiancha_1;<br>lastpiancha_1=duojijiaodu;<br>duojijiaodu=my_piancha; <br><br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%AF%94%E8%B5%9B/" class="category-chain-item">比赛</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%8A%80%E6%9C%AF/">#技术</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>14届恩智浦杯智能汽车大赛_摄像头处理方法</div>
+      <div>https://bolg.plumdong.top/2019/11/04/14届恩智浦杯智能汽车大赛-摄像头处理方法/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>马振东</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2019年11月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/11/04/14%E5%B1%8A%E6%81%A9%E6%99%BA%E6%B5%A6%E6%9D%AF%E6%99%BA%E8%83%BD%E6%B1%BD%E8%BD%A6%E5%A4%A7%E8%B5%9B%E7%9B%B4%E7%AB%8B%E8%BD%A6%E6%A8%A1%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" title="14届恩智浦杯智能汽车大赛——直立车模实现原理">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">14届恩智浦杯智能汽车大赛——直立车模实现原理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/11/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%93%E4%B8%9A%E5%AD%A6%E7%94%9F%E7%9A%847%E4%B8%AA%E5%BB%BA%E8%AE%AE/" title="计算机专业学生的7个建议">
+                        <span class="hidden-mobile">计算机专业学生的7个建议</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
